@@ -19,4 +19,4 @@ Testing:
 
 
 Authors:
-Tyler Nunley, tnunley@email.sc.edu
+Tyler Nunley, tnunley@email.sc.edu, Mikhail Kozhevnikov - misha0613@gmail.com
