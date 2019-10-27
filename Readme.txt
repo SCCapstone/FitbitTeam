@@ -1,5 +1,5 @@
 Readme
-Names: Tyler Nunley
+Names: Tyler Nunley, Mikhail Kozhevnikov
 
 This is a readme for the fitbit team
 This is Tyler's edit
