@@ -1,5 +1,22 @@
 Readme
-Names: Tyler Nunley, Mikhail Kozhevnikov
-
 This is a readme for the fitbit team
-This is Tyler's edit
+Project Name:
+
+
+Technologies
+
+
+Setup:
+
+
+Running
+
+
+Deployment
+
+
+Testing:
+
+
+Authors:
+Tyler Nunley, tnunley@email.sc.edu
