@@ -12,7 +12,9 @@ def main():
         #word += (" daa ", " ba ", " dee ")
 
     print(word)
-
+    a = 2
+    b = 3
+    print(a+b)
 
 #Charles Daniels told me this is good practice during an ACM meeting
 if __name__ == "__main__":
