@@ -31,16 +31,25 @@
      <div class="col-md-4">
 		 <div class=text-center>
 		 <h5>First Name:</h5>
-			 <input class="form-control" id="InputFirst" placeholder="First Name">
+			 <input class="form-control" id="InputFirst" placeholder="First Name"  [(ngModel)]="user.first_name" #ctrl="ngModel" required>
 		<h5>Last Name:</h5>
-			 <input class="form-control" id="InputLast" placeholder="Last Name">
+			 <input class="form-control" id="InputLast" placeholder="Last Name" [(ngModel)]="user.last_name" #ctrl="ngModel" required>
 		<h5>Email:</h5>
-			 <input type="email" class="form-control" id="InputLast" placeholder="Email Address">	
+			 <input type="email" class="form-control" id="InputLast" placeholder="Email Address" [(ngModel)]="user.email" #ctrl="ngModel" required>	
 		<h5>Username:</h5>
-		   <input class="form-control" id="InputUser" placeholder="Username">
+		   <input class="form-control" id="InputUser" placeholder="Username" [(ngModel)]="user.username" #ctrl="ngModel" required>
 		   <h5>Password:</h5>
-	   <input type="password" class="form-control" id="InputPassword" placeholder="Password">
-			<a type="button" class="btn btn-lg btn-success" routerLink="../login">Signup</a>
+     <input type="password" class="form-control" id="InputPassword" placeholder="Password" [(ngModel)]="user.password" #ctrl="ngModel" required>
+     <h5>Type:</h5>
+     <select [(ngModel)]="user.type" #ctrl="ngModel" required>
+      <option value="Admin">Admin</option>
+      <option value="Client">Client</option>
+    </select>
+  <br>
+  <br>
+  <br>
+      <a type="button" class="btn btn-lg btn-success" routerLink="../login">Signup</a>
+      <a type="button" class="btn btn-lg btn-success" (click)= "signup()">test</a>
 
 
 		 </div>
