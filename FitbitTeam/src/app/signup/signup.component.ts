@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccountsServer } from '@accounts/server';
+import { Mongo } from '@accounts/mongo';
+const mongoose = require('mongoose');
+
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +19,7 @@ export class SignupComponent implements OnInit {
     last_name:'',
     type: ''
   };
+  
   constructor() { }
 
   ngOnInit() {
@@ -29,9 +34,10 @@ export class SignupComponent implements OnInit {
 
     console.log("This runs");
     console.log(this.user);
+    //Database stuff
+    mongoose.connect(process.env.MONGO_URL);
+    const db = mongoose.connection;
+    console.log(db)
 
-    
   }
-
-
 }
