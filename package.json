@@ -1,27 +1,28 @@
 {
-  "name": "fitbit",
-  "version": "8.3.19",
-  "description": "angular",
-  "main": "index.js",
+  "name": "statistics-tracker-api",
+  "version": "1.0.0",
+  "description": "App to track stats for users",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SCCapstone/FitbitTeam.git"
+    "url": "git+https://github.com/mzaleski98/Project.git"
   },
-  "author": "",
+  "keywords": [
+    "stat",
+    "tracker"
+  ],
+  "author": "matt zaleski",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SCCapstone/FitbitTeam/issues"
+    "url": "https://github.com/mzaleski98/Project/issues"
   },
-  "homepage": "https://github.com/SCCapstone/FitbitTeam#readme",
+  "homepage": "https://github.com/mzaleski98/Project#readme",
   "dependencies": {
-    "@accounts/mongo": "^0.20.0",
-    "@accounts/server": "^0.20.0",
-    "angular": "^1.7.8",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.7.12"
+    "express": "*",
+    "mongoose": "*"
   }
 }
