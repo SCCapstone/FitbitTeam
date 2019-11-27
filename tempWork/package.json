@@ -1,0 +1,28 @@
+{
+  "name": "statistics-tracker-api",
+  "version": "1.0.0",
+  "description": "App to track stats for users",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mzaleski98/Project.git"
+  },
+  "keywords": [
+    "stat",
+    "tracker"
+  ],
+  "author": "matt zaleski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mzaleski98/Project/issues"
+  },
+  "homepage": "https://github.com/mzaleski98/Project#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "*",
+    "mongoose": "*"
+  }
+}
