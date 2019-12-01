@@ -11,4 +11,4 @@ app.get('/*', function(req, res){
     res.sendFile(path.join(_dirname + '/dist/index.html'));
 })
 
-console.log('console Listenin');
+console.log('console listen');
