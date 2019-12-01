@@ -1,3 +1,0 @@
-var version = "@VERSION@";
-export { version as default };
-//# sourceMappingURL=Version.js.map
