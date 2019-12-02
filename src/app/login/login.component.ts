@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router,private route: ActivatedRoute) { }
   type:any;
   ngOnInit() {
-    
   }
 
   login(){
@@ -45,12 +44,14 @@ export class LoginComponent implements OnInit {
         let usertypesRef = firebase.database().ref('usertypes/');
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
           data.forEach(function(thing){
+            if(login ==true){
             if (thing.val().type == "Admin"){
               self.admin();
             }
             else{
               self.cmain();
             }
+          }
           })
         });
           
