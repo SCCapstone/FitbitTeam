@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       }
       })
       .then(function(result){
-        console.log(login)
+        //console.log(login)
         let userid = firebase.auth().currentUser.uid;
         let usertypesRef = firebase.database().ref('usertypes/');
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
@@ -54,10 +54,7 @@ export class LoginComponent implements OnInit {
           }
           })
         });
-          
     });
-   
-  
   }
   cmain(){
     this.router.navigate(["../cmain"])
