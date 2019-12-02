@@ -19,9 +19,7 @@ export class SignupComponent implements OnInit {
     last_name:'',
     type: ''
   };
-  
   constructor() { }
-
   ngOnInit() {
   }
   signup() {
@@ -47,10 +45,10 @@ export class SignupComponent implements OnInit {
       })
       .then((user) => {
           const userid = firebase.auth().currentUser.uid;
-          let usertype = firebase.database().ref('usertypes/').push();
+          const usertype = firebase.database().ref('usertypes/'+userid);
           usertype.set({
             'uid': userid,
-            'first_name': name,
+            'first_name': first_name,
             'last_name': last_name,
             'type': type
           });

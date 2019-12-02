@@ -17,11 +17,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     
   }
-  login(){
+  login(id){
     var login = true;
     const email = this.email;
     const password = this.password;
-    var id = '';
     const self = this;
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       login = false;
@@ -43,8 +42,10 @@ export class LoginComponent implements OnInit {
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
           data.forEach(function(thing){
           })
+
         });
     });
   }
+  
 
 }
