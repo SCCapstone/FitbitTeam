@@ -11,6 +11,20 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
 import { CSettingsComponent } from './c-settings/c-settings.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import * as firebase from 'firebase';
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
+    authDomain: "fitbitteam-988d7.firebaseapp.com",
+    databaseURL: "https://fitbitteam-988d7.firebaseio.com",
+    projectId: "fitbitteam-988d7",
+    storageBucket: "fitbitteam-988d7.appspot.com",
+    messagingSenderId: "801206610361",
+    appId: "1:801206610361:web:37b2a71630cf2bb87eee68",
+    measurementId: "G-4NX86BPYQT"
+  };
+  firebase.initializeApp(firebaseConfig);
+
 
 @NgModule({
   declarations: [
