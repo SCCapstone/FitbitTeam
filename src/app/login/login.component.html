@@ -33,7 +33,8 @@
 		   <h5>Password:</h5>
 	   <input type="password" class="form-control" id="InputPassword" placeholder="Password" [(ngModel)]="password">
 		 	<div class="text-center">
-		 	  <a type="button" class="btn btn-lg btn-success" (click)= login(usersid);>Login</a>
+         <a type="button" class="btn btn-lg btn-success" (click) = login()>Login</a>
+
 		 	</div>
 		 	<br>
 			<a routerLink="../recovery">Forgot your Password?</a>
