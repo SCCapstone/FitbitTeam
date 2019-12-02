@@ -14,7 +14,6 @@ import * as firebase from 'firebase';
 export class SignupComponent implements OnInit {
   user = {
     email: '',
- //   username: '',
     password: '',
     first_name: '',
     last_name:'',
@@ -26,19 +25,16 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
   signup() {
-    const email = this.user.email;
-    const password = this.user.password;
-   // const username = this.user.username;
+    var email = this.user.email;
+    var password = this.user.password;
     const first_name = this.user.first_name;
     const last_name = this.user.last_name;
     const type= this.user.type;
     const self= this;
 
-    console.log("This runs");
     console.log(this.user);
     //Database stuff
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      console.log(error);
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(error.message);
@@ -51,13 +47,14 @@ export class SignupComponent implements OnInit {
       })
       .then((user) => {
           const userid = firebase.auth().currentUser.uid;
-          //const usertype = firebase.database().ref('usertypes/'+userid).push();
-          const usertype = firebase.database().ref('usertypes/'+userid);
+          let usertype = firebase.database().ref('usertypes/').push();
           usertype.set({
+            'uid': userid,
             'first_name': name,
             'last_name': last_name,
             'type': type
           });
+          console.log(usertype)
       });
   }
 }
