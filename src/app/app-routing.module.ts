@@ -9,7 +9,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 
 const routes: Routes = [
-  { path: '', component: SignupComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'cmain', component: CmainComponent },
