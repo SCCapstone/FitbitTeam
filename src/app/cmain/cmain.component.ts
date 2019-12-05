@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
-
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-cmain',
@@ -9,10 +9,15 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 })
 export class CmainComponent implements OnInit {
 
-  constructor(public router: Router,private route: ActivatedRoute) { }
+  constructor(public router: Router,private route: ActivatedRoute) {
+    var userid = firebase.auth().currentUser.uid;
+    console.log(userid)
+
+   }
 
   ngOnInit() {
   }
+  
   toTimeline(){
     this.router.navigate(["../timeline"])
 
