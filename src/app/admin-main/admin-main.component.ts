@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin-main',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
+  toTimeline(){
+    this.router.navigate(["../timeline"])
 
+  }
 }

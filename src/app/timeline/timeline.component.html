@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        h5 {
+          font-face: calibri;
+        }
+          .greenbox{
+            width:50px;
+        height:50px; 
+        background-color: green;
+      }
+          .redbox{
+            width:50px;
+        height:50px; 
+        background-color: red;
+      }
+          
+          
+        </style>
 
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,90 +33,53 @@
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 <div class="container-fluid">
-	<div class="text-left">
-	  <button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button>
-    </div>	
-	<div class="text-center">
-		<font color="white" size=5>Welcome, [ADMIN_USER]</font>
-	</div>
-	<div class="text-right">
-	  <button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button>
-    </div>
+    <div class="text-left">
+        <a routerLink="../cmain"><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>
+        </div>	
+      <div class="text-center">
+        <font color="white" size=5>Welcome, [CLIENT_USER]</font>
+      </div>
+      <div class="text-right">
+        <a routerLink="../settings"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>
+        </div>
 </div>
        
     </nav>
-   <div class="container-fluid">
-	   <div class="text-center">
-             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		   </div>	  
-  </div>
-<div class="text-center">
-	<font size=7>2 New Notifications</font>
-	  </div>
-	  
-<ul class="list-group">
-  <li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-  <li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-</ul>
-	  <div class="text-left">
-		<h4>All:</h4>
-	  </div>
-<ul class="list-group">
-  <li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-  <li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5>Timeline</font>
-	  </div>
-    
-  </li>
-</ul>
+    <div class="col-md-4">
+      <font size=6>Status:</font>
+      <div>
+        <font size=5>On Track</font> <font class="greenbox" >____ </font></div>
+        <div>
+        <font size=5>At Risk</font> <font class="redbox" >____ </font></div>
+        </div>
+<div class=row>
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+          <a type="button" class="btn btn-lg btn-success" (click) = toggle()>Table</a>
+      </div></div>
+      
+      
+      <div class=row>
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+              <div id="myDIV">
+                  <img src="/assets/fakeGraph.jpg"> 
+
+                    </div>    
+                    <div id="myChartDIV" >
+                        <img src="/assets/weightChart.png"> 
+
+                    </div>
+            </div></div>
+
+            <div class=row>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <a type="button" class="btn btn-lg btn-success">Week</a>
+                    <a type="button" class="btn btn-lg btn-success">Month</a>
+                    <a type="button" class="btn btn-lg btn-success">Year</a>
+
+                </div></div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
