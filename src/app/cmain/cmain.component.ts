@@ -20,6 +20,10 @@ export class CmainComponent implements OnInit {
   
   toTimeline(){
     this.router.navigate(["../timeline"])
-
+  }
+  logout(){
+    firebase.auth().signOut();
+    this.router.navigate(["../login"])
+    console.log(firebase.auth().currentUser.uid)
   }
 }
