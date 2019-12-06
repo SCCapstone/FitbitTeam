@@ -21,6 +21,7 @@
 		<font color="white" size=5>Settings</font>
 	</div>
 	<div class="text-right">
+      <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
 <!--<a href="Settings.html"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>-->    </div>
 </div>
        
@@ -29,13 +30,23 @@
 <ul class="list-group">
   <li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
-		 <div> insert profile picture
-      <font size=5>[User]</font></div>
-	  
-      <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
+		 <div> insert profile picture</div>
       </div>
-    
   </li>
+  <li class="list-group-item" >
+      <div class="d-flex w-100 justify-content-between">
+          <font size=4>First Name:  {{first}}</font>
+      </div>
+      
+  </li>
+  <li class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+          <font size=4>Last Name:  {{last}}</font>
+      </div>
+  </li>
+  
+
+
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
@@ -48,9 +59,11 @@
 <ul class="list-group">
   <li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Devices:</font>
-		  <font size=5>Edit</font>
-		  
+      <font size=6>Devices:</font>
+      <a>
+        <button type="button" class="btn btn-md btn-primary" (click)="device()">Add a device</button>
+        <button type="button" class="btn btn-md btn-info" (click)="edit_d()">Edit devices</button>
+      </a>
 	  </div>
     <ul class="list-group">
 		  	<li>Fitbit Scale - 144DZ52</li>
@@ -60,15 +73,14 @@
   </li>
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Password: ***********15</font>
+      <font size=5>Password: ***********</font>
       <font size = 5><a routerLink="../reset">Reset Password</a></font>
 	  </div>
     
   </li>
 	<li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Referral Code: 257085</font>
-      <font size=5>Edit</font>
+      <font size=5>Referral Code: {{userid}} </font>
 	  </div>
     
   

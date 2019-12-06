@@ -8,13 +8,25 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
   styleUrls: ['./c-settings.component.css']
 })
 export class CSettingsComponent implements OnInit {
-
+  first = ''
+  last = ''
+  userid = 'test'
+  info:any
   constructor(public router: Router,private route: ActivatedRoute) {
-    var userid = firebase.auth().currentUser.uid;
-    console.log(userid)
+   
    }
 
   ngOnInit() {
+    this.userid = firebase.auth().currentUser.uid;
+    console.log(this.userid)
+    var usid = firebase.auth().currentUser.uid;
+    
+    var refs = firebase.database().ref('usertypes/' + usid);
+    refs.on('value', (snapshot) => {
+      this.info = snapshot.val();
+    })
+    this.first = this.info.first_name
+    this.last = this.info.last_name
   }
 
   logout(){
