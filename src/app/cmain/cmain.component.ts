@@ -40,11 +40,7 @@ export class CmainComponent implements OnInit {
     mref.on('value', (snapshot) => {
       this.tmeds = snapshot.val();
       this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
-      
-
     })
-   
-   
     //console.log("outside" + this.meds)
   }
   

@@ -1,89 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitBit Capstone</title>
+<!-- Bootstrap -->
+<link href="file:css/bootstrap-4.3.1.css" rel="stylesheet">
+</head>
+  
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FitBit Capstone</title>
-
-    <!-- Bootstrap -->
-    <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet">
-
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 <div class="container-fluid">
-	<div class="text-left">
-<a routerLink="../cmain"><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>    </div>	
-	<div class="text-center">
-		<font color="white" size=5>Settings</font>
-	</div>
-	<div class="text-right">
+	  <div class="text-left">
+      <a routerLink="../cmain"><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>    
+    </div>	
+	  <div class="text-center">
+		  <font color="white" size=5>Settings</font>
+	  </div>
+	  <div class="text-right">
       <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
-<!--<a href="Settings.html"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>-->    </div>
+<!--<a href="Settings.html"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>-->    
+    </div>
 </div>
        
-    </nav>
+</nav>
 	  
 <ul class="list-group">
-  <li class="list-group-item">
+  <!--
+<li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
-		 <div> insert profile picture</div>
+		  <div> 
+        insert profile picture
       </div>
+    </div>
   </li>
+  
+  -->
+  
   <li class="list-group-item" >
       <div class="d-flex w-100 justify-content-between">
           <font size=4>First Name:  {{first}}</font>
       </div>
-      
   </li>
+
   <li class="list-group-item">
       <div class="d-flex w-100 justify-content-between">
           <font size=4>Last Name:  {{last}}</font>
       </div>
-  </li>
-  
-
+  </li>  
 
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
       <font size=5>Logged in</font>
 	  </div>
-    
   </li>
 </ul>
-	  
-<ul class="list-group">
-  <li class="list-group-item">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=6>Devices:</font>
-      <a>
-        <button type="button" class="btn btn-md btn-primary" (click)="device()">Add a device</button>
-        <button type="button" class="btn btn-md btn-info" (click)="edit_d()">Edit devices</button>
-      </a>
-	  </div>
-    <ul class="list-group">
-		  	<li>Fitbit Scale - 144DZ52</li>
-		  	<li>Amazon Alexa - 132DD5</li>
 
-		  </ul>
-  </li>
+  <ul class="list-group">
+  <div class="text-left" *ngIf= "!hasclicked">
+
+    <li class="list-group-item">
+	    <div class="d-flex w-100 justify-content-between">
+        <font size=5>Devices:</font>
+        <a>
+          <button type="button" class="btn btn-md btn-primary" (click)="clicked()">Add a device</button>
+         <!--
+        <button type="button" class="btn btn-md btn-info" (click)="clicked()">Edit devices</button>
+         --> 
+        </a>
+      </div>
+    </li>
+    <li class="list-group-item" *ngFor = "let device of devices"> 
+      <div>
+        <font size=3>Device Name: {{device.name}}  </font>
+        <br>
+      
+        <font size=3>Device Number: {{device.serialnumber}}</font> 
+      </div>
+    </li>  
+  </div>
+
+  <div class="deviceAdd" *ngIf='hasclicked'>
+    <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+    <li>
+      <h5>Device Name:</h5>
+      <input class="form-control" id="InputFirst" placeholder="FitbitScale"  [(ngModel)]="dname" #ctrl="ngModel" required>
+    </li>
+    <li>
+      <h5>Device Serial Number:</h5>
+      <input class="form-control" id="InputFirst" placeholder="1234"  [(ngModel)]="dnum" #ctrl="ngModel" required>
+    </li>
+    <button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
+  </div>
+</ul>
+
+      
+
+<ul class="list-group">
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Password: ***********</font>
       <font size = 5><a routerLink="../reset">Reset Password</a></font>
-	  </div>
-    
+	  </div> 
   </li>
+
 	<li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Referral Code: {{userid}} </font>
-	  </div>
-    
-  
+    </div>
+  </li>
 </ul>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
