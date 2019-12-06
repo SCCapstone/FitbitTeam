@@ -18,8 +18,8 @@ Once you've ran built the project correctly and have run the command 'ng serve' 
 
 ## Testing Account
 
-If you don't want to make an account, here is one used for testing:
-Email : test@email.com
+If you don't want to make an account, here is one used for testing :\
+Email : test@email.com\
 Password : 123456
 
 ## Code scaffolding
