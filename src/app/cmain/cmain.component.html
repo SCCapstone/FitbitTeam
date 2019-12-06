@@ -75,9 +75,9 @@
 	<ul class="list-group">
   		<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
-      			<font size=5>Medication</font>
-	  			<font size=5>Date</font>
-				<font size=5>Time</font>
+      			<font size=5>Medication Name</font>
+	  			<font size=5>Day(s) of week</font>
+				<font size=5>Reminder time</font>
 				<font size=5>Remove</font>
 	  		</div>
 		</li>
@@ -87,6 +87,7 @@
 					<font size=5>{{med.medname}}</font>
 					<font size=5>{{med.meddate}}</font>
 					<font size=5>{{med.medTime}}</font>
+					<font size=5>Remove</font>
 			   <!-- <button class="btn" (click)= 'remove()'><i class="fa fa-close" color='Red'></i></button> -->
 	  		</div>
   		</li>		
@@ -97,15 +98,15 @@
 		<ul>
 				<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
 			<li>
-				<h5>Medicine Name:</h5>
+				<h5>Medication Name:</h5>
 				<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>
 			</li>
 			<li>
-				<h5>Date:</h5>
+				<h5>Day(s) of the week:</h5>
 				<input class="form-control" id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" #ctrl="ngModel" required>
 			</li>
 			<li>
-				<h5>Time:</h5>
+				<h5>When to remind you:</h5>
 				<input class="form-control" id="InputFirst" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
 			</li>
 			<button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>

@@ -34,72 +34,46 @@
 		   </div>	  
   </div>
 <div class="text-center">
-	<font size=7>2 New Notifications</font>
-	  </div>
-	  
+	<font size=7>No new notifications</font>
+   </div>
+<div class="text-left" *ngIf= "!hasclicked">
+   <button type="button" class="btn btn-md btn-success" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
+</div>
 <ul class="list-group">
-  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
+  <li class="list-group-item" style="background-color: #ffffff; color: gray;">
+    <div class="d-flex w-100 justify-content-between">
+        <font size=5>Patient Name:</font>
+      <font size=5>Status:</font>
+    <font size=5>Reference Number:</font>
+    <font size=5>Timeline</font>
+    </div>
+</li>
+<div class="text-left" *ngIf= "!hasclicked">
+  <li class="list-group-item" *ngFor = "let clients of clients" style="background-color: gray; color: #ffffff;">
+    <div class="d-flex w-100 justify-content-between">
+      <font size=5>{{clients.patName}}</font>
+      <font size =5>(Status here)</font>
+      <font size=5>{{clients.refNum}}</font>
       <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
+     <!-- <button class="btn" (click)= 'remove()'><i class="fa fa-close" color='Red'></i></button> -->
+    </div>
+  </li>		
+</div>
 </ul>
-	  <div class="text-left">
-		<h4>All:</h4>
-	  </div>
-<ul class="list-group">
-  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="red">At Risk</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[User]</font>
-	  <font size=5 color="green">On Track</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
-	  </div>
-    
-  </li>
-</ul>
+      <div class="medsAdd" *ngIf='hasclicked'>
+        <ul>
+           <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+          <li>
+             <h5>Name of Patient:</h5>
+            <input class="form-control" id="InputFirst" placeholder="Name"  [(ngModel)]="patName" #ctrl="ngModel" required>
+          </li>
+          <li>
+           <h5>Reference Number:</h5>
+           <input class="form-control" id="InputFirst" placeholder="Reference Number"  [(ngModel)]="refNum" #ctrl="ngModel" required>
+           </li>
+          <button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
+       </ul>
+      </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
