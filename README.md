@@ -5,6 +5,7 @@
 Check out our latest version here : https://fitbitteam.herokuapp.com/
 
 ## To run this project locally 
+
 1. mkdir FitbitTeam on your desktop
 2. git clone https://github.com/SCCapstone/FitbitTeam.git
 3. npm install
@@ -18,8 +19,12 @@ Once you've ran built the project correctly and have run the command 'ng serve' 
 
 ## Testing Account
 
-If you don't want to make an account, here is one used for testing :\
+If you don't want to make an account, here are a couple used for testing :\
+(Client Account)\
 Email : test@email.com\
+Password : 123456\
+(Admin Account)\
+Email : admin@email.com\
 Password : 123456
 
 ## Code scaffolding
