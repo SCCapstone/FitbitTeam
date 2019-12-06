@@ -49,4 +49,6 @@ import { ASettingsComponent } from './a-settings/a-settings.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  
+ }

@@ -14,12 +14,11 @@
 	height:50px; 
 	background-color: red;
 }
-		
-		
 	</style>
 
   <head>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,8 +29,10 @@
     <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet">
 
   </head>
+
   <body>
-    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
+
+<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 <div class="container-fluid">
 	<div class="text-left">
 		<a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5>Logout</font></button></a>
@@ -44,68 +45,81 @@
     </div>
 </div>
        
-    </nav>
-   <div class="container-fluid">
-	   <div class="text-center">
-             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		   </div>	  
-  </div>
-	  <div class="row">
-<div class="col-md-2">
-	<font size=6>Status:</font>
-	<div>
-		<font size=5>On Track</font> <font class="greenbox" >____ </font></div>
-		<div>
-		<font size=5>At Risk</font> <font class="redbox" >____ </font></div>
-	  </div>
-	  <img src="/assets/fakeGraph.jpg" (click) = toTimeline()>
+</nav>
+   
 
+<div class="container-fluid">
+	<div class="text-center">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	</div>	  
+</div>
+<div class="row">
+	<div class="col-md-2">
+		<font size=6>Status:</font>
+		<div>
+			<font size=5>On Track</font> <font class="greenbox" >____ </font>
+		</div>
+		<div>
+			<font size=5>At Risk</font> <font class="redbox" >____ </font>
+		</div>
 	</div>
+	<img src="/assets/fakeGraph.jpg" (click) = toTimeline()>
+</div>
+
 	
-	  <div class="text-left">
-	<font size=5>Current Reminders:</font>
-	  </div>
-	  
-<ul class="list-group">
-  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Medication</font>
-	  <font size=5>Date</font>
-      <font size=5>Time</font>
-	  </div>
-    
-  </li>
-  <li class="list-group-item" style="background-color: gray; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[Medication]</font>
-	  <font size=5>[Date]</font>
-      <font size=5>[Time]</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item" style="background-color: gray; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[Medication]</font>
-	  <font size=5>[Date]</font>
-      <font size=5>[Time]</font>
-	  </div>
-    
-  </li>
-	<li class="list-group-item" style="background-color: gray; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>[Medication]</font>
-	  <font size=5>[Date]</font>
-      <font size=5>[Time]</font>
-	  </div>
-    
-  </li>
-</ul>
-	   <div class="text-left">
+<div class="text-left" *ngIf= "!hasclicked">
+	<div class="d-flex w-100 justify-content-between">
+		<font size=5>Current Reminders:</font>	
+		<button type="button" class="btn btn-md btn-success" (click) = 'clicked()'><font size=5 align=left>Add a Medication</font></button>
+	</div>
+	<ul class="list-group">
+  		<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+	  		<div class="d-flex w-100 justify-content-between">
+      			<font size=5>Medication</font>
+	  			<font size=5>Date</font>
+				<font size=5>Time</font>
+				<font size=5>Remove</font>
+	  		</div>
+		</li>
+	
+		<li class="list-group-item" *ngFor = "let med of meds" style="background-color: gray; color: #ffffff;">
+	  		<div class="d-flex w-100 justify-content-between">
+					<font size=5>{{med.medname}}</font>
+					<font size=5>{{med.meddate}}</font>
+					<font size=5>{{med.medTime}}</font>
+			   <!-- <button class="btn" (click)= 'remove()'><i class="fa fa-close" color='Red'></i></button> -->
+	  		</div>
+  		</li>		
+	</ul>
+</div>
+
+<div class="medsAdd" *ngIf='hasclicked'>
+		<ul>
+				<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+			<li>
+				<h5>Medicine Name:</h5>
+				<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>
+			</li>
+			<li>
+				<h5>Date:</h5>
+				<input class="form-control" id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" #ctrl="ngModel" required>
+			</li>
+			<li>
+				<h5>Time:</h5>
+				<input class="form-control" id="InputFirst" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
+			</li>
+			<button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
+		</ul>
+	</div>
+
+
+
+<div class="text-left">
 	<font size=5>Recommendation:</font>
-		   <div class="text-left">
-	<font size=4>Eat an apple a day</font>
-	  </div>
-	  </div>
+	<div class="text-left">
+		<font size=4>Eat an apple a day</font>
+	</div>
+</div>
 	  
 	  
     
