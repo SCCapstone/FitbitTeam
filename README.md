@@ -1,22 +1,25 @@
 # FitbitTeam
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+## This app is Live
 
-Install npm, use 'npm install -g @angular/cli'. 
-Make sure node is up to date: 'npm install npm@latest -g'
+Check out our latest version here : https://fitbitteam.herokuapp.com/
+
+## To run this project locally 
+1. mkdir FitbitTeam on your desktop
+2. git clone https://github.com/SCCapstone/FitbitTeam.git
+3. npm install
+4. npm run build
+5. cd FitbitTeam
+6. ng serve
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Once you've ran built the project correctly and have run the command 'ng serve' you will have a live development server to work on. You can find it by putting http://localhost:4200/ into your browser. The app will automatically reload if you change any of the source files.
 
-Run this command inside of this directory, FitbitTeam/FitbitTeam. 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
