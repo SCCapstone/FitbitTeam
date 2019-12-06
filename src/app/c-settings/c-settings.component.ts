@@ -29,6 +29,10 @@ export class CSettingsComponent implements OnInit {
     this.last = this.info.last_name
   }
 
+  device(){
+    
+  }
+
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
