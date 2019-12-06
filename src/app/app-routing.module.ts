@@ -7,6 +7,7 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
 import { CSettingsComponent } from './c-settings/c-settings.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { ResetComponent } from './reset/reset.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminMainComponent },
   { path: 'settings', component: CSettingsComponent },
   { path: 'timeline', component: TimelineComponent },
-  { path: 'recovery', component: RecoveryComponent }
+  { path: 'recovery', component: RecoveryComponent },
+  { path: 'reset', component: ResetComponent}
 ];
 
 @NgModule({

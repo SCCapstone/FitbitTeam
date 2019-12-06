@@ -12,6 +12,7 @@ import { CSettingsComponent } from './c-settings/c-settings.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import * as firebase from 'firebase';
+import { ResetComponent } from './reset/reset.component';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -35,7 +36,8 @@ import * as firebase from 'firebase';
     AdminMainComponent,
     CSettingsComponent,
     TimelineComponent,
-    RecoveryComponent
+    RecoveryComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,
