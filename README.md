@@ -16,10 +16,15 @@ Check out our latest version here : https://fitbitteam.herokuapp.com/
 
 Once you've ran built the project correctly and have run the command 'ng serve' you will have a live development server to work on. You can find it by putting http://localhost:4200/ into your browser. The app will automatically reload if you change any of the source files.
 
+## Testing Account
+
+If you don't want to make an account, here is one used for testing:
+Email : test@email.com
+Password : 123456
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 
 ## Running unit tests
 
