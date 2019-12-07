@@ -17,6 +17,10 @@ export class CSettingsComponent implements OnInit {
   type = ''
   dname = ''
   dnum = ''
+  token = ''
+  Atoken = ''
+  AlexaID = ''
+  fitbitID = ''
   devices:any
   constructor(public router: Router,private route: ActivatedRoute) {
    }
