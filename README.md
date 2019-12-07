@@ -1,5 +1,10 @@
 # FitbitTeam
 
+Our project is developing an Alexa skill with Fitbit scales to manage weight and minimize risks for those struggling with congestive heart failure. To do this, we are developing a webapp using HTML and JS/CSS/TS scripting to work with the FitBitSDK in order to load data into a database which will then use Alexa to aid users in accessing this data such as but not limiting to: weight progression, medical reccomendations- factual and reccomended, prescription information, weight reminders, etc..
+# Technologies
+To build this project you will need to install: 
+- Node.js
+- Angular/cli 
 ## This app is Live
 
 Check out our latest version here : https://fitbittester.herokuapp.com/
