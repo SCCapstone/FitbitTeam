@@ -2,7 +2,7 @@
 
 ## This app is Live
 
-Check out our latest version here : https://fitbitteam.herokuapp.com/
+Check out our latest version here : https://fitbittester.herokuapp.com/
 
 ## To run this project locally 
 
