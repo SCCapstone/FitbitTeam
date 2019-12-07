@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       xhr.setRequestHeader("Authorization", 'Bearer ' + access_token);
       xhr.send();
       xhr.onload = function () {
-        if (xhr.status === 200) {
+        if (xhr.status == 200) {
           if (xhr.responseText != ' ') {
             var data = xhr.responseText;
           }
