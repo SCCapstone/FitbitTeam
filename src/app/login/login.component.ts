@@ -40,11 +40,14 @@ export class LoginComponent implements OnInit {
       })
       .then(function(result){
         //console.log(login)
-        var url = window.location.href;
-        //get access token
-        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-        // get the userid
-        var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+        if (window.location.href != ' ') {
+          //initialize fitbit data after authorization
+          var url = window.location.href;
+          //get access token
+          var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+          // get the userid
+          var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+        }
         let userid = firebase.auth().currentUser.uid;
         let usertypesRef = firebase.database().ref('usertypes/');
         var path:string = "fitbitInfo/" + userid.toString();
@@ -60,6 +63,23 @@ export class LoginComponent implements OnInit {
         'token': "ERROR",
         'id': 'ERROR'
       });
+      // make request from weight data from past month, fitbit initialization 
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/today/1w.json');
+      xhr.setRequestHeader("Authorization", 'Bearer ' + access_token);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          if (xhr.responseText != ' ') {
+            var data = xhr.responseText;
+          }
+          var path:string = "fitbitData/" + userid.toString();
+          let fitbitData = firebase.database().ref(path).push(); 
+          fitbitData.set ({
+            'data': data,
+          });
+        }
+    };
+    
     }
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
           data.forEach(function(thing){
