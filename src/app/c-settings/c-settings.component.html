@@ -28,8 +28,7 @@
        
 </nav>
 	  
-<ul class="list-group">
-  <!--
+<!--
 <li class="list-group-item">
 	  <div class="d-flex w-100 justify-content-between">
 		  <div> 
@@ -37,75 +36,69 @@
       </div>
     </div>
   </li>
-  
   -->
-  
-  <li class="list-group-item" >
-      <div class="d-flex w-100 justify-content-between">
-          <font size=4>First Name:  {{first}}</font>
-      </div>
-  </li>
-
-  <li class="list-group-item">
-      <div class="d-flex w-100 justify-content-between">
-          <font size=4>Last Name:  {{last}}</font>
-      </div>
-  </li>  
-
+<ul class="list-group">
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
       <a href="javascript:window.open('https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbitteam.herokuapp.com%2F&scope=activity%20settings%20weight&expires_in=604800', 'FitbitLogin', 'width=600,height=750');"><button type="button" class="btn btn-lg btn-success">Login</button></a>
 	  </div>
   </li>
-</ul>
-
-  <ul class="list-group">
-  <div class="text-left" *ngIf= "!hasclicked">
-
-    <li class="list-group-item">
-	    <div class="d-flex w-100 justify-content-between">
-        <font size=5>Devices:</font>
-        <a>
-          <button type="button" class="btn btn-md btn-primary" (click)="clicked()">Add a device</button>
-         <!--
-        <button type="button" class="btn btn-md btn-info" (click)="clicked()">Edit devices</button>
-         --> 
-        </a>
-      </div>
-    </li>
-    <li class="list-group-item" *ngFor = "let device of devices"> 
-      <div>
-        <font size=3>Device Name: {{device.name}}  </font>
-        <br>
-      
-        <font size=3>Device Number: {{device.serialnumber}}</font> 
-      </div>
-    </li>  
-  </div>
-
-  <div class="deviceAdd" *ngIf='hasclicked'>
-    <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+  <div class="Fitbit Info">
     <li>
-      <h5>Device Name:</h5>
-      <input class="form-control" id="InputFirst" placeholder="FitbitScale"  [(ngModel)]="dname" #ctrl="ngModel" required>
+      <font size=4>UserID: {{fitbitID}}</font>
     </li>
     <li>
-      <h5>Device Serial Number:</h5>
-      <input class="form-control" id="InputFirst" placeholder="1234"  [(ngModel)]="dnum" #ctrl="ngModel" required>
+        <font size=4>Token: {{token}</font>
     </li>
-    <button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
   </div>
 </ul>
 
+<ul class="list-group">
+    <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+        <div class="d-flex w-100 justify-content-between">
+      <font size=5>Alexa Info</font>
+      <a><button type="button" class="btn btn-lg btn-success">Login</button></a>
+    </div>
+  </li>
+    <div class="Alexa Info">
+        <li>
+            <font size=4>UserID: {{AlexaID}}</font>
+          </li>
+          <li>
+              <font size=4>Token: {{Atoken}</font>
+          </li>
+    </div>  
+</ul>
       
-
 <ul class="list-group">
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Password: ***********</font>
-      <font size = 5><a routerLink="../reset">Reset Password</a></font>
+      <font size=5>Account Information</font>
 	  </div> 
+  </li>
+  <div >
+      <!--
+      <button type="button" class="btn btn-md btn-primary" (click)="eName()">Edit</button>
+      -->  
+        <li class="list-group-item" >
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>First Name:  {{first}}</font>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>Last Name:  {{last}}</font>
+            </div>
+        </li> 
+    </div>
+   
+  
+  <li class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <font size=5>Password: *********</font>
+        <font size = 5><a routerLink="../reset">Reset Password</a></font>
+      </div>
   </li>
 
 	<li class="list-group-item">

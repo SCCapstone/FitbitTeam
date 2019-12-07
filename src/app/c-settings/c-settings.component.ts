@@ -10,6 +10,7 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 export class CSettingsComponent implements OnInit {
   first = ''
   last = ''
+  editName = false
   userid = 'test'
   hasclicked=false
   info:any
@@ -51,7 +52,7 @@ export class CSettingsComponent implements OnInit {
       device.set ({
         'name': this.dname,
         'serialnumber': this.dnum
-      }); 
+      });
     }
     else{
       device.set({
@@ -74,6 +75,10 @@ export class CSettingsComponent implements OnInit {
   clicked(){
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
+  }
+
+  eName(){
+    this.editName = !this.editName
   }
 
 }
