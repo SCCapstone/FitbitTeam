@@ -40,8 +40,27 @@ export class LoginComponent implements OnInit {
       })
       .then(function(result){
         //console.log(login)
+        var url = window.location.href;
+        //get access token
+        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+        // get the userid
+        var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
         let userid = firebase.auth().currentUser.uid;
         let usertypesRef = firebase.database().ref('usertypes/');
+        var path:string = "fitbitInfo/" + userid.toString();
+        let fitbitInfo = firebase.database().ref(path).push();
+        if(access_token != '' && fitbitId != ''){
+          fitbitInfo.set ({
+            'token': access_token,
+            'id': fitbitId
+          });
+      }
+      else{
+        fitbitInfo.set({
+        'token': "ERROR",
+        'id': 'ERROR'
+      });
+    }
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
           data.forEach(function(thing){
             if(login ==true){
