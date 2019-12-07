@@ -36,7 +36,7 @@ export class CSettingsComponent implements OnInit {
     dref.on('value', (snapshot) => {
       var tmeds = snapshot.val();
       this.devices = Object.keys(tmeds).map(i => tmeds[i]);
-      console.log(this.devices)
+      
     })
   }
 
