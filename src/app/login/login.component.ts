@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
           var access_token = url.split("#")[1].split("=")[1].split("&")[0];
           // get the userid
           var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
-        }
         var path:string = "fitbitInfo/" + userid.toString();
         let fitbitInfo = firebase.database().ref(path).push();
         if(access_token != '' && fitbitId != ''){
@@ -96,7 +95,8 @@ export class LoginComponent implements OnInit {
     
     }
   }// end initialization
-    });
+  } //end href
+    }); //end result
   }
   cmain(){
     this.router.navigate(["../cmain"])
