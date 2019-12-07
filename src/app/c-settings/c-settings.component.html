@@ -18,10 +18,10 @@
       <a routerLink="../cmain"><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>    
     </div>	
 	  <div class="text-center">
-		  <font color="white" size=5>Settings</font>
+		  <font color="white" size=5>Welcome, {{first}}</font>
 	  </div>
 	  <div class="text-right">
-      <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
+        <a routerLink="../a-settings"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>
 <!--<a href="Settings.html"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>-->    
     </div>
 </div>
@@ -114,6 +114,9 @@
     </div>
   </li>
 </ul>
+<div class="text-left">
+    <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
+</div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
