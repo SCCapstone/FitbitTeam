@@ -14,57 +14,30 @@ export class CSettingsComponent implements OnInit {
   userid = 'test'
   hasclicked=false
   info:any
+  type = ''
   dname = ''
   dnum = ''
   devices:any
   constructor(public router: Router,private route: ActivatedRoute) {
-   
    }
 
   ngOnInit() {
     this.userid = firebase.auth().currentUser.uid;
     console.log(this.userid)
     var usid = firebase.auth().currentUser.uid;
-    
     var refs = firebase.database().ref('usertypes/' + usid);
     var dref = firebase.database().ref('devices/' + usid );
-
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
     })
     this.first = this.info.first_name
     this.last = this.info.last_name
-
+    this.type = this.info.type
     dref.on('value', (snapshot) => {
       var tmeds = snapshot.val();
       this.devices = Object.keys(tmeds).map(i => tmeds[i]);
       console.log(this.devices)
     })
-
-
-  }
-
-  add(){
-    var userid = firebase.auth().currentUser.uid;
-    var path:string = "devices/" + userid.toString();
-    let device = firebase.database().ref(path).push();
-    if(this.dname != '' && this.dnum != ''){
-      device.set ({
-        'name': this.dname,
-        'serialnumber': this.dnum
-      });
-    }
-    else{
-      device.set({
-        'name': "ERROR",
-        'serialnumber': 'ERROR'
-      });
-    }
-  this.clicked();
-  }
-
-  edit(){
-
   }
 
   logout(){
@@ -73,12 +46,20 @@ export class CSettingsComponent implements OnInit {
     console.log(firebase.auth().currentUser.uid)
   }
   clicked(){
+    this.first= ''
+    this.last = ''
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
   }
 
-  eName(){
-    this.editName = !this.editName
+  SaveNew(){
+    this.info.first_name = this.first
+    this.info.last_name = this.last
+    this.info.type = this.info.type
+    var usid = firebase.auth().currentUser.uid;
+    var refs = firebase.database().ref('usertypes/' + usid);
+    console.log(this.info)
+    refs.set(this.info)
   }
 
 }
