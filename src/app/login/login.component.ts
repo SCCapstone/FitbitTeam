@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/today/1w.json');
       xhr.setRequestHeader("Authorization", 'Bearer ' + access_token);
+      xhr.send();
       xhr.onload = function () {
         if (xhr.status === 200) {
           if (xhr.responseText != ' ') {
