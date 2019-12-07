@@ -9,9 +9,10 @@ Check out our latest version here : https://fitbitteam.herokuapp.com/
 1. mkdir FitbitTeam on your desktop
 2. git clone https://github.com/SCCapstone/FitbitTeam.git
 3. npm install
-4. npm run build
-5. cd FitbitTeam
-6. ng serve
+4. npm install -g @angular/cli@1.0.0
+5. npm run build
+6. cd FitbitTeam
+7. ng serve
 
 ## Development server
 
