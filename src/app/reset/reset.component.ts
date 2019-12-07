@@ -8,6 +8,8 @@ import { LoginComponent } from '../login/login.component'
 })
 export class ResetComponent implements OnInit {
   currentPw = ''
+  newPw1 = ''
+  newPw2 = ''
   constructor() { }
 
   ngOnInit() {
