@@ -5,6 +5,7 @@ Our project is developing an Alexa skill with Fitbit scales to manage weight and
 To build this project you will need to install: 
 - Node.js
 - Angular/cli 
+- Cypress (for testing)
 ## This app is Live
 
 Check out our latest version here : https://fitbittester.herokuapp.com/
@@ -36,6 +37,19 @@ Password : 123456
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Testing
+
+For testing you must install cypress:
+-npm init
+-npm install cypress
+
+Run cypress:
+-/node_modules/.bin/cypress open
+
+Run tests:
+-click test firsttest.spec.js
+Here is good for cypress if you need further help https://www.youtube.com/watch?v=VvLocgtCQnY
 
 ## Running unit tests
 
