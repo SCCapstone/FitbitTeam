@@ -10,6 +10,17 @@ describe('first test', () => {
 
   })
   it('client add meds', () => {
+    cy.get('button[class="btn btn-md btn-success"]').click()
+    cy.get('input[placeholder="Medicine Name"').type('test')
+    cy.get('input[placeholder="medDate"').type('test')
+    cy.get('input[placeholder="medTime"').type('test')
+    cy.get('button[class="btn btn-md btn-success"]').click()
+    //opens again for back
+    cy.get('button[class="btn btn-md btn-success"]').click()
+    cy.get('button[class="btn btn-sm btn-danger"]').click()
+  })
+  it('client settings', () => {
+    cy.get('a[routerLink="../settings"]').click()
     
   })
 })
