@@ -19,7 +19,7 @@ describe('first test', () => {
     cy.get('button[class="btn btn-md btn-success"]').click()
     cy.get('button[class="btn btn-sm btn-danger"]').click()
   })
-  it('client settings', () => {
+  it('navigate to client settings', () => {
     cy.get('a[routerLink="../settings"]').click()
     
   })
