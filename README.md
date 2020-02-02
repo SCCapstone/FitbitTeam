@@ -40,6 +40,17 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Testing
 
+For testing you must install cypress:
+-npm init
+-npm install cypress
+
+Run cypress:
+-/node_modules/.bin/cypress open
+
+Run tests:
+-click test firsttest.spec.js
+Here is good for cypress if you need further help https://www.youtube.com/watch?v=VvLocgtCQnY
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
