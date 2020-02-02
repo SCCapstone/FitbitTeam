@@ -1,4 +1,4 @@
-describe('first test', () => {
+describe('login and add client medication test', () => {
   it('Navigate to site', () => {
     cy.visit('https://fitbittester.herokuapp.com/')
   })
