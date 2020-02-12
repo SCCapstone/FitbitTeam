@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 @Component({
   selector: 'app-timeline',
@@ -11,23 +12,26 @@ export class TimelineComponent implements OnInit {
   fitbitToken = ''
   info:any
   first = ''
-  constructor() { }
+  constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var x = document.getElementById("myChartDIV");
+    //Get Info of Current User
+    var usid = firebase.auth().currentUser.uid;
+    var ref = firebase.database().ref('usertypes/' + usid );
+    ref.on('value', (snapshot) => {
+      this.info = snapshot.val();
+      console.log(this.info)
+    });
+    this.first = this.info.first_name
+
+    
+  var x = document.getElementById("myChartDIV");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
     x.style.display = "none";
   }
-  var usid = firebase.auth().currentUser.uid;
-  var ref = firebase.database().ref('usertypes/' + usid );
-  ref.on('value', (snapshot) => {
-    this.info = snapshot.val();
-    console.log(this.info)
-  });
-  this.first = this.info.first_name
-
+  
   var refs = firebase.database().ref('fitbitInfo/' + usid );
   refs.on('value', (snapshot) => {
      var tmeds= snapshot.val();
@@ -54,25 +58,42 @@ export class TimelineComponent implements OnInit {
         }
     };
   })
-
-  
-    
-    
-
-
   }
-  toggle() {
-    var x = document.getElementById("myDIV");
+
+
+toggle() {
+  var x = document.getElementById("myDIV");
   if (x.style.display === "none") {
     x.style.display = "block";
-  } else {
+  } 
+  else {
     x.style.display = "none";
   }
   var y = document.getElementById("myChartDIV");
   if (y.style.display === "none") {
     y.style.display = "block";
-  } else {
+  } 
+  else {
     y.style.display = "none";
   }
+}
+
+  homepage(){
+    var type = this.info.type
+    if(type == 'Admin'){
+      this.router.navigate(["../admin"])
+    }
+    else{
+      this.router.navigate(["../cmain"])
+    }
+  }
+  settings(){
+    var type = this.info.type
+    if(type == 'Admin'){
+      this.router.navigate(["../asettings"])
+    }
+    else{
+      this.router.navigate(["../settings"])
+    }
   }
 }

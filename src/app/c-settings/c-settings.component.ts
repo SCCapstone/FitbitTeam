@@ -62,4 +62,18 @@ export class CSettingsComponent implements OnInit {
     refs.set(this.info)
   }
 
+  test(){
+    var type = this.info.type
+    console.log(type)
+  }
+  homepage(){
+    var type = this.info.type
+    if(type == 'Admin'){
+      this.router.navigate(["../admin"])
+    }
+    else{
+      this.router.navigate(["../cmain"])
+    }
+  }
+
 }

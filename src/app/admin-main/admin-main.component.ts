@@ -42,6 +42,7 @@ export class AdminMainComponent implements OnInit {
   }
   toTimeline(){
     this.router.navigate(["../timeline"])
+    console.log(firebase.auth().currentUser.uid)
   }
   logout(){
     firebase.auth().signOut();
