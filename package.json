@@ -30,6 +30,7 @@
     "mongodb-stitch": "^3.6.0",
     "mongodb-stitch-browser-sdk": "^4.7.1",
     "mongoose": "^5.7.13",
+    "node": "^13.8.0",
     "passport": "^0.4.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

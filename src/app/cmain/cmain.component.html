@@ -103,11 +103,20 @@
 			</li>
 			<li>
 				<h5>Day(s) of the week:</h5>
-				<input class="form-control" id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" #ctrl="ngModel" required>
+				<select multiple class="form-control" id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" #ctrl="ngModel" required >
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="Saturday">Saturday</option>
+					<option value="Sunday">Sunday</option>
+				  </select>
+				  
 			</li>
 			<li>
 				<h5>When to remind you:</h5>
-				<input class="form-control" id="InputFirst" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
+				<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
 			</li>
 			<button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
 		</ul>
