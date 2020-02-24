@@ -6,6 +6,8 @@ To build this project you will need to install:
 - Node.js
 - Angular/cli 
 - Cypress (for testing)
+
+A sidenote: Fitbit API only allows servers to request Fitbit information from a user's account for the past 31 days.
 ## This app is Live
 
 Check out our latest version here : https://fitbittester.herokuapp.com/
