@@ -81,10 +81,29 @@ export class CmainComponent implements OnInit {
   this.clicked();
   }
 
+  getDate(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    let t = yyyy + '-' + mm + '-' + dd;
+    return t;
+  }
+
+  getPriorMonth() {
+    var date = new Date(new Date().setDate(new Date().getDate() - 30));
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    var priorDate = yyyy + '-' + mm + '-' + dd;    
+    return priorDate;
+  }
+
   pullFitbit(){
     var userid = firebase.auth().currentUser.uid;
     var path:string = ("fitbitInfo/" + userid.toString());
-    var xhr = new XMLHttpRequest();
 
     var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
@@ -96,10 +115,33 @@ export class CmainComponent implements OnInit {
     });
     this.fitbitToken = tempArray[1][1].token
     this.fitbitId = tempArray[1][1].id
-    console.log(tempArray)
     console.log("fitbitToken: " + this.fitbitToken)
     console.log("fitbitId: " + this.fitbitId)
-    //xhr.open('GET', 'https://api.fitbit.com/1/user/' + )
+
+    /* Date must be in yyyy-MM-dd format such as:
+      1. /body/log/weight/date/[date].json
+      2. /body/log/weight/date/[base-date]/[period].json
+      3. /body/log/weight/date/[base-date]/[end-date].json
+      Range end date must not be longer than 31 days.
+    */
+    var todaysDate = this.getDate();
+    var monthPriorDate = this.getPriorMonth();
+    
+    console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+
+    var temp:string = 'https://api.fitbit.com/1/user/' + this.fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
+    console.log(temp);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', temp);
+    xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText)
+      }
+    };
+    xhr.send();
   }
 
   delMed(id){
