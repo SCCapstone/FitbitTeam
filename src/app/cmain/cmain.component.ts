@@ -20,6 +20,7 @@ export class CmainComponent implements OnInit {
   medEntry:any
   hasclicked=false
   id = ''
+  fitbitInfo:any
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
@@ -79,20 +80,19 @@ export class CmainComponent implements OnInit {
   }
 
   pullFitbit(){
-    var userId = firebase.auth().currentUser.uid;
+    var userid = firebase.auth().currentUser.uid;
+    var path:string = ("fitbitInfo/" + this.userid.toString());
     var xhr = new XMLHttpRequest();
 
-    var fitbitRefs = firebase.database().ref('fitbitInfo/' + userId ); 
+    var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
-      snapshot.forEach(function(childSnapshot) {
-        var childData = childSnapshot.val();
+      this.fitbitInfo = snapshot.val();
         console.log("test^^^^^^^^^^^^^^^^^");
-        console.log("Fitbit Info: " + childData);
-      });
+        console.log("Fitbit Info: " + this.fitbitInfo);
     });
     //xhr.open('GET', 'https://api.fitbit.com/1/user/' + )
   }
-  
+
   delMed(id){
     var size = this.getSize(this.meds)
     //Goes through list of meds object and removes the meds
