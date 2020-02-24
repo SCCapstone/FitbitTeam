@@ -138,10 +138,42 @@ export class CmainComponent implements OnInit {
     xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
     xhr.onload = function () {
       if (xhr.status === 200) {
-        console.log(xhr.responseText)
+        //Firebase Storing
+        let finfo = xhr.responseText
+        var tarray = finfo.split("{");
+        var data:any
+        var array:any
+        var finalData = []
+        for (var i = 2 ; i < tarray.length; i++){
+          //console.log(tarray[i].split(","))
+          array = tarray[i].split(",")
+          var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
+         /*
+          data = {
+            date: array[1].split(":")[1].replace('"', ''),
+            time: array[4].split(":")[1].replace('"', ''),
+            weight: tweight
+          }
+          finalData.push(data)
+          */
+          var path:string = "fitbitData/" + userid.toString();
+          let fdata = firebase.database().ref(path).push();
+          fdata.set ({
+            'date': array[1].split(":")[1].replace('"', '').replace('\\', ''),
+            'time': array[4].split(":")[1].replace('"', ''),
+            'weight': tweight
+          });
+          //console.log(data)
+        }
+        //console.log(array)
+        //console.log(finalData)
+      
+        
       }
     };
     xhr.send();
+    
+
   }
 
   delMed(id){
