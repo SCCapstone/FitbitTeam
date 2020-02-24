@@ -82,12 +82,12 @@
 	  		</div>
 		</li>
 	
-		<li class="list-group-item" *ngFor = "let med of meds" style="background-color: gray; color: #ffffff;">
+		<li class="list-group-item" *ngFor = "let med of meds; let i = index" style="background-color: gray; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
 					<font size=5>{{med.medname}}</font>
 					<font size=5>{{med.meddate}}</font>
 					<font size=5>{{med.medTime}}</font>
-					<font size=5>Remove</font>
+					<button (click)= "delMed(i)"><font size=5 >Remove</font></button>
 			   <!-- <button class="btn" (click)= 'remove()'><i class="fa fa-close" color='Red'></i></button> -->
 	  		</div>
   		</li>		

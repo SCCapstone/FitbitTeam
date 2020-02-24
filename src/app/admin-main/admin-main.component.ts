@@ -16,6 +16,7 @@ export class AdminMainComponent implements OnInit {
   clients:any
   last = ''
   patName = ''
+  id = ''
   refNum = ''
   hasclicked=false
   constructor(public router: Router,private route: ActivatedRoute) { }
@@ -63,4 +64,35 @@ export class AdminMainComponent implements OnInit {
     this.patName=''
   this.clicked();
   }
+  remove(id){
+    console.log(this.clients)
+    
+    var size = this.getSize(this.clients)
+    //Goes through list of meds object and removes the meds
+    for (var i = 0; i < size; i ++){
+      if (this.clients[i] == this.clients [id]){
+        console.log("Removal of " + this.clients[i])
+        delete this.clients[i]
+      } 
+    }
+
+    //This changes the new medication object in the database
+    var userid = firebase.auth().currentUser.uid;
+    var path:string = "clients/" + userid.toString();
+    var ref = firebase.database().ref(path)
+    ref.set(this.clients)
+  
+  }
+
+  //gets size of an object in js
+  getSize(obj){
+    var size = 0, key;
+    for (key in obj){
+      size++;
+    }
+    return size;
+
+  }
+
+
 }

@@ -19,6 +19,7 @@ export class CmainComponent implements OnInit {
   medDate = ''
   medEntry:any
   hasclicked=false
+  id = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
@@ -75,6 +76,32 @@ export class CmainComponent implements OnInit {
     this.medDate=''
     this.medTime=''
   this.clicked();
+  }
+  
+  delMed(id){
+    var size = this.getSize(this.meds)
+    //Goes through list of meds object and removes the meds
+    for (var i = 0; i < size; i ++){
+      if (this.meds[i] == this.meds [id]){
+        console.log("Removal of " + this.meds[i])
+        delete this.meds[i]
+      } 
+    }
+
+    //This changes the new medication object in the database
+    var userid = firebase.auth().currentUser.uid;
+    var path:string = "meds/" + userid.toString();
+    var ref = firebase.database().ref(path)
+    ref.set(this.meds)
+  }
+  //gets size of an object in js
+  getSize(obj){
+    var size = 0, key;
+    for (key in obj){
+      size++;
+    }
+    return size;
+
   }
 
 
