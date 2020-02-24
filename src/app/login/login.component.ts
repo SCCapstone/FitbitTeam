@@ -42,50 +42,38 @@ export class LoginComponent implements OnInit {
         //console.log(login)
         let userid = firebase.auth().currentUser.uid;
       
+        // FITBIT INITIALIZATION AFTER REDIRECT
+      if (window.location.href != ' ') {
+        //link not empty
+        var url = window.location.href;
+        if (url.split('#')[1] != undefined) {
+          // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
+          // gets access_token
+          var access_token = url.split('#')[1].split("=")[1].split("&")[0];
+          // gets the userId
+          var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+          console.log("Fitbit Token: " + access_token);
+          console.log("Fitbit ID: " + fitbitId);
 
-        if (window.location.href != ' ') {
-          //initialize fitbit data after authorization
-          var url = window.location.href;
-          if (url.split("#")[1] != undefined) {
-          //get access token
-          var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-          // get the userid
-        var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
-        console.log(fitbitId)
-        var path:string = "fitbitInfo/" + userid.toString();
-        let fitbitInfo = firebase.database().ref(path).push();
-        if(access_token != '' && fitbitId != ''){
-          fitbitInfo.set ({
-            'token': access_token,
-            'id': fitbitId
-          });
-      }
-      else{
-        fitbitInfo.set({
-        'token': "ERROR",
-        'id': 'ERROR'
-      });
-      // make request from weight data from past month, fitbit initialization 
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/today/1w.json');
-      xhr.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      xhr.send();
-      xhr.onload = function () {
-        if (xhr.status == 200) {
-          if (xhr.responseText != ' ') {
-            var data = xhr.responseText;
+          // push fitbit info to firebase
+          var path:string = "fitbitInfo/" + userid.toString();
+          let fitbitInfo = firebase.database().ref(path).push();
+          if (access_token != '' && fitbitId != ''){
+            fitbitInfo.set ({
+              'token': access_token,
+              'id': fitbitId
+            });
+          } else{
+            fitbitInfo.set({
+              'token': "ERROR",
+              'id': "ERROR"
+            });
           }
-          var path:string = "fitbitData/" + userid.toString();
-          let fitbitData = firebase.database().ref(path).push(); 
-          fitbitData.set ({
-            'data': data,
-          });
+          //end firebase input
         }
-    };
-    
-    }
-  }// end initialization
-  } //end href
+      }
+        // END FITBIT INITIALIZATION
+
   let usertypesRef = firebase.database().ref('usertypes/');
   usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
     data.forEach(function(thing){

@@ -77,6 +77,21 @@ export class CmainComponent implements OnInit {
     this.medTime=''
   this.clicked();
   }
+
+  pullFitbit(){
+    var userId = firebase.auth().currentUser.uid;
+    var xhr = new XMLHttpRequest();
+
+    var fitbitRefs = firebase.database().ref('fitbitInfo/' + userId ); 
+    fitbitRefs.on('value', (snapshot) => {
+      snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        console.log("test^^^^^^^^^^^^^^^^^");
+        console.log("Fitbit Info: " + childData);
+      });
+    });
+    //xhr.open('GET', 'https://api.fitbit.com/1/user/' + )
+  }
   
   delMed(id){
     var size = this.getSize(this.meds)
