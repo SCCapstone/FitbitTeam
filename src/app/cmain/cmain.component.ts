@@ -21,6 +21,8 @@ export class CmainComponent implements OnInit {
   hasclicked=false
   id = ''
   fitbitInfo:any
+  fitbitToken =''
+  fitbitId= ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
@@ -81,15 +83,22 @@ export class CmainComponent implements OnInit {
 
   pullFitbit(){
     var userid = firebase.auth().currentUser.uid;
-    var path:string = ("fitbitInfo/" + this.userid.toString());
+    var path:string = ("fitbitInfo/" + userid.toString());
     var xhr = new XMLHttpRequest();
 
     var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
       this.fitbitInfo = snapshot.val();
-        console.log("test^^^^^^^^^^^^^^^^^");
-        console.log("Fitbit Info: " + this.fitbitInfo);
     });
+    console.log(this.fitbitInfo)
+    var tempArray = Object.keys(this.fitbitInfo).map((key)=> {
+      return [Number(key), this.fitbitInfo[key]];
+    });
+    this.fitbitToken = tempArray[1][1].token
+    this.fitbitId = tempArray[1][1].id
+    console.log(tempArray)
+    console.log("fitbitToken: " + this.fitbitToken)
+    console.log("fitbitId: " + this.fitbitId)
     //xhr.open('GET', 'https://api.fitbit.com/1/user/' + )
   }
 

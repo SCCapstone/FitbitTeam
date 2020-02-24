@@ -15,9 +15,9 @@ export class CSettingsComponent implements OnInit {
   hasclicked=false
   info:any
   type = ''
-  dname = ''
-  dnum = ''
-  devices:any
+  fitbitId = ''
+  token = ''
+  fitbit:any
   constructor(public router: Router,private route: ActivatedRoute) {
    }
 
@@ -26,18 +26,20 @@ export class CSettingsComponent implements OnInit {
     console.log(this.userid)
     var usid = firebase.auth().currentUser.uid;
     var refs = firebase.database().ref('usertypes/' + usid);
-    var dref = firebase.database().ref('devices/' + usid );
+    var dref = firebase.database().ref('fitbitInfo/' + usid );
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
     })
     this.first = this.info.first_name
     this.last = this.info.last_name
     this.type = this.info.type
+    /*
     dref.on('value', (snapshot) => {
-      var tmeds = snapshot.val();
-      this.devices = Object.keys(tmeds).map(i => tmeds[i]);
-      
+      this.fitbit = snapshot.val();
     })
+   this.fitbitId = this.fitbit.id
+   this.token = this.fitbit.token
+   */
   }
 
   logout(){
