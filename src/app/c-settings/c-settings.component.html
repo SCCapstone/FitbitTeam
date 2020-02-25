@@ -6,7 +6,157 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FitBit Capstone</title>
+<!-- Bootstrap<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitBit Capstone</title>
 <!-- Bootstrap -->
+<link href="file:css/bootstrap-4.3.1.css" rel="stylesheet">
+</head>
+  
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
+
+<div class="container-fluid">
+	  <div class="text-left">
+      <a routerLink="../cmain"><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>    
+    </div>	
+	  <div class="text-center">
+		  <font color="white" size=5>Welcome, {{first}}</font>
+	  </div>
+	  <div class="text-right">
+        <a routerLink="../a-settings"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>
+<!--<a href="Settings.html"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>-->    
+    </div>
+</div>
+       
+</nav>
+	  
+<!--
+<li class="list-group-item">
+	  <div class="d-flex w-100 justify-content-between">
+		  <div> 
+        insert profile picture
+      </div>
+    </div>
+  </li>
+  -->
+  <!--This allows users to get redirected to the Fitbit Website, login with 
+      their fitbit accounts, and allow the webapp to use certain permissions
+      which we request. After they accept they will be redirected back to the 
+      home page. This is OAuth 2.0 authentication and all of this is done through
+      the fitbit application permissions website.
+      Some helpful links: https://dev.fitbit.com/build/reference/web-api/oauth2/
+                          https://dev.fitbit.com/apps
+                          https://softauthor.com/fitbit-api-javascript-oauth2
+  --> 
+<ul class="list-group">
+  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+	  <div class="d-flex w-100 justify-content-between">
+      <font size=5>Fitbit Account</font>
+      <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittester.herokuapp.com%2F&scope=weight&expires_in=604800">
+
+        Login to Fitbit
+        </a>
+	  </div>
+  </li>
+  <div class="Fitbit Info">
+    <li>
+      <font size=4>UserID: {{fitbitID}}</font>
+    </li>
+    <li>
+        <font size=4>Token: {{token}}</font>
+    </li>
+  </div>
+</ul>
+
+<ul class="list-group">
+    <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+        <div class="d-flex w-100 justify-content-between">
+      <font size=5>Alexa Info</font>
+      <a><button type="button" class="btn btn-lg btn-success">Login</button></a>
+    </div>
+  </li>
+    <div class="Alexa Info">
+        <li>
+            <font size=4>UserID: {{AlexaID}}</font>
+          </li>
+          <li>
+              <font size=4>Token: {{Atoken}}</font>
+          </li>
+    </div>  
+</ul>
+      
+<ul class="list-group">
+  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+	  <div class="d-flex w-100 justify-content-between">
+      <font size=5>Account Information</font>
+      <button type="button" class="btn btn-md btn-primary" (click)="clicked()">Edit</button>
+	  </div> 
+  </li>
+  <div *ngIf= "!hasclicked">
+        <li class="list-group-item" >
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>First Name:  {{first}}</font>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>Last Name:  {{last}}</font>
+            </div>
+        </li> 
+    </div>
+    <div *ngIf= "hasclicked">
+        <li class="list-group-item" >
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>First Name:  </font>
+                <input class="form-control" id="InputUser" placeholder="First Name" [(ngModel)]="first">
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>Last Name:  </font>
+                <input class="form-control" id="InputUser" placeholder="Last Name" [(ngModel)]="last">
+            </div>
+        </li> 
+        <button type="button" class="btn btn-md btn-primary" (click)="SaveNew()">Save</button>
+    </div>
+   
+  
+  <li class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <font size=5>Password: *********</font>
+        <font size = 5><a routerLink="../reset">Reset Password</a></font>
+      </div>
+  </li>
+
+	<li class="list-group-item">
+	  <div class="d-flex w-100 justify-content-between">
+      <font size=5>Referral Code: {{userid}} </font>
+    </div>
+  </li>
+</ul>
+<div class="text-left">
+    <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
+</div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="file:/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="file:/js/popper.min.js"></script>
+  <script src="file:/js/bootstrap-4.3.1.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
+ -->
 <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet">
 </head>
   
