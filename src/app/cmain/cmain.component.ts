@@ -169,7 +169,7 @@ export class CmainComponent implements OnInit {
           }
           tarry.push(tobj)
         }  
-        console.log(tarry)
+        //console.log(tarry)
          var path:string = "fitbitData/" + userid.toString();
          let fdata = firebase.database().ref(path).set({
           Data: tarry
@@ -179,7 +179,44 @@ export class CmainComponent implements OnInit {
     xhr.send();
   }
 
-  //Deletes a chosen medication 
+
+  FitbitDataFromFirebase(){
+    var tdata:any
+    var path:string = "fitbitData/" + this.userid
+    var ref = firebase.database().ref(path)
+    ref.on('value', (snapshot) => {
+      tdata = snapshot.val();
+    })
+    //console.log(tdata)
+    var ar = Object.values(tdata)
+    //console.log(ar)
+    var date = []
+    var weight = []
+    var size = this.getSize(ar[0])
+    //console.log(size)
+    for (var i = 0; i < size; i++){
+      //console.log(ar[0][i])
+      var temp = Object.values(ar[0][i])
+      //console.log(temp[0])
+      date.push(temp[0]) 
+      weight.push(temp[2])
+    }
+    //console.log(date)
+    //console.log(weight)
+    weight = this.toNum(weight)
+    console.log(weight)
+    return [date, weight]
+  }
+  //wraper function that changes weight array from string to double
+  toNum(arry){
+    var rweight = []
+    rweight = arry.map(Number);
+    //console.log(rweight)
+    return rweight
+  }
+
+
+    //Deletes a chosen medication 
   delMed(id){
     var size = this.getSize(this.meds)
     //Goes through list of meds object and removes the meds
@@ -195,6 +232,7 @@ export class CmainComponent implements OnInit {
     var ref = firebase.database().ref(path)
     ref.set(this.meds)
   }
+
   //gets size of an object in js
   getSize(obj){
     var size = 0, key;
@@ -203,11 +241,5 @@ export class CmainComponent implements OnInit {
     }
     return size;
   }
-  
-  //Get Status
-  getStatus(){
-    
-  }
-
 
 }
