@@ -152,22 +152,28 @@ export class CmainComponent implements OnInit {
         let finfo = xhr.responseText
         var tarray = finfo.split("{");
         var array:any
+        var tobj:any
+        var tarry = []
         for (var i = 2 ; i < tarray.length; i++){
           //console.log(tarray[i].split(","))
           array = tarray[i].split(",")
           //String manipulation, Grabs weight from xhr string
           var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
-          var path:string = "fitbitData/" + userid.toString();
-          let fdata = firebase.database().ref(path).push();
-          fdata.set ({
-            //Grabs date from xhr string
-            'date': array[1].split(":")[1].replace('"', '').replace('\\', ''),
-            //Grabs time from xhr string
-            'time': array[4].split(":")[1].replace('"', ''),
+          var tdate = array[1].split(":")[1].replace('"', '').replace('\\', '') 
+          //console.log(array[4].split("\"")[3].replace('"'))
+          var ttime = array[4].split("\"")[3].replace('"')
+          tobj = {
+            'date': tdate,
+            'time': ttime,
             'weight': tweight
-          });
-          
+          }
+          tarry.push(tobj)
         }  
+        console.log(tarry)
+         var path:string = "fitbitData/" + userid.toString();
+         let fdata = firebase.database().ref(path).set({
+          Data: tarry
+         });
       }
     };
     xhr.send();
@@ -196,6 +202,11 @@ export class CmainComponent implements OnInit {
       size++;
     }
     return size;
+  }
+  
+  //Get Status
+  getStatus(){
+    
   }
 
 
