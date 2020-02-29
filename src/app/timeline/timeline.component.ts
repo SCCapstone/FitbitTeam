@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
+import * as CanvasJS from '../canvasjs.min.js';
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -15,6 +17,37 @@ export class TimelineComponent implements OnInit {
   constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    //chart 
+    let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      theme: "light2",
+      title:{
+        text: "Simple Line Chart"
+      },
+      axisY:{
+        includeZero: false
+      },
+      data: [{        
+        type: "line",       
+        dataPoints: [
+          { y: 450 },
+          { y: 414},
+          { y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+          { y: 460 },
+          { y: 450 },
+          { y: 500 },
+          { y: 480 },
+          { y: 480 },
+          { y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
+          { y: 500 },
+          { y: 480 },
+          { y: 510 }
+        ]
+      }]
+    });
+    chart.render();
+    
     //Get Info of Current User
     var usid = firebase.auth().currentUser.uid;
     var ref = firebase.database().ref('usertypes/' + usid );
