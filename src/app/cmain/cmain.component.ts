@@ -76,9 +76,10 @@ export class CmainComponent implements OnInit {
   }
     let chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
+      zoomEnabled: true,
       theme: "light2",
       title:{
-        text: "Simple Line Chart"
+        text: "Weekly Recap"
       },
       axisY:{
         includeZero: false

@@ -97,7 +97,7 @@ export class TimelineComponent implements OnInit {
 	      zoomEnabled: true,
         theme: "light2",
         title:{
-          text: "Simple Line Chart"
+          text: "Detailed Zoom/Pan Graph"
         },
         axisY:{
           includeZero: false
