@@ -290,14 +290,32 @@ export class CmainComponent implements OnInit {
       var prior = Data[1][i]
       var diff = Math.abs(current-prior)
 
-      if( diff > 3 && diff <= 5 ){
-        status = 'YELLOW'
+      if( diff > 1 && diff < 2 ){
+        for( var j = Data[1].length; j > Data[1].length - 7; j--){
+          prior = Data[1][j]
+          diff = Math.abs(current-prior)
+          if( diff >= 3 && diff < 5){
+            status = 'YELLOW weekly'
+          }
+          else {
+            status = 'YELLOW daily'
+          }
+        }
       }
-      else if( diff > 5){
-        status = 'RED'
+      else if( diff >= 2){
+        for( var j = Data[1].length; j > Data[1].length - 7; j--){
+          prior = Data[1][j]
+          diff = Math.abs(current-prior)
+          if( diff >= 5){
+            status = 'RED weekly'
+          }
+          else {
+            status = 'RED daily'
+          }
+        }
       }
       else{
-        status = 'Healthy'
+        status = 'GREEN'
       }
     }
     return status
