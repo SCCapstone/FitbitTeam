@@ -94,6 +94,7 @@ export class TimelineComponent implements OnInit {
       console.log(dataPoints);
       let chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
+	      zoomEnabled: true,
         theme: "light2",
         title:{
           text: "Simple Line Chart"
