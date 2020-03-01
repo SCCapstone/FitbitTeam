@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
     const first_name = this.user.first_name;
     const last_name = this.user.last_name;
     const type= this.user.type;
+    const status = 'Healthy'
     const self= this;
 
     console.log(this.user);
@@ -50,6 +51,7 @@ export class SignupComponent implements OnInit {
             'uid': userid,
             'first_name': first_name,
             'last_name': last_name,
+            'status': status,
             'type': type
           });
           console.log(usertype)

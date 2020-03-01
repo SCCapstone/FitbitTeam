@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 import * as CanvasJS from '../canvasjs.min.js';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-timeline',
@@ -14,27 +16,22 @@ export class TimelineComponent implements OnInit {
   fitbitToken = ''
   info:any
   first = ''
+  Entries:any
+  table = false;
+  status = ''
   constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-    
-    //Get Info of Current User
     var usid = firebase.auth().currentUser.uid;
-    var ref = firebase.database().ref('usertypes/' + usid );
-    ref.on('value', (snapshot) => {
-      this.info = snapshot.val();
-      console.log(this.info)
-    });
-    this.first = this.info.first_name
+    this.getInfo()
+    this.status = this.getStatus()
 
-    
-  var z = document.getElementById("myChartDIV");
-  if (z.style.display === "none") {
-    z.style.display = "block";
-  } else {
-    z.style.display = "none";
-  }
+    var z = document.getElementById("myChartDIV");
+    if (z.style.display === "none") {
+      z.style.display = "block";
+    } else {
+      z.style.display = "none";
+    }
   
   var refs = firebase.database().ref('fitbitInfo/' + usid );
   refs.on('value', (snapshot) => {
@@ -62,40 +59,57 @@ export class TimelineComponent implements OnInit {
         }
     };
   })
-  var myArray = this.FitbitDataFromFirebase();
-  var y = 0;
-  var x = '';
-  var dataPoints = [];
-  for (var i = 0 ; i < myArray[0].length; i++) {
-    y = myArray[1][i];
-    x = myArray[0][i];
-	  dataPoints.push({
-      x: new Date(x),
-      y: y                
-      });
-      //console.log(x);
-      //console.log(y);
-      //console.log(dataPoints);
+  this.GenerateChart()
+  this.Entries = this.GetEntries()
+  console.log( this.Entries)
   }
-        console.log(dataPoints);
-
-
-    let chart = new CanvasJS.Chart("chartContainer", {
-      animationEnabled: true,
-      theme: "light2",
-      title:{
-        text: "Simple Line Chart"
-      },
-      axisY:{
-        includeZero: false
-      },
-      data:[{        
-        type: "line",       
-        dataPoints: dataPoints
-      }]
+  
+  getInfo(){
+    //Get Info of Current User
+    var usid = firebase.auth().currentUser.uid;
+    var ref = firebase.database().ref('usertypes/' + usid );
+    ref.on('value', (snapshot) => {
+      this.info = snapshot.val();
+      console.log(this.info)
     });
-    chart.render();
+    this.first = this.info.first_name
   }
+
+  GenerateChart(){
+    var myArray = this.FitbitDataFromFirebase();
+    var y = 0;
+    var x = '';
+    var dataPoints = [];
+    for (var i = 0 ; i < myArray[0].length; i++) {
+      y = myArray[1][i];
+      x = myArray[0][i];
+      dataPoints.push({
+        x: new Date(x),
+        y: y                
+        });
+        //console.log(x);
+        //console.log(y);
+        //console.log(dataPoints);
+    }
+      console.log(dataPoints);
+      let chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+          text: "Simple Line Chart"
+        },
+        axisY:{
+          includeZero: false
+        },
+        data:[{        
+          type: "line",       
+          dataPoints: dataPoints
+        }]
+      });
+      chart.render();
+  }
+
+
   FitbitDataFromFirebase(){
     var tdata:any
     var usid = firebase.auth().currentUser.uid;
@@ -109,6 +123,7 @@ export class TimelineComponent implements OnInit {
     //console.log(ar)
     var date = []
     var weight = []
+    var time = []
     var size = this.getSize(ar[0])
     //console.log(size)
     for (var i = 0; i < size; i++){
@@ -117,13 +132,34 @@ export class TimelineComponent implements OnInit {
       //console.log(temp[0])
       date.push(temp[0]) 
       weight.push(temp[2])
+      time.push(temp[1])
     }
     //console.log(date)
     //console.log(weight)
     weight = this.toNum(weight)
     console.log(weight)
-    return [date, weight]
+    return [date, weight, time]
   }
+  GetEntries(){
+    var Data = this.FitbitDataFromFirebase() 
+    console.log(Data)
+    var arry = []
+    
+    for (var i =0; i < Data[0].length; i++){
+    
+    var t = {
+        'Date': Data[0][i],
+        'Time': Data[2][i],
+        'Weight': Data[1][i]
+      };
+      arry.push(t)
+    }
+    console.log(arry)
+    
+    return arry
+  }
+
+
   toNum(arry){
     var rweight = []
     rweight = arry.map(Number);
@@ -172,5 +208,10 @@ toggle() {
     else{
       this.router.navigate(["../settings"])
     }
+  }
+  getStatus(){
+    var status = this.info.status
+    console.log(status)
+    return status
   }
 }

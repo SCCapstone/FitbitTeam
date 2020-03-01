@@ -49,41 +49,63 @@
 </div>
        
     </nav>
-
+    <button type="button" class="btn btn-md btn-success" (click) = 'GetEntries()'><font size=5 align=left>Test</font></button>
     <div class="col-md-4">
       <font size=6>Status:</font>
       <div>
-        <font size=5>On Track</font> <font class="greenbox" >____ </font></div>
-        <div>
-        <font size=5>At Risk</font> <font class="redbox" >____ </font></div>
-        </div>
+        <font size=5>{{status}}</font> 
+      </div>
+       
+      </div>
 <div class=row>
       <div class="col-md-2"></div>
       <div class="col-md-4">
           <a type="button" class="btn btn-lg btn-success" (click) = toggle()>Table</a>
-      </div></div>
-      <button type="button" class="btn btn-md btn-success" (click) = 'userid()'><font size=5 align=left>Test UserID</font></button>
-
-      
-      <div class=row>
+      </div>
+</div>
+<div class=row>
           <div class="col-md-2"></div>
           <div class="col-md-4">
               <div id="myDIV" style="width: 180%;">
                 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+              </div>    
+                <div id="myChartDIV" style="width: 200%;">
+                  <ul class="list-group" >
+                    <li class="list-group-item" style="background-color: rgb(204, 204, 204); color: #ffffff;">
+                      <div class="d-flex w-100 justify-content-between">
+                        <font size=5>Date</font>
+                        <font size=5>Time</font>
+                        <font size=5>Weight</font>
+              
+                      </div>
+                    </li>
+              
+                      <li class="list-group-item" *ngFor = "let entry of Entries; let i = index" style="background-color: gray; color: #ffffff;">
+                        <div class="d-flex w-100 justify-content-between">
+                          <font size=4>{{entry.Date}}</font>
+                          <font size=4>{{entry.Time}}</font>
+                          <font size=4>{{entry.Weight}}</font>
+                    
+                        </div>
+                      </li>		
+                    </ul>
+              
+                </div>
+            </div>
+        </div>
 
-                <!--<iframe width = 550 height = 500 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vShAFUam6FMz3PyGySp4vNrO5lzXemxSHreaG1UFuPpBBqo0ww8FYhRCXEDXF60HwNxjWqhXt0xzsNQ/pubhtml?gid=16563526&amp;single=true&amp;widget=true&amp;headers=false"></iframe>  -->                  </div>    
-                    <div id="myChartDIV" >
-                      <iframe width = 550 height = 500 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vShAFUam6FMz3PyGySp4vNrO5lzXemxSHreaG1UFuPpBBqo0ww8FYhRCXEDXF60HwNxjWqhXt0xzsNQ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>                    </div>
-            </div></div>
+        <!-- TODO MONTH/WEEK/YEAR
+        <div class=row>
+          <div class="col-md-4"></div>
+            <div class="col-md-4">
 
-            <div class=row>
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <a type="button" class="btn btn-lg btn-success">Week</a>
-                    <a type="button" class="btn btn-lg btn-success">Month</a>
-                    <a type="button" class="btn btn-lg btn-success">Year</a>
+              <a type="button" class="btn btn-lg btn-success">Week</a>
+              <a type="button" class="btn btn-lg btn-success">Month</a>
+              <a type="button" class="btn btn-lg btn-success">Year</a>
 
-                </div></div>
+            </div>
+          </div>
+        -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>

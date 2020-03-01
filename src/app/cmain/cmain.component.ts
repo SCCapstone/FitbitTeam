@@ -25,37 +25,43 @@ export class CmainComponent implements OnInit {
   fitbitInfo:any
   fitbitToken =''
   fitbitId= ''
+  status = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
+    
     console.log(userid)
-
    }
 
   ngOnInit() {
-    
-
     this.userid = firebase.auth().currentUser.uid;
-    //console.log(this.userid)
-    var usid = firebase.auth().currentUser.uid;
-    //path to get the medication infromation 
-    var mref = firebase.database().ref('meds/' + usid );
-    //path to get user/client information
-    var refs = firebase.database().ref('usertypes/' + usid);
-    //using client path grab info from firebase and save to this.info
+    this.getInfo()
+    this.pullFitbit()
+    this.getChart()
+    this.getMeds()    
+    this.status= this.getStatus()
+    this.saveStatus();
+  }
+
+  getInfo(){
+    var refs = firebase.database().ref('usertypes/' + this.userid);
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
     })
     //grabs first and last name from the info
     this.first = this.info.first_name
     this.last = this.info.last_name
-    //grabs the medication infromation and saves it as an array instead of an object
+  }
+
+  getMeds(){
+    var mref = firebase.database().ref('meds/' + this.userid );
     mref.on('value', (snapshot) => {
       this.tmeds = snapshot.val();
       this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
     })
     //console.log("outside" + this.meds)
-    console.log(this.FitbitDataFromFirebase()[0]);
+  }
+  getChart(){
   var myArray = this.FitbitDataFromFirebase();
   var y = 0;
   var x = '';
@@ -67,13 +73,7 @@ export class CmainComponent implements OnInit {
       x: new Date(x),
       y: y                
       });
-      //console.log(x);
-      //console.log(y);
-      //console.log(dataPoints);
   }
-        console.log(dataPoints);
-
-
     let chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       theme: "light2",
@@ -89,9 +89,9 @@ export class CmainComponent implements OnInit {
       }]
     });
     chart.render();
-
-    
   }
+
+
   //Function used in HTML to go to the timeline of a specific user
   toTimeline(){
     this.router.navigate(["../timeline"])
@@ -280,5 +280,41 @@ export class CmainComponent implements OnInit {
     }
     return size;
   }
+  
+  getStatus(){
+    var Data = this.FitbitDataFromFirebase()
+    var status = "Healthy"
+    for( var i = Data[1].length; i > Data[1].length - 1; i--){
+      var current = Data[1][Data[1].length]
+      var prior = Data[1][i]
+      var diff = Math.abs(current-prior)
 
+      if( diff > 3 && diff <= 5 ){
+        status = 'YELLOW'
+      }
+      else if( diff > 5){
+        status = 'RED'
+      }
+      else{
+        status = 'Healthy'
+      }
+    }
+    return status
+  }
+  saveStatus(){
+    var status = this.getStatus()
+    
+    var refs = firebase.database().ref('usertypes/' + this.userid);
+    console.log(this.info.type)
+    refs.set({
+      'uid': this.userid,
+      'first_name': this.info.first_name,
+      'last_name': this.info.last_name,
+      'status': status,
+      'type': this.info.type
+    });
+
+  }
+
+  
 }
