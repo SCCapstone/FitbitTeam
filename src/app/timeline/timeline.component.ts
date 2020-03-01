@@ -18,35 +18,6 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
 
-    //chart 
-    let chart = new CanvasJS.Chart("chartContainer", {
-      animationEnabled: true,
-      theme: "light2",
-      title:{
-        text: "Simple Line Chart"
-      },
-      axisY:{
-        includeZero: false
-      },
-      data: [{        
-        type: "line",       
-        dataPoints: [
-          { y: 450 },
-          { y: 414},
-          { y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
-          { y: 460 },
-          { y: 450 },
-          { y: 500 },
-          { y: 480 },
-          { y: 480 },
-          { y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
-          { y: 500 },
-          { y: 480 },
-          { y: 510 }
-        ]
-      }]
-    });
-    chart.render();
     
     //Get Info of Current User
     var usid = firebase.auth().currentUser.uid;
@@ -58,11 +29,11 @@ export class TimelineComponent implements OnInit {
     this.first = this.info.first_name
 
     
-  var x = document.getElementById("myChartDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  var z = document.getElementById("myChartDIV");
+  if (z.style.display === "none") {
+    z.style.display = "block";
   } else {
-    x.style.display = "none";
+    z.style.display = "none";
   }
   
   var refs = firebase.database().ref('fitbitInfo/' + usid );
@@ -91,8 +62,81 @@ export class TimelineComponent implements OnInit {
         }
     };
   })
+  var myArray = this.FitbitDataFromFirebase();
+  var y = 0;
+  var x = '';
+  var dataPoints = [];
+  for (var i = 0 ; i < myArray[0].length; i++) {
+    y = myArray[1][i];
+    x = myArray[0][i];
+	  dataPoints.push({
+      x: new Date(x),
+      y: y                
+      });
+      //console.log(x);
+      //console.log(y);
+      //console.log(dataPoints);
   }
+        console.log(dataPoints);
 
+
+    let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      theme: "light2",
+      title:{
+        text: "Simple Line Chart"
+      },
+      axisY:{
+        includeZero: false
+      },
+      data:[{        
+        type: "line",       
+        dataPoints: dataPoints
+      }]
+    });
+    chart.render();
+  }
+  FitbitDataFromFirebase(){
+    var tdata:any
+    var usid = firebase.auth().currentUser.uid;
+    var path:string = "fitbitData/" + usid
+    var ref = firebase.database().ref(path)
+    ref.on('value', (snapshot) => {
+      tdata = snapshot.val();
+    })
+    //console.log(tdata)
+    var ar = Object.values(tdata)
+    //console.log(ar)
+    var date = []
+    var weight = []
+    var size = this.getSize(ar[0])
+    //console.log(size)
+    for (var i = 0; i < size; i++){
+      //console.log(ar[0][i])
+      var temp = Object.values(ar[0][i])
+      //console.log(temp[0])
+      date.push(temp[0]) 
+      weight.push(temp[2])
+    }
+    //console.log(date)
+    //console.log(weight)
+    weight = this.toNum(weight)
+    console.log(weight)
+    return [date, weight]
+  }
+  toNum(arry){
+    var rweight = []
+    rweight = arry.map(Number);
+    //console.log(rweight)
+    return rweight
+  }
+  getSize(obj){
+    var size = 0, key;
+    for (key in obj){
+      size++;
+    }
+    return size;
+  }
 
 toggle() {
   var x = document.getElementById("myDIV");

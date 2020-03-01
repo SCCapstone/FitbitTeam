@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
+import * as CanvasJS from '../canvasjs.min.js';
 
 @Component({
   selector: 'app-cmain',
@@ -32,6 +33,8 @@ export class CmainComponent implements OnInit {
    }
 
   ngOnInit() {
+    
+
     this.userid = firebase.auth().currentUser.uid;
     //console.log(this.userid)
     var usid = firebase.auth().currentUser.uid;
@@ -52,6 +55,42 @@ export class CmainComponent implements OnInit {
       this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
     })
     //console.log("outside" + this.meds)
+    console.log(this.FitbitDataFromFirebase()[0]);
+  var myArray = this.FitbitDataFromFirebase();
+  var y = 0;
+  var x = '';
+  var dataPoints = [];
+  for (var i = myArray[0].length -7 ; i < myArray[0].length; i++) {
+    y = myArray[1][i];
+    x = myArray[0][i];
+	  dataPoints.push({
+      x: new Date(x),
+      y: y                
+      });
+      //console.log(x);
+      //console.log(y);
+      //console.log(dataPoints);
+  }
+        console.log(dataPoints);
+
+
+    let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      theme: "light2",
+      title:{
+        text: "Simple Line Chart"
+      },
+      axisY:{
+        includeZero: false
+      },
+      data:[{        
+        type: "line",       
+        dataPoints: dataPoints
+      }]
+    });
+    chart.render();
+
+    
   }
   //Function used in HTML to go to the timeline of a specific user
   toTimeline(){
