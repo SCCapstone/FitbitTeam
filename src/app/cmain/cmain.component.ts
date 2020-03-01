@@ -334,6 +334,27 @@ export class CmainComponent implements OnInit {
     });
 
   }
+    // the following group of get functions are to serve
+  // alexa the proper data for voice activated commands
+
+  getTodaysWeight(){
+    
+  }
+  getAverageWeekWeight(){
+
+  }
+  /*
+  getAverageMonthWeight() {
+    // past 30 days
+  }
+  */
+
+  getMedication(){
+
+  }
+  getReminders(){
+
+  }
 
   
 }
