@@ -41,7 +41,6 @@ Password : 123456
 To test the functionality of FitBit data, you can login to a FitBit account here: https://accounts.fitbit.com/login
 
 email: capstonefitbitteam@gmail.com
-
 password: capstone490
 
 ## Code scaffolding
