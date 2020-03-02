@@ -1,0 +1,16 @@
+{
+  "name": "capstone-fitbit",
+  "version": "1.1.0",
+  "description": "capstone 490 fitbit team project to manage weight for those with congestive heart failure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Amazon Alexa",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-core": "^2.6.0",
+    "ask-sdk-model": "^1.18.0",
+    "aws-sdk": "^2.326.0"
+  }
+}

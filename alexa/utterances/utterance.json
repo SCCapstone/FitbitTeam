@@ -1,0 +1,90 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "capstone fitbit",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "GetTodaysWeightIntent",
+                    "slots": [],
+                    "samples": [
+                        "today's",
+                        "today's weight",
+                        "tell me today's weight",
+                        "give me today's weight"
+                    ]
+                },
+                {
+                    "name": "GetWeeksWeightIntent",
+                    "slots": [],
+                    "samples": [
+                        "week's average",
+                        "week's average weight",
+                        "week' weight",
+                        "this week's weight",
+                        "this week's average weight",
+                        "this week's average",
+                        "tell me this week's weight",
+                        "tell me this week's average weight",
+                        "tell me this week's average",
+                        "tell me weekly weight",
+                        "tell me weekly average weight",
+                        "tell me weekly average",
+                        "give me this week's weight",
+                        "give me this week's average weight",
+                        "give me this week's average"
+                    ]
+                },
+                {
+                    "name": "GetStatusIntent",
+                    "slots": [],
+                    "samples": [
+                        "status",
+                        "get today's status",
+                        "what is my status",
+                        "what's my status",
+                        "today's status",
+                        "tell me today's status",
+                        "give me today's status"
+                    ]
+                },
+                {
+                    "name": "GetMedicationIntent",
+                    "slots": [],
+                    "samples": [
+                        "medictions",
+                        "get my medictions",
+                        "tell me my medications",
+                        "what are my medications"
+                    ]
+                },
+                {
+                    "name": "GetRemindersIntent",
+                    "slots": [],
+                    "samples": [
+                        "reminders",
+                        "get my reminders",
+                        "what are my reminders",
+                        "tell me my reminders"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
