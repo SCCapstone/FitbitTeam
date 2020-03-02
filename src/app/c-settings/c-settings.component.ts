@@ -16,7 +16,7 @@ export class CSettingsComponent implements OnInit {
   info:any
   type = ''
   fitbitId = ''
-  AlexaId = ''
+  AlexaID = ''
   token = ''
   Atoken = ''
   fitbit:any
