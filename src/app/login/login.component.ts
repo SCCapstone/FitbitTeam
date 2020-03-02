@@ -12,8 +12,8 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email = 'test@email.com';
-  password = '123456';
+  email = '';
+  password = '';
   uid = ''
   constructor(public router: Router,private route: ActivatedRoute) { }
   type:any;
