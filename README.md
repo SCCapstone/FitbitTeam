@@ -39,8 +39,11 @@ Password : 123456
 ## Fitbit Account 
 
 To test the functionality of FitBit data, you can login to a FitBit account here: https://accounts.fitbit.com/login
+
 email: capstonefitbitteam@gmail.com
+
 password: capstone490
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
