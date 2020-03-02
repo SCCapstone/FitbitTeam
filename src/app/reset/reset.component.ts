@@ -7,7 +7,7 @@ import { LoginComponent } from '../login/login.component'
   styleUrls: ['./reset.component.css']
 })
 export class ResetComponent implements OnInit {
-
+  currentPw = ''
   constructor() { }
 
   ngOnInit() {
