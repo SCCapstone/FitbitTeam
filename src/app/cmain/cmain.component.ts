@@ -35,9 +35,16 @@ export class CmainComponent implements OnInit {
 
   ngOnInit() {
     this.userid = firebase.auth().currentUser.uid;
-    this.getInfo()
-    this.pullFitbit()
-    this.getChart()
+    setTimeout(() => {
+      this.getInfo()
+    }, 1000);
+    setTimeout(() => {
+      this.pullFitbit()
+    }, 1000);
+    setTimeout(() => {
+      this.getChart()
+    }, 1000);
+    
     this.getMeds()    
     this.status= this.getStatus()
     this.saveStatus();
@@ -154,7 +161,9 @@ export class CmainComponent implements OnInit {
   pullFitbit(){
     var userid = firebase.auth().currentUser.uid;
     var path:string = ("fitbitInfo/" + userid.toString());
-
+    setTimeout(() => {
+      console.log("timeout")
+    }, 1000);
     var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
       this.fitbitInfo = snapshot.val();
