@@ -338,7 +338,19 @@ export class CmainComponent implements OnInit {
   // alexa the proper data for voice activated commands
 
   getTodaysWeight(){
-    
+    var temp = this.FitbitDataFromFirebase()
+    var today = this.getDate()
+    var dates = temp[0]
+    console.log(dates)
+    var size = this.getSize(dates)
+    for(var i = 0; i < size; i++)
+    {
+      if(dates[i] == today)
+      {
+        return dates[i]
+      }
+    }
+    return null;
   }
   getAverageWeekWeight(){
 
