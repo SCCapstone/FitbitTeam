@@ -15,7 +15,7 @@ export class CSettingsComponent implements OnInit {
   hasclicked=false
   info:any
   type = ''
-  fitbitId = ''
+  connection = 'User is not connected'
   token = ''
   fitbit:any
   constructor(public router: Router,private route: ActivatedRoute) {
@@ -33,13 +33,17 @@ export class CSettingsComponent implements OnInit {
     this.first = this.info.first_name
     this.last = this.info.last_name
     this.type = this.info.type
-    /*
+    
     dref.on('value', (snapshot) => {
       this.fitbit = snapshot.val();
     })
-   this.fitbitId = this.fitbit.id
-   this.token = this.fitbit.token
-   */
+   if(this.fitbit != ''){
+     this.connection = 'Connected to fitbit account'
+    console.log("CONNECTED")
+   }
+   
+   console.log(this.token)
+   
   }
 
   logout(){
