@@ -16,7 +16,9 @@ export class CSettingsComponent implements OnInit {
   info:any
   type = ''
   fitbitId = ''
+  AlexaId = ''
   token = ''
+  Atoken = ''
   fitbit:any
   constructor(public router: Router,private route: ActivatedRoute) {
    }
