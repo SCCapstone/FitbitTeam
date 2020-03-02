@@ -19,10 +19,21 @@ export class TimelineComponent implements OnInit {
   Entries:any
   table = false;
   status = ''
-  constructor(public router: Router,private route: ActivatedRoute) { }
+  clientRef= ''
+  constructor(public router: Router,private route: ActivatedRoute) { 
+    if (this.router.getCurrentNavigation().extras.state != undefined) {
+    console.log(this.router.getCurrentNavigation().extras.state.example); // should log client id
+    this.clientRef = this.router.getCurrentNavigation().extras.state.example
+    }
+  }
 
   ngOnInit() {
-    var usid = firebase.auth().currentUser.uid;
+    var usid
+    if (this.clientRef != ''){
+      usid = this.clientRef;
+    } else {
+    usid = firebase.auth().currentUser.uid;
+    }
     this.getInfo()
     this.status = this.getStatus()
 
@@ -63,10 +74,24 @@ export class TimelineComponent implements OnInit {
   this.Entries = this.GetEntries()
   console.log( this.Entries)
   }
-  
-  getInfo(){
+  getTypeInfo(){
     //Get Info of Current User
     var usid = firebase.auth().currentUser.uid;
+    var ref = firebase.database().ref('usertypes/' + usid );
+    ref.on('value', (snapshot) => {
+      this.info = snapshot.val();
+      console.log(this.info)
+    });
+    this.first = this.info.first_name
+  }
+  getInfo(){
+    //Get Info of Current client
+    var usid
+    if (this.clientRef != ''){
+      usid = this.clientRef;
+    } else {
+    usid = firebase.auth().currentUser.uid;
+    }
     var ref = firebase.database().ref('usertypes/' + usid );
     ref.on('value', (snapshot) => {
       this.info = snapshot.val();
@@ -113,7 +138,12 @@ export class TimelineComponent implements OnInit {
 
   FitbitDataFromFirebase(){
     var tdata:any
-    var usid = firebase.auth().currentUser.uid;
+    var usid
+    if (this.clientRef != ''){
+      usid = this.clientRef;
+    } else {
+    usid = firebase.auth().currentUser.uid;
+    }
     var path:string = "fitbitData/" + usid
     var ref = firebase.database().ref(path)
     ref.on('value', (snapshot) => {
@@ -193,6 +223,8 @@ toggle() {
 }
 
   homepage(){
+        
+    this.getTypeInfo()
     var type = this.info.type
     if(type == 'Admin'){
       this.router.navigate(["../admin"])
@@ -202,6 +234,7 @@ toggle() {
     }
   }
   settings(){
+    this.getTypeInfo()
     var type = this.info.type
     if(type == 'Admin'){
       this.router.navigate(["../asettings"])

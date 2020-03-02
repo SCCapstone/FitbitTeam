@@ -36,14 +36,16 @@ export class AdminMainComponent implements OnInit {
       this.tClients = snapshot.val();
       this.clients = Object.keys(this.tClients).map(i => this.tClients[i]);
     })
+    console.log(this.clients[1].refNum)
   }
   clicked(){
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
   }
-  toTimeline(){
-    this.router.navigate(["../timeline"])
-    console.log(firebase.auth().currentUser.uid)
+  toTimeline(refNumb){
+    this.router.navigate(["../timeline"], { state: { example: refNumb } })
+    console.log(refNumb)
+    //console.log(firebase.auth().currentUser.uid)
   }
   logout(){
     firebase.auth().signOut();
