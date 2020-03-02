@@ -54,7 +54,7 @@
       <font size=5>{{clients.patName}}</font>
       <font size =5>(Status here)</font>
       <font size=5>{{clients.refNum}}</font>
-      <font size=5 (click) = toTimeline()>Timeline</font>
+      <font size=5 (click) = toTimeline(clients.refNum)>Timeline</font>
      <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
     </div>
   </li>		
