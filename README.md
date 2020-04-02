@@ -61,6 +61,7 @@ Run cypress:
 Run tests:
 -click test firsttest.spec.js
 Here is good for cypress if you need further help https://www.youtube.com/watch?v=VvLocgtCQnY
+There walkthrough is very detailed on the site [here](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell)
 
 [Cypress online dashboard](https://dashboard.cypress.io/) is setup and should be used to test before deployment. Keep testing components within the respective project directory. It would be helpful to record testings to show how a bug comes up, and post these as issues. This links with GitHub as well.
 
