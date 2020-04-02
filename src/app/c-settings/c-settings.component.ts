@@ -51,6 +51,45 @@ export class CSettingsComponent implements OnInit {
     this.router.navigate(["../login"])
     console.log(firebase.auth().currentUser.uid)
   }
+  /* This function is used as a button on c-settings to allow
+  the user to revoke access from FitBit. 
+  */
+  revokeAccess(){
+    //grabbing fitbit token from firebase
+    var fitbitInfo:any
+    var fitbitToken:any
+    var fitbitId:any
+    var userid = firebase.auth().currentUser.uid;
+    var path:string = ("fitbitInfo/" + userid.toString());
+    var fitbitRefs = firebase.database().ref(path); 
+    fitbitRefs.on('value', (snapshot) => {
+      fitbitInfo = snapshot.val();
+    });
+    var tempArray = Object.keys(fitbitInfo).map((key)=> {
+      return [Number(key), fitbitInfo[key]];
+    });
+    fitbitToken = tempArray[1][1].token
+    fitbitId = tempArray[1][1].id
+    //creating AJAX POST for revoking access from Fitbit API Authorization server
+    var params = "token=" + fitbitToken;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText)
+        }
+    };
+    xhr.send(params);
+  }
+  /*This function will check in ngOnInit to see if the user is already
+  logged in. If they are, it will present the revokeAccess button instead
+  of the login to fitbit button.
+  */
+  fitbitLogged(){
+
+  }
   clicked(){
     this.first= ''
     this.last = ''
