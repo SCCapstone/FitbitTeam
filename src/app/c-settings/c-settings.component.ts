@@ -51,6 +51,9 @@ export class CSettingsComponent implements OnInit {
     this.router.navigate(["../login"])
     console.log(firebase.auth().currentUser.uid)
   }
+  /* This function is used as a button on c-settings to allow
+  the user to revoke access from FitBit. 
+  */
   revokeAccess(){
     //grabbing fitbit token from firebase
     var fitbitInfo:any
@@ -79,6 +82,13 @@ export class CSettingsComponent implements OnInit {
         }
     };
     xhr.send(params);
+  }
+  /*This function will check in ngOnInit to see if the user is already
+  logged in. If they are, it will present the revokeAccess button instead
+  of the login to fitbit button.
+  */
+  fitbitLogged(){
+
   }
   clicked(){
     this.first= ''
