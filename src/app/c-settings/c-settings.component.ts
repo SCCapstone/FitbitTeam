@@ -75,7 +75,7 @@ export class CSettingsComponent implements OnInit {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx', true);
+    //xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx', true);
     xhr.onload = function () {
         if (xhr.status === 200) {
             console.log(xhr.responseText)
