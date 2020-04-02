@@ -16,17 +16,20 @@ export class CSettingsComponent implements OnInit {
   info:any
   type = ''
   connection = 'User is not connected'
-  token = ''
-  fitbit:any
+  fitbitToken = ''
+  fitbitId = ''
+  fitbitInfo:any
   constructor(public router: Router,private route: ActivatedRoute) {
    }
 
   ngOnInit() {
+    //Grabbing First and Last name from firebase
     this.userid = firebase.auth().currentUser.uid;
-    console.log(this.userid)
+    console.log("User ID: "+ this.userid)
     var usid = firebase.auth().currentUser.uid;
     var refs = firebase.database().ref('usertypes/' + usid);
-    var dref = firebase.database().ref('fitbitInfo/' + usid );
+    var fref = firebase.database().ref('fitbitInfo/' + usid );
+
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
     })
@@ -34,15 +37,21 @@ export class CSettingsComponent implements OnInit {
     this.last = this.info.last_name
     this.type = this.info.type
     
-    dref.on('value', (snapshot) => {
-      this.fitbit = snapshot.val();
-    })
-   if(this.fitbit != ''){
-     this.connection = 'Connected to fitbit account'
-    console.log("CONNECTED")
-   }
-   
-   console.log(this.token)
+    //grabbing fitbit data from firebase
+    fref.on('value', (snapshot) => {
+      this.fitbitInfo = snapshot.val();
+    });
+    var tempArray = Object.keys(this.fitbitInfo).map((key)=> {
+      return [Number(key), this.fitbitInfo[key]];
+    });
+    this.fitbitToken = tempArray[1][1].token
+    this.fitbitId = tempArray[1][1].id
+    // If user is logged into FitBit, we want to tell them.
+    if(this.fitbitInfo != ''){
+      this.connection = 'Connected to fitbit account'
+      console.log("CONNECTED")
+    }
+   console.log("FitBit Token: " + this.fitbitToken)
    
   }
 
@@ -51,27 +60,22 @@ export class CSettingsComponent implements OnInit {
     this.router.navigate(["../login"])
     console.log(firebase.auth().currentUser.uid)
   }
+
+
+  /*
+  Function Purpose: redirect user when 'Login with Fitbit' button is clicked to authenticate
+  All parameters for this function are found directly on fitbit api dev website under app settings. You can change redirect link here for after user authenticates. 
+  */
+  redirect() {
+    let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
+    window.open(url)
+  }
   /* This function is used as a button on c-settings to allow
   the user to revoke access from FitBit. 
   */
   revokeAccess(){
-    //grabbing fitbit token from firebase
-    var fitbitInfo:any
-    var fitbitToken:any
-    var fitbitId:any
-    var userid = firebase.auth().currentUser.uid;
-    var path:string = ("fitbitInfo/" + userid.toString());
-    var fitbitRefs = firebase.database().ref(path); 
-    fitbitRefs.on('value', (snapshot) => {
-      fitbitInfo = snapshot.val();
-    });
-    var tempArray = Object.keys(fitbitInfo).map((key)=> {
-      return [Number(key), fitbitInfo[key]];
-    });
-    fitbitToken = tempArray[1][1].token
-    fitbitId = tempArray[1][1].id
     //creating AJAX POST for revoking access from Fitbit API Authorization server
-    var params = "token=" + fitbitToken;
+    var params = "token=" + this.fitbitToken;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -83,13 +87,7 @@ export class CSettingsComponent implements OnInit {
     };
     xhr.send(params);
   }
-  /*This function will check in ngOnInit to see if the user is already
-  logged in. If they are, it will present the revokeAccess button instead
-  of the login to fitbit button.
-  */
-  fitbitLogged(){
 
-  }
   clicked(){
     this.first= ''
     this.last = ''

@@ -41,14 +41,18 @@
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
-      <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800">
-
-        Login to Fitbit
-        </a>
-        <a (click)="revokeAccess()"><button type="button" class="btn btn-md btn-primary">Revoke Access</button></a>
+        <button type = "button" id="fitbitLogin" class ="btn btn-md btn-primary" onclick="redirect()">Login to FitBit</button>
 	  </div>
   </li>
-
+  <li class="list-group-item" >
+    <div class="d-flex w-100 justify-content-between">
+        <font size=5>Token:  {{fitbitToken}}</font>
+        <button type = "button" class ="btn btn-md btn-primary" onclick="revokeAccess()">Revoke Access</button>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+      <font size=5>ID:  {{fitbitID}}</font>
+  </div>
+</li>
 </ul>
 
 <ul class="list-group">
