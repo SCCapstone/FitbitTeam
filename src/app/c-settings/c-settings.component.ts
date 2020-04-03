@@ -17,6 +17,8 @@ export class CSettingsComponent implements OnInit {
   type = ''
   connection = 'User is not connected'
   fitbitToken = ''
+  tokenParsed:String;
+  tokenLength:any
   fitbitId = ''
   fitbitInfo:any
   constructor(public router: Router,private route: ActivatedRoute) {
@@ -46,12 +48,19 @@ export class CSettingsComponent implements OnInit {
     });
     this.fitbitToken = tempArray[1][1].token
     this.fitbitId = tempArray[1][1].id
+    //function parses the very long token to the XXXX.XXXX first 4 and last 4 characters to easily display/diagnose
+    if (this.fitbitToken != '') {
+      this.tokenParsed = this.fitbitToken.toString();
+      this.tokenLength = this.fitbitToken.length;
+      this.tokenParsed = this.tokenParsed.substr(0, 4) + "." + this.tokenParsed.substr(this.tokenLength -4); //last 4 
+    }
     // If user is logged into FitBit, we want to tell them.
     if(this.fitbitInfo != ''){
       this.connection = 'Connected to fitbit account'
       console.log("CONNECTED")
     }
    console.log("FitBit Token: " + this.fitbitToken)
+   console.log("FitBit ID: " + this.fitbitId)
    
   }
 
@@ -75,13 +84,20 @@ export class CSettingsComponent implements OnInit {
   */
   revokeAccess(){
     //creating AJAX POST for revoking access from Fitbit API Authorization server
+    /*
+    If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
+    reauthenticate with FitBit to pass a valid token to Firebase that we can use for this command. Look into the xhr console log
+    */
     var params = "token=" + this.fitbitToken;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
+    // this long basic is our client ID and secret encoded in base 64 with a : delimitting the two. clientID:clientSecret=
+    xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx=');
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx', true);
+    console.log(xhr);
     xhr.onload = function () {
         if (xhr.status === 200) {
+            console.log("SUCCESS")
             console.log(xhr.responseText)
         }
     };
