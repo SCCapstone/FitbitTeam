@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router,private route: ActivatedRoute) { }
   type:any;
   ngOnInit() {
+    this.enter()
   }
 
   login(){
@@ -89,6 +90,17 @@ export class LoginComponent implements OnInit {
   });
     }); //end result
   }
+  //function allows user to hit 'Enter' on keyboard = 13 to login
+  enter() {
+    var input = document.getElementById('InputPassword');
+    input.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("loginButton").click();
+      }
+    });
+  }
+
   cmain(){
     this.router.navigate(["../cmain"])
   }
