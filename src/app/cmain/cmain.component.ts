@@ -183,7 +183,8 @@ export class CmainComponent implements OnInit {
     */
     var todaysDate = this.getDate();
     var monthPriorDate = this.getPriorMonth();
-    
+    if (this.fitbitToken != null) {
+      //brackets fucked beyond this point
     console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
 
     var temp:string = 'https://api.fitbit.com/1/user/' + this.fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
@@ -225,6 +226,7 @@ export class CmainComponent implements OnInit {
     };
     xhr.send();
   }
+}
 
 
   FitbitDataFromFirebase(){
