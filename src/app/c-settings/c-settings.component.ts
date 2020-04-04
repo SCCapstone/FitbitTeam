@@ -79,8 +79,16 @@ export class CSettingsComponent implements OnInit {
   All parameters for this function are found directly on fitbit api dev website under app settings. You can change redirect link here for after user authenticates. 
   */
   redirect() {
-    let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
-    window.open(url)
+    console.log(this.fitbitToken)
+    if (this.fitbitToken = null) {
+      let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
+      window.open(url)
+    } else {
+      alert("User is already authenticated with FitBit!" +
+      "\nCheck your application settings at: "+
+      "\nfitbit.com/settings/applications"+
+      "\nApp is: Capstone490")
+    }
   }
   /* This function is used as a button on c-settings to allow
   the user to revoke access from FitBit. 
@@ -93,26 +101,29 @@ export class CSettingsComponent implements OnInit {
 
     If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.
     */
-    var params = "token=" + this.fitbitToken;
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
-    // this long basic is our client ID and secret encoded in base 64 with a : delimitting the two. clientID:clientSecret=
-    xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx=');
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    console.log(xhr);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            console.log("SUCCESS")
-            console.log(xhr.responseText)
-        }
-    };
-    xhr.send(params);
-    // remove the token from firebase
-    let userid = firebase.auth().currentUser.uid;
-    var path:string = "fitbitInfo/" + userid.toString();
-    let fitbitRef = firebase.database().ref(path);
-    fitbitRef.remove();
-
+    if (this.fitbitToken != '') {
+      var params = "token=" + this.fitbitToken;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
+      // this long basic is our client ID and secret encoded in base 64 with a : delimitting the two. clientID:clientSecret=
+      xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx=');
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      console.log(xhr);
+      xhr.onload = function () {
+          if (xhr.status === 200) {
+              console.log("SUCCESS")
+              console.log(xhr.responseText)
+          }
+      };
+      xhr.send(params);
+      // remove the token from firebase
+      let userid = firebase.auth().currentUser.uid;
+      var path:string = "fitbitInfo/" + userid.toString();
+      let fitbitRef = firebase.database().ref(path);
+      fitbitRef.remove();
+    } else {
+      alert("Token is invalid!")
+    }
   }
 
   clicked(){
