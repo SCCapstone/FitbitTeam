@@ -87,6 +87,8 @@ export class CSettingsComponent implements OnInit {
     /*
     If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
     reauthenticate with FitBit to pass a valid token to Firebase that we can use for this command. Look into the xhr console log
+
+    If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.
     */
     var params = "token=" + this.fitbitToken;
     var xhr = new XMLHttpRequest();
@@ -102,6 +104,12 @@ export class CSettingsComponent implements OnInit {
         }
     };
     xhr.send(params);
+    // remove the token from firebase
+    let userid = firebase.auth().currentUser.uid;
+    var path:string = "fitbitInfo/" + userid.toString();
+    let fitbitRef = firebase.database().ref(path);
+    fitbitRef.remove();
+
   }
 
   clicked(){
