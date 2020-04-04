@@ -184,49 +184,47 @@ export class CmainComponent implements OnInit {
     var todaysDate = this.getDate();
     var monthPriorDate = this.getPriorMonth();
     if (this.fitbitToken != null) {
-      //brackets fucked beyond this point
-    console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+      console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+      var temp:string = 'https://api.fitbit.com/1/user/' + this.fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
+      console.log(temp);
 
-    var temp:string = 'https://api.fitbit.com/1/user/' + this.fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
-    console.log(temp);
-
-    //Grabs the data from fitbit as a xhr reqest. 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', temp);
-    xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        //Firebase Storing
-        let finfo = xhr.responseText
-        var tarray = finfo.split("{");
-        var array:any
-        var tobj:any
-        var tarry = []
-        for (var i = 2 ; i < tarray.length; i++){
-          //console.log(tarray[i].split(","))
-          array = tarray[i].split(",")
-          //String manipulation, Grabs weight from xhr string
-          var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
-          var tdate = array[1].split(":")[1].replace('"', '').replace('\\', '') 
-          //console.log(array[4].split("\"")[3].replace('"'))
-          var ttime = array[4].split("\"")[3].replace('"')
-          tobj = {
-            'date': tdate,
-            'time': ttime,
-            'weight': tweight
-          }
-          tarry.push(tobj)
-        }  
-        //console.log(tarry)
-         var path:string = "fitbitData/" + userid.toString();
-         let fdata = firebase.database().ref(path).set({
-          Data: tarry
-         });
-      }
-    };
-    xhr.send();
+      //Grabs the data from fitbit as a xhr reqest. 
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', temp);
+      xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          //Firebase Storing
+          let finfo = xhr.responseText
+          var tarray = finfo.split("{");
+          var array:any
+          var tobj:any
+          var tarry = []
+          for (var i = 2 ; i < tarray.length; i++){
+            //console.log(tarray[i].split(","))
+            array = tarray[i].split(",")
+            //String manipulation, Grabs weight from xhr string
+            var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
+            var tdate = array[1].split(":")[1].replace('"', '').replace('\\', '') 
+            //console.log(array[4].split("\"")[3].replace('"'))
+            var ttime = array[4].split("\"")[3].replace('"')
+            tobj = {
+              'date': tdate,
+              'time': ttime,
+              'weight': tweight
+            }
+            tarry.push(tobj)
+          }  
+          //console.log(tarry)
+          var path:string = "fitbitData/" + userid.toString();
+          let fdata = firebase.database().ref(path).set({
+            Data: tarry
+          });
+        }
+      };
+      xhr.send();
+    }
   }
-}
 
 
   FitbitDataFromFirebase(){

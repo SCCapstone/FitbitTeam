@@ -49,8 +49,11 @@ export class CSettingsComponent implements OnInit {
     this.fitbitToken = tempArray[1][1].token
     this.fitbitId = tempArray[1][1].id
     //function parses the very long token to the XXXX.XXXX first 4 and last 4 characters to easily display/diagnose
+    console.log("Parsing token")
     if (this.fitbitToken != '') {
-      this.tokenParsed = this.fitbitToken.toString();
+      setTimeout(() => {
+      this.tokenParsed = this.fitbitToken.toString()
+      }, 2000);
       this.tokenLength = this.fitbitToken.length;
       this.tokenParsed = this.tokenParsed.substr(0, 4) + "." + this.tokenParsed.substr(this.tokenLength -4); //last 4 
     }
