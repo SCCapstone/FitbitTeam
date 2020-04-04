@@ -161,9 +161,7 @@ export class CmainComponent implements OnInit {
   pullFitbit(){
     var userid = firebase.auth().currentUser.uid;
     var path:string = ("fitbitInfo/" + userid.toString());
-    setTimeout(() => {
-      console.log("timeout")
-    }, 1000);
+    
     var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
       this.fitbitInfo = snapshot.val();

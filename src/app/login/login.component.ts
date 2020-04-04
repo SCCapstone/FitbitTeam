@@ -42,38 +42,46 @@ export class LoginComponent implements OnInit {
       .then(function(result){
         //console.log(login)
         let userid = firebase.auth().currentUser.uid;
-      
-        // FITBIT INITIALIZATION AFTER REDIRECT
-      if (window.location.href != ' ') {
-        //link not empty
-        var url = window.location.href;
-        if (url.split('#')[1] != undefined) {
-          // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
-          // gets access_token
-          var access_token = url.split('#')[1].split("=")[1].split("&")[0];
-          // gets the userId
-          var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
-          console.log("Fitbit Token: " + access_token);
-          console.log("Fitbit ID: " + fitbitId);
-
-          // push fitbit info to firebase
-          var path:string = "fitbitInfo/" + userid.toString();
-          let fitbitInfo = firebase.database().ref(path).push();
-          if (access_token != '' && fitbitId != ''){
-            fitbitInfo.set ({
-              'token': access_token,
-              'id': fitbitId
-            });
-          } else{
-            fitbitInfo.set({
-              'token': "ERROR",
-              'id': "ERROR"
-            });
+        //CALL FITBIT PULL
+        if (window.location.href != ' ') {
+          var url = window.location.href;
+          if (url.split('#')[1] != undefined) {
+            // Make sure it is a redirect before calling method!
+            this.getFitbitInfo();
           }
-          //end firebase input
         }
-      }
-        // END FITBIT INITIALIZATION
+      
+      //   // FITBIT INITIALIZATION AFTER REDIRECT
+      // if (window.location.href != ' ') {
+      //   //link not empty
+      //   var url = window.location.href;
+      //   if (url.split('#')[1] != undefined) {
+      //     // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
+      //     // gets access_token
+      //     var access_token = url.split('#')[1].split("=")[1].split("&")[0];
+      //     // gets the userId
+      //     var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+      //     console.log("Fitbit Token: " + access_token);
+      //     console.log("Fitbit ID: " + fitbitId);
+
+      //     // push fitbit info to firebase
+      //     var path:string = "fitbitInfo/" + userid.toString();
+      //     let fitbitInfo = firebase.database().ref(path).push();
+      //     if (access_token != '' && fitbitId != ''){
+      //       fitbitInfo.set ({
+      //         'token': access_token,
+      //         'id': fitbitId
+      //       });
+      //     } else{
+      //       fitbitInfo.set({
+      //         'token': "ERROR",
+      //         'id': "ERROR"
+      //       });
+      //     }
+      //     //end firebase input
+      //   }
+      // }
+      //   // END FITBIT INITIALIZATION
 
   let usertypesRef = firebase.database().ref('usertypes/');
   usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
@@ -99,6 +107,42 @@ export class LoginComponent implements OnInit {
         document.getElementById("loginButton").click();
       }
     });
+  }
+  /*
+  This function checks the URl to see if it contains information after the 'Login with fitbit' redirect
+  If it does, it will parse this data and upload to firebase AS LONG AS it is not already saved. 
+
+  Tokens ARE different each time they are assigned, if it is a new token it will delete the rest from firebase
+  but IF the token is the same it will do nothing.
+  */
+  getFitbitInfo() {
+    var url = window.location.href;
+    // gets access_token
+    var access_token = url.split('#')[1].split("=")[1].split("&")[0];
+    // gets the userId
+    var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+    console.log("Fitbit Token: " + access_token);
+    console.log("Fitbit ID: " + fitbitId);     
+        
+    let userid = firebase.auth().currentUser.uid;
+    var path:string = "fitbitInfo/" + userid.toString();
+    let fitbitRef = firebase.database().ref(path);
+    // deletes any existing tokens
+    let childPath = fitbitRef.remove();
+    //push to firebase
+    fitbitRef.push();
+    if (access_token != '' && fitbitId != ''){
+      fitbitRef.set ({
+        'token': access_token,
+        'id': fitbitId
+      });
+    } else {
+      fitbitRef.set({
+        'token': "ERROR",
+        'id': "ERROR"
+      });
+    }
+  // END FITBIT INITIALIZATION
   }
 
   cmain(){
