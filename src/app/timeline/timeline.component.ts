@@ -124,7 +124,11 @@ export class TimelineComponent implements OnInit {
         title:{
           text: "Detailed Zoom/Pan Graph"
         },
+        axisX:{
+          title : "Last 30 Days"
+         },
         axisY:{
+          title : "Pounds (lbs)",
           includeZero: false
         },
         data:[{        

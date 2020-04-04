@@ -88,7 +88,11 @@ export class CmainComponent implements OnInit {
       title:{
         text: "Weekly Recap"
       },
+      axisX:{
+        title : "Last 7 Days"
+       },
       axisY:{
+        title : "Pounds (lbs)",
         includeZero: false
       },
       data:[{        
