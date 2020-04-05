@@ -23,6 +23,7 @@ export class CmainComponent implements OnInit {
   hasclicked=false
   id = ''
   status = ''
+  reccomendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
@@ -33,6 +34,7 @@ export class CmainComponent implements OnInit {
   ngOnInit() {
     this.userid = firebase.auth().currentUser.uid;
     this.getMeds()
+    this.getReccomendation()
     setTimeout(() => {
       this.getInfo()
     }, 400);
@@ -328,7 +330,7 @@ export class CmainComponent implements OnInit {
       bool = 1;
     }
     diff = Math.abs(diff)
-
+    //console.log(diff)
     //check whether they are losing weight (week to week), in this case, status will remain green
     var weekDiff = current - weekAgo
     if(weekDiff < 0)
@@ -336,7 +338,7 @@ export class CmainComponent implements OnInit {
       bool = 1;
     }
     weekDiff = Math.abs(weekDiff)
-
+    //console.log(weekDiff)
     //First check and set status based on difference of weight from one day to the next
     if(diff <= 1)
     {
@@ -436,14 +438,43 @@ export class CmainComponent implements OnInit {
     console.log("Monthly average: " + total)
     return total;
   }
-  
-
+  getReccomendation()
+  {
+    var reccomendation = ''
+    var count = 0
+    count = Math.floor(Math.random() * (7))
+    switch (count)
+    {
+      case 0:
+        reccomendation = 'Try and excercise atleast 3 times a week'
+        break;
+      case 1:
+        reccomendation = 'Avoid foods/drinks high in sugar'
+        break;
+      case 2:
+        reccomendation = 'Avoid processed junk foods'
+        break;
+      case 3:
+        reccomendation = 'Cut back on your carbs'
+        break;
+      case 4:
+        reccomendation = 'Drink lots of water'
+        break;
+      case 5:
+        reccomendation = 'Always keep healthy food around to snack on'
+        break;
+      case 6:
+        reccomendation = 'Make sure to get enough sleep'
+        break;
+    }
+    console.log(reccomendation)
+    this.reccomendation = reccomendation
+    return reccomendation
+  }
   getMedication(){
 
   }
   getReminders(){
 
-  }
-
-  
+  }  
 }
