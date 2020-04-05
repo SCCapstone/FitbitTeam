@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
     }).catch(function(error) {
       // An error happened.
     });
-    console.log(firebase.auth().currentUser.uid)
+    //console.log(firebase.auth().currentUser.uid)
   }
 
   signup() {
