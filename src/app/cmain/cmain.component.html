@@ -97,7 +97,10 @@
 			</li>
 			<li>
 				<h5>Day(s) of the week:</h5>
-				<select multiple class="form-control" id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" #ctrl="ngModel" required >
+
+
+				<!--
+				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
 					<option value="Monday">Monday</option>
 					<option value="Tuesday">Tuesday</option>
 					<option value="Wednesday">Wednesday</option>
@@ -105,6 +108,17 @@
 					<option value="Friday">Friday</option>
 					<option value="Saturday">Saturday</option>
 					<option value="Sunday">Sunday</option>
+				  </select>
+					
+				-->
+				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
+					<option data-tokens="Monday">Monday</option>
+					<option data-tokens="Tuesday">Tuesday</option>
+					<option data-tokens="Wednesday">Wednesday</option>
+					<option data-tokens="Thursday">Thursday</option>
+					<option data-tokens="Friday">Friday</option>
+					<option data-tokens="Saturday">Saturday</option>
+					<option data-tokens="Sunday">Sunday</option>
 				  </select>
 				  
 			</li>

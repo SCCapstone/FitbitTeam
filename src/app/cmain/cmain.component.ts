@@ -39,7 +39,6 @@ export class CmainComponent implements OnInit {
     }, 400);
     setTimeout(() => {
       this.getChart()
-      this.saveStatus();
     }, 500);
     this.status= this.getStatus()
 
@@ -332,13 +331,11 @@ export class CmainComponent implements OnInit {
         status = 'GREEN'
       }
     }
+    this.saveStatus(status)
     return status
   }
-  saveStatus(){
-    var status = this.getStatus()
-    
+  saveStatus(status){
     var refs = firebase.database().ref('usertypes/' + this.userid);
-    //console.log(this.info.type)
     console.log(this.info)
     refs.set({
       'uid': this.userid,
@@ -347,7 +344,6 @@ export class CmainComponent implements OnInit {
       'status': status,
       'type': this.info.type
     });
-
   }
     // the following group of get functions are to serve
   // alexa the proper data for voice activated commands
