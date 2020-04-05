@@ -16,10 +16,10 @@ export class CSettingsComponent implements OnInit {
   info:any
   type = ''
   connection = 'User is not connected'
-  fitbitToken = ''
+  fitbitToken:any
   tokenParsed:String;
   tokenLength:any
-  fitbitId = ''
+  fitbitId:any
   fitbitInfo:any
   constructor(public router: Router,private route: ActivatedRoute) {
    }
@@ -40,31 +40,26 @@ export class CSettingsComponent implements OnInit {
     this.type = this.info.type
     
     //grabbing fitbit data from firebase
+    var fitbitInfo:any
     fref.on('value', (snapshot) => {
-      this.fitbitInfo = snapshot.val();
-    });
-    var tempArray = Object.keys(this.fitbitInfo).map((key)=> {
-      return [Number(key), this.fitbitInfo[key]];
-    });
-    this.fitbitToken = tempArray[1][1].token
-    this.fitbitId = tempArray[1][1].id
+      fitbitInfo = snapshot.val();
+   });
+   setTimeout(() => {
+     var ar = Object.values(fitbitInfo)
+    this.fitbitId = ar[0]
+    this.fitbitToken= ar[1]
     //function parses the very long token to the XXXX.XXXX first 4 and last 4 characters to easily display/diagnose
-    console.log("Parsing token")
     if (this.fitbitToken != '') {
-      setTimeout(() => {
-      this.tokenParsed = this.fitbitToken.toString()
-      }, 2000);
+      this.tokenParsed = this.fitbitToken.toString();
       this.tokenLength = this.fitbitToken.length;
       this.tokenParsed = this.tokenParsed.substr(0, 4) + "." + this.tokenParsed.substr(this.tokenLength -4); //last 4 
     }
+  }, 200);
     // If user is logged into FitBit, we want to tell them.
     if(this.fitbitInfo != ''){
       this.connection = 'Connected to fitbit account'
       console.log("CONNECTED")
     }
-   console.log("FitBit Token: " + this.fitbitToken)
-   console.log("FitBit ID: " + this.fitbitId)
-   
   }
 
   logout(){
@@ -80,7 +75,7 @@ export class CSettingsComponent implements OnInit {
   */
   redirect() {
     console.log(this.fitbitToken)
-    if (this.fitbitToken = null) {
+    if (this.fitbitToken = null || this.fitbitToken == undefined) {
       let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
       window.open(url)
     } else {
@@ -101,7 +96,7 @@ export class CSettingsComponent implements OnInit {
 
     If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.
     */
-    if (this.fitbitToken != '') {
+    if (this.fitbitToken != null) {
       var params = "token=" + this.fitbitToken;
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
@@ -121,8 +116,12 @@ export class CSettingsComponent implements OnInit {
       var path:string = "fitbitInfo/" + userid.toString();
       let fitbitRef = firebase.database().ref(path);
       fitbitRef.remove();
+      this.fitbitId = null;
+      this.fitbitToken = null;
     } else {
-      alert("Token is invalid!")
+      this.fitbitId = null;
+      this.fitbitToken = null;
+      alert("Token is invalid! Please refresh.")
     }
   }
 
