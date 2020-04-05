@@ -26,46 +26,63 @@ export class CmainComponent implements OnInit {
   recommendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
-    
+    if(firebase.auth().currentUser == null){
+      this.userid = localStorage.getItem("UID")     
+      console.log("USER IS NULL")
+  }
+  else{
+    this.userid = firebase.auth().currentUser.uid
+    var fuid =  firebase.auth().currentUser.uid
+    localStorage.setItem("UID", fuid)
+    console.log("SETTING USERID")
+  }
    }
 
   ngOnInit() {
-    if(firebase.auth().currentUser == null){
-      this.userid = localStorage.getItem("UID")
-    }
-    else{
-      this.userid = firebase.auth().currentUser.uid
-      var fuid =  firebase.auth().currentUser.uid
-      localStorage.setItem("UID", fuid)
-    }
+    
     console.log("THIS IS THE USERID " + this.userid)
     
     this.getMeds()
     this.getRecommendation()
     setTimeout(() => {
+      console.log("RUNNING GETINFO")
       this.getInfo()
-    }, 500);
+    }, 200);
     setTimeout(() => {
+      console.log("RUNNING GET CHART")
       this.getChart()
     }, 500);
     setTimeout(() => {
+      console.log("RUNNING GET STATUS")
       this.getStatus()
-    }, 500);
+    }, 200);
     this.status= this.getStatus()
   }
 
   getInfo(){
     //if(this.userid == null)
+    console.log("user Id in getInfo "+ this.userid)
     var refs = firebase.database().ref('usertypes/' + this.userid);
+    //console.log(refs)
     refs.on('value', (snapshot) => {
+      console.log(snapshot.val())
       this.info = snapshot.val();
       //console.log(this.info)
     })
-
+    if(this.info == null){
+      setTimeout(() => {
+        this.first = this.info.first_name
+        this.last = this.info.last_name
+        this.status= this.info.status
+      }, 300);
+    }
+    else{
+      this.first = this.info.first_name
+        this.last = this.info.last_name
+        this.status= this.info.status
+    }
     //grabs first and last name from the info
-    this.first = this.info.first_name
-    this.last = this.info.last_name
-    this.status= this.info.status
+    
   }
 
   getMeds(){
@@ -195,15 +212,15 @@ export class CmainComponent implements OnInit {
       
       var fitbitId = ar[0]
       var fitbitToken= ar[1]
-      console.log(fitbitId + " "+ fitbitToken)
-      console.log(fitbitToken + " " + fitbitId)
+      //console.log(fitbitId + " "+ fitbitToken)
+      //console.log(fitbitToken + " " + fitbitId)
       var todaysDate = this.getDate();
       var monthPriorDate = this.getPriorMonth();
       //************ */
       if (fitbitToken != null) {
-        console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+        //console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
         var temp:string = 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
-        console.log(temp);
+        //console.log(temp);
   
         //Grabs the data from fitbit as a xhr reqest. 
         var xhr = new XMLHttpRequest();
@@ -243,7 +260,7 @@ export class CmainComponent implements OnInit {
       }
      
     }, 500);
-    console.log("Running")
+    //console.log("Running")
   }
 
 
@@ -321,7 +338,7 @@ export class CmainComponent implements OnInit {
     //Done
     if(Data != null){
       var weight = Data[1];
-      console.log(weight)
+      //console.log(weight)
       var count = 0;
       var status = 'GREEN'
       var weekAvg = 0;
@@ -394,7 +411,7 @@ export class CmainComponent implements OnInit {
       
       this.saveStatus(status)
       this.status = this.info.status
-      console.log(status)
+      //console.log(status)
       return status
     }else{
       console.log("Status not loaded yet")
@@ -422,7 +439,7 @@ export class CmainComponent implements OnInit {
     var temp = this.FitbitDataFromFirebase()
     var today = this.getDate()
     var dates = temp[0]
-    console.log(dates)
+    //console.log(dates)
     var size = this.getSize(dates)
     for(var i = 0; i < size; i++)
     {
@@ -439,14 +456,14 @@ export class CmainComponent implements OnInit {
     var size = this.getSize(weight)
     var total = 0;
 
-    console.log(weight)
+    //console.log(weight)
 
     for(var i = (size - 1) ; i > (size - 8); i--)
     {
       total = total + weight[i];
     }
     total = total/7;
-    console.log("weekly average: " + total)
+   // console.log("weekly average: " + total)
     return total;
   }
   
@@ -457,14 +474,14 @@ export class CmainComponent implements OnInit {
     var size = this.getSize(weight)
     var total = 0;
 
-    console.log(weight)
+    //console.log(weight)
 
     for(var i = (size - 1) ; i > (size - 31); i--)
     {
       total = total + weight[i];
     }
     total = total/30;
-    console.log("Monthly average: " + total)
+    //console.log("Monthly average: " + total)
     return total;
   }
   getRecommendation()
@@ -496,7 +513,7 @@ export class CmainComponent implements OnInit {
         recommendation = 'Make sure to get enough sleep'
         break;
     }
-    console.log(recommendation)
+    //console.log(recommendation)
     this.recommendation = recommendation
     return recommendation
   }

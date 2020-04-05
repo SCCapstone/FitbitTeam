@@ -31,7 +31,7 @@ export class AdminMainComponent implements OnInit {
       this.info = snapshot.val();
     })
     setTimeout(() => {
-      this.first = this.info.first_name
+    this.first = this.info.first_name
     this.last = this.info.last_name
     pref.on('value', (snapshot) => {
       this.tClients = snapshot.val();
