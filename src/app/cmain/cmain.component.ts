@@ -31,7 +31,6 @@ export class CmainComponent implements OnInit {
    }
 
   ngOnInit() {
-    
     this.userid = firebase.auth().currentUser.uid;
     this.getMeds()
     setTimeout(() => {
@@ -40,9 +39,10 @@ export class CmainComponent implements OnInit {
     setTimeout(() => {
       this.getChart()
     }, 500);
+    setTimeout(() => {
+      this.getStatus()
+    }, 600);
     this.status= this.getStatus()
-
-        
   }
 
   getInfo(){
@@ -124,7 +124,7 @@ export class CmainComponent implements OnInit {
     var path:string = "meds/" + userid.toString();
     let med = firebase.database().ref(path).push();
     med.set ({
-      'medname':medname,
+      'medname': medname,
       'meddate': meddate,
       'medTime': medTime
     });
@@ -239,7 +239,7 @@ export class CmainComponent implements OnInit {
     //console.log(tdata)
 
     var ar = Object.values(tdata)
-    console.log(ar)
+    //console.log(ar)
     var date = []
     var weight = []
     var size = this.getSize(ar[0])
@@ -255,7 +255,7 @@ export class CmainComponent implements OnInit {
     //console.log(date)
     //console.log(weight)
     weight = this.toNum(weight)
-    console.log(weight)
+    //console.log(weight)
     return [date, weight]
   }
   //wraper function that changes weight array from string to double
@@ -295,48 +295,86 @@ export class CmainComponent implements OnInit {
   
   getStatus(){
     //set 
-    var Data = this.FitbitDataFromFirebase()
+    var Data = this.FitbitDataFromFirebase();
     //Done
-    var status = ""
-    for( var i = Data[1].length; i > Data[1].length - 1; i--){
-      var current = Data[1][Data[1].length]
-      var prior = Data[1][i]
-      var diff = Math.abs(current-prior)
-
-      if( diff > 1 && diff < 2 ){
-        for( var j = Data[1].length; j > Data[1].length - 7; j--){
-          prior = Data[1][j]
-          diff = Math.abs(current-prior)
-          if( diff >= 3 && diff < 5){
-            status = 'YELLOW weekly'
-          }
-          else {
-            status = 'YELLOW daily'
-          }
-        }
+    var weight = Data[1];
+    console.log(weight)
+    var count = 0;
+    var status = 'GREEN'
+    var weekAvg = 0;
+    var current = 0;
+    var yester = 0;
+    var weekAgo = weight[weight.length - 7]
+    //gets avg for week, aswell as setting current and yesterdays weight
+    for(var i = weight.length - 7; i < weight.length; i++)
+    {
+      if(count == 5)
+      {
+        yester = weight[i]
       }
-      else if( diff >= 2){
-        for( var j = Data[1].length; j > Data[1].length - 7; j--){
-          prior = Data[1][j]
-          diff = Math.abs(current-prior)
-          if( diff >= 5){
-            status = 'RED weekly'
-          }
-          else {
-            status = 'RED daily'
-          }
-        }
+      if(count == 6)
+      {
+        current = weight[i];
       }
-      else{
-        status = 'GREEN'
-      }
+      weekAvg = weekAvg + weight[i]
+      count++
+    } 
+    weekAvg = weekAvg / 7;
+    //check whether they are actually losing weight (Day to day), in that case, status remains green
+    var diff = current - yester
+    var bool = 0;
+    if(diff < 0)
+    {
+      bool = 1;
     }
+    diff = Math.abs(diff)
+
+    //check whether they are losing weight (week to week), in this case, status will remain green
+    var weekDiff = current - weekAgo
+    if(weekDiff < 0)
+    {
+      bool = 1;
+    }
+    weekDiff = Math.abs(weekDiff)
+
+    //First check and set status based on difference of weight from one day to the next
+    if(diff <= 1)
+    {
+      status = 'GREEN'
+    }
+    else if(diff > 1 && diff <= 2)
+    {
+      status = 'YELLOW'
+    }
+    else
+    {
+      status = 'RED'
+    }
+    //Now check and set status based on difference of weight from week to week (giving this more priority over status)
+    if(weekDiff <= 2)
+    {
+      status = 'GREEN'
+    }
+    else if(diff > 2 && diff <= 5)
+    {
+      status = 'YELLOW'
+    }
+    else
+    {
+      status = 'RED'
+    }
+    //If they've lost weight, set status to Green
+    if(bool == 1)
+    {
+      status = 'GREEN'
+    }
+    this.status = this.info.status
+    console.log(status)
     this.saveStatus(status)
     return status
   }
   saveStatus(status){
     var refs = firebase.database().ref('usertypes/' + this.userid);
-    console.log(this.info)
     refs.set({
       'uid': this.userid,
       'first_name': this.info.first_name,
@@ -344,8 +382,9 @@ export class CmainComponent implements OnInit {
       'status': status,
       'type': this.info.type
     });
+    //console.log(status)
   }
-    // the following group of get functions are to serve
+  // the following group of get functions are to serve
   // alexa the proper data for voice activated commands
 
   getTodaysWeight(){
