@@ -22,9 +22,6 @@ export class CmainComponent implements OnInit {
   medEntry:any
   hasclicked=false
   id = ''
-  fitbitInfo:any
-  fitbitToken =''
-  fitbitId= ''
   status = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
@@ -37,10 +34,10 @@ export class CmainComponent implements OnInit {
     this.userid = firebase.auth().currentUser.uid;
     setTimeout(() => {
       this.getInfo()
-    }, 1000);
+    }, 300);
     setTimeout(() => {
       this.getChart()
-    }, 1000);
+    }, 300);
     this.getMeds()    
     this.status= this.getStatus()
     this.saveStatus();
