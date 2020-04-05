@@ -73,7 +73,7 @@ export class CSettingsComponent implements OnInit {
   Function Purpose: redirect user when 'Login with Fitbit' button is clicked to authenticate
   All parameters for this function are found directly on fitbit api dev website under app settings. You can change redirect link here for after user authenticates. 
   */
-  redirect() {
+  redirectFitbit() {
     console.log(this.fitbitToken)
     if (this.fitbitToken = null || this.fitbitToken == undefined) {
       let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
@@ -85,10 +85,13 @@ export class CSettingsComponent implements OnInit {
       "\nApp is: Capstone490")
     }
   }
+  redirectAlexa() {
+    
+  }
   /* This function is used as a button on c-settings to allow
   the user to revoke access from FitBit. 
   */
-  revokeAccess(){
+  revokeAccessFitbit(){
     //creating AJAX POST for revoking access from Fitbit API Authorization server
     /*
     If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
@@ -99,6 +102,7 @@ export class CSettingsComponent implements OnInit {
     if (this.fitbitToken != null) {
       var params = "token=" + this.fitbitToken;
       var xhr = new XMLHttpRequest();
+      //Download progress
       xhr.open('POST', 'https://api.fitbit.com/oauth2/revoke');
       // this long basic is our client ID and secret encoded in base 64 with a : delimitting the two. clientID:clientSecret=
       xhr.setRequestHeader("Authorization", 'Basic MjJCOVFKOmIyMzgxMzlmOWI3NzE0MjA0YTg1MzZlMTlmNmUyYzMx=');
@@ -123,6 +127,9 @@ export class CSettingsComponent implements OnInit {
       alert("Token is invalid! Refreshing page.")
       location.reload(true);
     }
+  }
+  revokeAccessAlexa() {
+
   }
 
   clicked(){
