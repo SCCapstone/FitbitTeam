@@ -39,12 +39,8 @@ export class CmainComponent implements OnInit {
       this.getInfo()
     }, 1000);
     setTimeout(() => {
-      this.pullFitbit()
-    }, 1000);
-    setTimeout(() => {
       this.getChart()
     }, 1000);
-    
     this.getMeds()    
     this.status= this.getStatus()
     this.saveStatus();
@@ -134,7 +130,13 @@ export class CmainComponent implements OnInit {
     this.medTime=''
   this.clicked();
   }
-
+ /* Date must be in yyyy-MM-dd format such as:
+      1. /body/log/weight/date/[date].json
+      2. /body/log/weight/date/[base-date]/[period].json
+      3. /body/log/weight/date/[base-date]/[end-date].json
+      Range end date must not be longer than 31 days.
+    */
+   
   //Grabs the current date and in yyyy-mm-dd format
   getDate(){
     var today = new Date();
@@ -158,72 +160,66 @@ export class CmainComponent implements OnInit {
   }
 
   //Grabs the fitbit data using the Token inside of the firebase.
-  pullFitbit(){
+  pullFitbit(){    
     var userid = firebase.auth().currentUser.uid;
     var path:string = ("fitbitInfo/" + userid.toString());
-    
+    var fitbitInfo:any
     var fitbitRefs = firebase.database().ref(path); 
     fitbitRefs.on('value', (snapshot) => {
-      this.fitbitInfo = snapshot.val();
+       fitbitInfo = snapshot.val();
     });
-    console.log(this.fitbitInfo)
-    var tempArray = Object.keys(this.fitbitInfo).map((key)=> {
-      return [Number(key), this.fitbitInfo[key]];
-    });
-    this.fitbitToken = tempArray[1][1].token
-    this.fitbitId = tempArray[1][1].id
-    console.log("fitbitToken: " + this.fitbitToken)
-    console.log("fitbitId: " + this.fitbitId)
-
-    /* Date must be in yyyy-MM-dd format such as:
-      1. /body/log/weight/date/[date].json
-      2. /body/log/weight/date/[base-date]/[period].json
-      3. /body/log/weight/date/[base-date]/[end-date].json
-      Range end date must not be longer than 31 days.
-    */
-    var todaysDate = this.getDate();
-    var monthPriorDate = this.getPriorMonth();
-    if (this.fitbitToken != null) {
-      console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
-      var temp:string = 'https://api.fitbit.com/1/user/' + this.fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
-      console.log(temp);
-
-      //Grabs the data from fitbit as a xhr reqest. 
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', temp);
-      xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          //Firebase Storing
-          let finfo = xhr.responseText
-          var tarray = finfo.split("{");
-          var array:any
-          var tobj:any
-          var tarry = []
-          for (var i = 2 ; i < tarray.length; i++){
-            //console.log(tarray[i].split(","))
-            array = tarray[i].split(",")
-            //String manipulation, Grabs weight from xhr string
-            var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
-            var tdate = array[1].split(":")[1].replace('"', '').replace('\\', '') 
-            //console.log(array[4].split("\"")[3].replace('"'))
-            var ttime = array[4].split("\"")[3].replace('"')
-            tobj = {
-              'date': tdate,
-              'time': ttime,
-              'weight': tweight
-            }
-            tarry.push(tobj)
-          }  
-          //console.log(tarry)
-          var path:string = "fitbitData/" + userid.toString();
-          let fdata = firebase.database().ref(path).set({
-            Data: tarry
-          });
-        }
-      };
-      xhr.send();
-    }
+    setTimeout(() => {
+      var ar = Object.values(fitbitInfo)
+      var fitbitId = ar[0]
+      var fitbitToken= ar[1]
+      console.log(fitbitId + " "+ fitbitToken)
+      console.log(fitbitToken + " " + fitbitId)
+      var todaysDate = this.getDate();
+      var monthPriorDate = this.getPriorMonth();
+      //************ */
+      if (fitbitToken != null) {
+        console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+        var temp:string = 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
+        console.log(temp);
+  
+        //Grabs the data from fitbit as a xhr reqest. 
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', temp);
+        xhr.setRequestHeader("Authorization", 'Bearer ' + fitbitToken);
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            //Firebase Storing
+            let finfo = xhr.responseText
+            var tarray = finfo.split("{");
+            var array:any
+            var tobj:any
+            var tarry = []
+            for (var i = 2 ; i < tarray.length; i++){
+              //console.log(tarray[i].split(","))
+              array = tarray[i].split(",")
+              //String manipulation, Grabs weight from xhr string
+              var tweight = array[5].split(":")[1].replace('"', '').replace('}', '').replace(']', '').replace('}', '')
+              var tdate = array[1].split(":")[1].replace('"', '').replace('\\', '') 
+              //console.log(array[4].split("\"")[3].replace('"'))
+              var ttime = array[4].split("\"")[3].replace('"')
+              tobj = {
+                'date': tdate,
+                'time': ttime,
+                'weight': tweight
+              }
+              tarry.push(tobj)
+            }  
+            //console.log(tarry)
+            var path:string = "fitbitData/" + userid.toString();
+            let fdata = firebase.database().ref(path).set({
+              Data: tarry
+            });
+          }
+        };
+        xhr.send();
+      }
+     
+    }, 500);
   }
 
 
