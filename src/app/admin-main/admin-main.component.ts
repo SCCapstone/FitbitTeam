@@ -30,13 +30,16 @@ export class AdminMainComponent implements OnInit {
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
     })
-    this.first = this.info.first_name
+    setTimeout(() => {
+      this.first = this.info.first_name
     this.last = this.info.last_name
     pref.on('value', (snapshot) => {
       this.tClients = snapshot.val();
       this.clients = Object.keys(this.tClients).map(i => this.tClients[i]);
     })
     console.log(this.clients[1].refNum)
+    }, 300);
+    
   }
   clicked(){
     this.hasclicked= !this.hasclicked;
