@@ -26,24 +26,22 @@ export class CmainComponent implements OnInit {
   recommendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
-    var userid = firebase.auth().currentUser.uid;
     
-    console.log(userid)
    }
 
   ngOnInit() {
-    this.userid = firebase.auth().currentUser.uid;
+    this.userid = firebase.auth().currentUser.uid;        
     this.getMeds()
     this.getRecommendation()
     setTimeout(() => {
       this.getInfo()
-    }, 400);
+    }, 200);
     setTimeout(() => {
       this.getChart()
-    }, 500);
+    }, 300);
     setTimeout(() => {
       this.getStatus()
-    }, 600);
+    }, 300);
     this.status= this.getStatus()
   }
 
@@ -61,7 +59,12 @@ export class CmainComponent implements OnInit {
     var mref = firebase.database().ref('meds/' + this.userid );
     mref.on('value', (snapshot) => {
       this.tmeds = snapshot.val();
-      this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
+      if(this.tmeds != null ){
+        this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
+      }else{
+        console.log("NO MEDS")
+      }
+      
     })
     //console.log("outside" + this.meds)
   }
