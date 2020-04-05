@@ -364,13 +364,40 @@ export class CmainComponent implements OnInit {
     return null;
   }
   getAverageWeekWeight(){
+    var temp = this.FitbitDataFromFirebase()
+    var weight = temp[1]
+    var size = this.getSize(weight)
+    var total = 0;
 
+    console.log(weight)
+
+    for(var i = (size - 1) ; i > (size - 8); i--)
+    {
+      total = total + weight[i];
+    }
+    total = total/7;
+    console.log("weekly average: " + total)
+    return total;
   }
-  /*
+  
   getAverageMonthWeight() {
     // past 30 days
+    var temp = this.FitbitDataFromFirebase()
+    var weight = temp[1]
+    var size = this.getSize(weight)
+    var total = 0;
+
+    console.log(weight)
+
+    for(var i = (size - 1) ; i > (size - 31); i--)
+    {
+      total = total + weight[i];
+    }
+    total = total/30;
+    console.log("Monthly average: " + total)
+    return total;
   }
-  */
+  
 
   getMedication(){
 

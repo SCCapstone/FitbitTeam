@@ -41,17 +41,32 @@
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
-        <button type = "button" id="fitbitLogin" class ="btn btn-md btn-primary" (click)="redirect()">Login to FitBit</button>
+        <button type = "button" id="fitbitLogin" class ="btn btn-md btn-primary" (click)="redirectFitbit()">Login to FitBit</button>
 	  </div>
   </li>
   <li class="list-group-item" >
     <div class="d-flex w-100 justify-content-between">
         <font size=5>Token:  {{tokenParsed}}</font>
-        <button type = "button" class ="btn btn-md btn-primary" (click)="revokeAccess()">Revoke Access</button>
+        <button type = "button" class ="btn btn-md btn-primary" (click)="revokeAccessFitbit()">Revoke Access</button>
     </div>
     <div class="d-flex w-100 justify-content-between">
       <font size=5>ID:  {{fitbitId}}</font>
   </div>
+</li>
+</ul>
+
+<ul class="list-group">
+  <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
+	  <div class="d-flex w-100 justify-content-between">
+      <font size=5>Alexa Account</font>
+        <button type = "button" id="alexaLogin" class ="btn btn-md btn-primary" (click)="redirectAlexa()">Link to Alexa</button>
+	  </div>
+  </li>
+  <li class="list-group-item" >
+    <div class="d-flex w-100 justify-content-between">
+        <font size=5>Token:</font>
+        <button type = "button" class ="btn btn-md btn-primary" (click)="revokeAccessAlexa()">Revoke Access</button>
+    </div>
 </li>
 </ul>
       
