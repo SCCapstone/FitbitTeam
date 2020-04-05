@@ -31,16 +31,19 @@ export class CmainComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.userid = firebase.auth().currentUser.uid;
+    this.getMeds()
     setTimeout(() => {
       this.getInfo()
-    }, 300);
+    }, 400);
     setTimeout(() => {
       this.getChart()
-    }, 300);
-    this.getMeds()    
+      this.saveStatus();
+    }, 500);
     this.status= this.getStatus()
-    this.saveStatus();
+
+        
   }
 
   getInfo(){
@@ -166,11 +169,13 @@ export class CmainComponent implements OnInit {
     var path:string = ("fitbitInfo/" + userid.toString());
     var fitbitInfo:any
     var fitbitRefs = firebase.database().ref(path); 
+    
     fitbitRefs.on('value', (snapshot) => {
        fitbitInfo = snapshot.val();
     });
     setTimeout(() => {
       var ar = Object.values(fitbitInfo)
+      
       var fitbitId = ar[0]
       var fitbitToken= ar[1]
       console.log(fitbitId + " "+ fitbitToken)
@@ -221,6 +226,7 @@ export class CmainComponent implements OnInit {
       }
      
     }, 500);
+    console.log("Running")
   }
 
 
@@ -232,8 +238,9 @@ export class CmainComponent implements OnInit {
       tdata = snapshot.val();
     })
     //console.log(tdata)
+
     var ar = Object.values(tdata)
-    //console.log(ar)
+    console.log(ar)
     var date = []
     var weight = []
     var size = this.getSize(ar[0])
@@ -288,8 +295,10 @@ export class CmainComponent implements OnInit {
   }
   
   getStatus(){
+    //set 
     var Data = this.FitbitDataFromFirebase()
-    var status = "Healthy"
+    //Done
+    var status = ""
     for( var i = Data[1].length; i > Data[1].length - 1; i--){
       var current = Data[1][Data[1].length]
       var prior = Data[1][i]
@@ -329,7 +338,8 @@ export class CmainComponent implements OnInit {
     var status = this.getStatus()
     
     var refs = firebase.database().ref('usertypes/' + this.userid);
-    console.log(this.info.type)
+    //console.log(this.info.type)
+    console.log(this.info)
     refs.set({
       'uid': this.userid,
       'first_name': this.info.first_name,
