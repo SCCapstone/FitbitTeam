@@ -124,7 +124,11 @@ export class TimelineComponent implements OnInit {
         title:{
           text: "Detailed Zoom/Pan Graph"
         },
+        axisX:{
+          title : "Last 30 Days"
+         },
         axisY:{
+          title : "Pounds (lbs)",
           includeZero: false
         },
         data:[{        
@@ -160,9 +164,10 @@ export class TimelineComponent implements OnInit {
     for (var i = 0; i < size; i++){
       //console.log(ar[0][i])
       var temp = Object.values(ar[0][i])
+      var x = +temp[2];
       //console.log(temp[0])
       date.push(temp[0]) 
-      weight.push(temp[2])
+      weight.push(Math.round((x * 2.20462) * 100) / 100)
       time.push(temp[1])
     }
     //console.log(date)
