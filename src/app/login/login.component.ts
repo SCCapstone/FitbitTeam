@@ -22,6 +22,10 @@ export class LoginComponent implements OnInit {
     // Cannot put fitbit pull here as we append everything to the current logged in user.
   }
 
+  onKeydown(event) {
+    this.login();
+  }
+
   login(){
     var login = true;
     const email = this.email;
