@@ -39,7 +39,7 @@ export class AdminMainComponent implements OnInit {
     })
     console.log(this.clients[1].refNum)
     }, 300);
-    
+    this.getStatus();
   }
   clicked(){
     this.hasclicked= !this.hasclicked;
@@ -96,6 +96,21 @@ export class AdminMainComponent implements OnInit {
       size++;
     }
     return size;
+
+  }
+  /* tihs function uses the refNum of each client to pull their status
+  from firebase and update on their bar
+  */
+  getStatus() {
+    // loop through all
+    // grab refNum
+    // pull status from firebase
+    // set status in helper function or here.
+    /* id keep setStatus as a local var/function as it
+    must be unique for each user pull request from firebase */
+  }
+  /* this function goes through to set each status */
+  setStatus() {
 
   }
 
