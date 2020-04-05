@@ -41,7 +41,7 @@
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  <div class="d-flex w-100 justify-content-between">
       <font size=5>Fitbit Account</font>
-        <button type = "button" id="fitbitLogin" class ="btn btn-md btn-primary" (click)="redirectFitbit()">Login to FitBit</button>
+        <button type = "button" id="fitbitLogin" class ="btn btn-md btn-primary" title = "Authorize use of Fitbit Data" (click)="redirectFitbit()">Login to FitBit</button>
 	  </div>
   </li>
   <li class="list-group-item" >
@@ -54,18 +54,38 @@
   </div>
 </li>
 </ul>
-
+<!-- Uses amazon SDK see: https://developer.amazon.com/docs/login-with-amazon/install-sdk-javascript.html-->
 <ul class="list-group">
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div class="d-flex w-100 justify-content-between">
-      <font size=5>Alexa Account</font>
-        <button type = "button" id="alexaLogin" class ="btn btn-md btn-primary" (click)="redirectAlexa()">Link to Alexa</button>
-	  </div>
+	  <div id="amazon-root" class="d-flex w-100 justify-content-between">
+      <script type="text/javascript">
+      
+        window.onAmazonLoginReady = function() {
+          amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
+        };
+        (function(d) {
+          var a = d.createElement('script'); a.type = 'text/javascript';
+          a.async = true; a.id = 'amazon-login-sdk';
+          a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
+          d.getElementById('amazon-root').appendChild(a);
+        })(document);
+
+      </script>
+      <font size=5>Amazon Account</font>
+        <!--<button type = "button" id="alexaLogin" title ="Use the same email as you registered with us!" class ="btn btn-md btn-primary" (click)="redirectAlexa()">Link to Alexa</button>
+        -->
+        <a href id="LoginWithAmazon">
+          <img border = "0" alt = "Login with Amazon"
+            src = "https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gry_156x132.png"
+            width="156" height="32" />
+        </a>
+        </div>
+        
   </li>
   <li class="list-group-item" >
     <div class="d-flex w-100 justify-content-between">
         <font size=5>Token:</font>
-        <button type = "button" class ="btn btn-md btn-primary" (click)="revokeAccessAlexa()">Revoke Access</button>
+        <button type = "button" class ="btn btn-md btn-primary" (click)="redirectAlexaSkill()">Link Alexa Skill</button>
     </div>
 </li>
 </ul>
