@@ -23,7 +23,7 @@ export class CmainComponent implements OnInit {
   hasclicked=false
   id = ''
   status = ''
-  reccomendation = ''
+  recommendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
     var userid = firebase.auth().currentUser.uid;
@@ -34,7 +34,7 @@ export class CmainComponent implements OnInit {
   ngOnInit() {
     this.userid = firebase.auth().currentUser.uid;
     this.getMeds()
-    this.getReccomendation()
+    this.getRecommendation()
     setTimeout(() => {
       this.getInfo()
     }, 400);
@@ -438,38 +438,38 @@ export class CmainComponent implements OnInit {
     console.log("Monthly average: " + total)
     return total;
   }
-  getReccomendation()
+  getRecommendation()
   {
-    var reccomendation = ''
+    var recommendation = ''
     var count = 0
     count = Math.floor(Math.random() * (7))
     switch (count)
     {
       case 0:
-        reccomendation = 'Try and excercise atleast 3 times a week'
+        recommendation = 'Try and excercise atleast 3 times a week'
         break;
       case 1:
-        reccomendation = 'Avoid foods/drinks high in sugar'
+        recommendation = 'Avoid foods/drinks high in sugar'
         break;
       case 2:
-        reccomendation = 'Avoid processed junk foods'
+        recommendation = 'Avoid processed junk foods'
         break;
       case 3:
-        reccomendation = 'Cut back on your carbs'
+        recommendation = 'Cut back on your carbs'
         break;
       case 4:
-        reccomendation = 'Drink lots of water'
+        recommendation = 'Drink lots of water'
         break;
       case 5:
-        reccomendation = 'Always keep healthy food around to snack on'
+        recommendation = 'Always keep healthy food around to snack on'
         break;
       case 6:
-        reccomendation = 'Make sure to get enough sleep'
+        recommendation = 'Make sure to get enough sleep'
         break;
     }
-    console.log(reccomendation)
-    this.reccomendation = reccomendation
-    return reccomendation
+    console.log(recommendation)
+    this.recommendation = recommendation
+    return recommendation
   }
   getMedication(){
 
