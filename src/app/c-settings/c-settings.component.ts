@@ -106,7 +106,7 @@ export class CSettingsComponent implements OnInit {
       console.log(xhr);
       xhr.onload = function () {
           if (xhr.status === 200) {
-              console.log("SUCCESS")
+              console.log("Token Revoked")
               console.log(xhr.responseText)
           }
       };
@@ -119,9 +119,9 @@ export class CSettingsComponent implements OnInit {
       this.fitbitId = null;
       this.fitbitToken = null;
     } else {
-      this.fitbitId = null;
       this.fitbitToken = null;
-      alert("Token is invalid! Please refresh.")
+      alert("Token is invalid! Refreshing page.")
+      location.reload(true);
     }
   }
 
