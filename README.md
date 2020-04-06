@@ -1,16 +1,16 @@
 # FitbitTeam
 
-Our project is developing an Alexa skill with Fitbit scales to manage weight and minimize risks for those struggling with congestive heart failure. To do this, we are developing a webapp using HTML and JS/CSS/TS scripting to work with the FitBitSDK in order to load data into a database which will then use Alexa to aid users in accessing this data such as but not limiting to: weight progression, medical reccomendations- factual and reccomended, prescription information, weight reminders, etc..
+Our project is developing an Alexa skill with Fitbit scales to manage weight and minimize risks for those struggling with congestive heart failure. To do this, we are developing a webapp using HTML and CSS/TS scripting to work with the FitBit api in order to load data into a database which will then use Alexa to aid users in accessing this data such as but not limiting to: weight progression, medical reccomendations- factual and reccomended, prescription information, weight reminders, etc..
 # Technologies
 To build this project you will need to install: 
 - Node.js
 - Angular/cli 
+- AWS-Amplify
 - Cypress (for testing)
 
-A sidenote: Fitbit API only allows servers to request Fitbit information from a user's account for the past 31 days.
 ## This app is Live
 
-Check out our latest version here : https://fitbittester.herokuapp.com/
+Check out our latest version here : http://fitbittesterv2.herokuapp.com/
 
 ## To run this project locally 
 
@@ -37,12 +37,15 @@ Email : admin@email.com\
 Password : 123456
 
 ## Fitbit Account 
-
+Only one fitbit account may be logged in per account. Also do not reuse the same fitbit account for multiple users. Please make your own accounts and manually enter data to test functionality.
 To test the functionality of FitBit data, you can login to a FitBit account here: https://accounts.fitbit.com/login
 
 email: capstonefitbitteam@gmail.com
 
 password: capstone490
+
+Limitations: 
+Fitbit API only allows servers to request Fitbit information from a user's account for the past 31 days.
 
 ## Code scaffolding
 
