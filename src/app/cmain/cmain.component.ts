@@ -50,7 +50,10 @@ export class CmainComponent implements OnInit {
       console.log("RUNNING GET STATUS")
       this.getStatus()
     }, 200);
-    this.status= this.getStatus()
+    if(this.getStatus() != undefined)
+    {
+      this.status = this.getStatus()
+    }
   }
 
   getInfo(){
@@ -404,7 +407,13 @@ export class CmainComponent implements OnInit {
       }
       
       this.saveStatus(status)
-      this.status = this.info.status
+      if(this.info == undefined)
+      {
+      }
+      else
+      {
+        this.status = this.info.status 
+      }
       //console.log(status)
       return status
     }else{
