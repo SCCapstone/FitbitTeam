@@ -46,7 +46,6 @@ import { ASettingsComponent } from './a-settings/a-settings.component';
     AppRoutingModule
   ],
   providers: [
-  AmplifyService
   ],
   bootstrap: [AppComponent]
 })
