@@ -18,6 +18,7 @@ export class AdminMainComponent implements OnInit {
   patName = ''
   id = ''
   refNum = ''
+  display = []
   hasclicked=false
   constructor(public router: Router,private route: ActivatedRoute) { }
 
@@ -25,7 +26,7 @@ export class AdminMainComponent implements OnInit {
     this.userid = firebase.auth().currentUser.uid;
     console.log(this.userid)
     var usid = firebase.auth().currentUser.uid;
-    var pref = firebase.database().ref('clients/' + usid );
+    var pref = firebase.database().ref('clients/' + this.userid);
     var refs = firebase.database().ref('usertypes/' + usid);
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();
@@ -37,9 +38,10 @@ export class AdminMainComponent implements OnInit {
       this.tClients = snapshot.val();
       this.clients = Object.keys(this.tClients).map(i => this.tClients[i]);
     })
-    console.log(this.clients[1].refNum)
     }, 300);
-    this.getStatus();
+    setTimeout(() => {
+      this.getStatus()
+    }, 400)
   }
   clicked(){
     this.hasclicked= !this.hasclicked;
@@ -71,7 +73,6 @@ export class AdminMainComponent implements OnInit {
   }
   remove(id){
     console.log(this.clients)
-    
     var size = this.getSize(this.clients)
     //Goes through list of meds object and removes the meds
     for (var i = 0; i < size; i ++){
@@ -80,15 +81,12 @@ export class AdminMainComponent implements OnInit {
         delete this.clients[i]
       } 
     }
-
     //This changes the new medication object in the database
     var userid = firebase.auth().currentUser.uid;
     var path:string = "clients/" + userid.toString();
     var ref = firebase.database().ref(path)
     ref.set(this.clients)
-  
   }
-
   //gets size of an object in js
   getSize(obj){
     var size = 0, key;
@@ -108,6 +106,22 @@ export class AdminMainComponent implements OnInit {
     // set status in helper function or here.
     /* id keep setStatus as a local var/function as it
     must be unique for each user pull request from firebase */
+    var data = []
+    var obj:any
+    for(var i = 0; i < this.clients.length; i++)
+    {
+      var refs = firebase.database().ref('usertypes/' + this.clients[i].refNum)
+      refs.on('value', (snapshot) => {
+        data.push(snapshot.val())
+      })
+      obj = {
+        'patName':this.clients[i].patName,
+        'refNum':this.clients[i].refNum,
+        'status':data[i].status
+      }
+      this.display.push(obj)
+    }
+    console.log(this.display)
   }
   /* this function goes through to set each status */
   setStatus() {

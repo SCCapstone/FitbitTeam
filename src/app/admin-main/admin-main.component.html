@@ -49,11 +49,11 @@
     </div>
 </li>
 <div class="text-left" *ngIf= "!hasclicked">
-  <li class="list-group-item" *ngFor = "let clients of clients; let i = index" style="background-color: gray; color: #ffffff;">
+  <li class="list-group-item" *ngFor = "let dis of display; let i = index" style="background-color: gray; color: #ffffff;">
     <div class="d-flex w-100 justify-content-between">
-      <font size=5>{{clients.patName}}</font>
-      <font size =5>(Status here)</font>
-      <font size=5>{{clients.refNum}}</font>
+      <font size=5>{{dis.patName}}</font>
+      <font size =5>{{dis.status}}</font>
+      <font size=5>{{dis.refNum}}</font>
       <font size=5 (click) = toTimeline(clients.refNum)>Timeline</font>
      <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
     </div>
