@@ -32,10 +32,10 @@
 	
 		 <h6>We will send you an email with instructions on how to reset your password.</h6>
 		   <h5>Email:</h5>
-		   <input type="email" class="form-control" id="InputEmail" placeholder="Email Address">
+		   <input type="email" class="form-control" id="InputEmail" [(ngModel)]="email" placeholder="Email Address">
 		   
 		 	<div class="text-center">
-		 	  <a type="button" class="btn btn-lg btn-success" routerLink="../login">Send</a>
+		 	  <a type="button" class="btn btn-lg btn-success" (click)= sendEmail() >Send</a>
 		 	</div>
 		 	<br>
 			
