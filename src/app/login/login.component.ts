@@ -25,13 +25,112 @@ export class LoginComponent implements OnInit {
   onKeydown(event) {
     this.login();
   }
+/*
+  login(){
+    var login = true;
+    const email = this.email;
+    const password = this.password;
+    const self = this;
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(function() {
+    // Existing and future Auth states are now persisted in the current
+    // session only. Closing the window would clear any existing state even
+    // if a user forgets to sign out.
+    // ...
+    // New sign-in will be persisted with session persistence.
+   
+    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+       login = false;
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else if (errorCode === 'auth/user-not-found'){
+        alert("User does not exist");
+      } else {
+        alert(errorMessage);
+      }
+      })
+      .then(function(result){
+        //console.log(login)
+        let userid = firebase.auth().currentUser.uid;
+  //CALL FITBIT PULL
+        // if (window.location.href != ' ') {
+        //   var url = window.location.href;
+        //   console.log(url)
+        //   if (url.split('#')[1] != undefined) {
+        //     // Make sure it is a redirect before calling method!
+        //     // console.log("Calling getFitbitInfo");
+        //     // this.getFitbitInfo();
+        //   }
+        // }
+  if (window.location.href != ' ') {
+    //link not empty
+    var url = window.location.href;
+    if (url.split('#')[1] != undefined) {
+      // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
+      // gets access_token
+      var access_token = url.split('#')[1].split("=")[1].split("&")[0];
+      // gets the userId
+      var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+      console.log("Fitbit Token: " + access_token);
+      console.log("Fitbit ID: " + fitbitId);
+
+      // push fitbit info to firebase
+      var path:string = "fitbitInfo/" + userid.toString();
+      let fitbitRef = firebase.database().ref(path);
+      fitbitRef.remove();
+      fitbitRef.once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          console.log(child.key+": "+child.val());
+        });
+      });
+      if (access_token != '' && fitbitId != ''){
+        fitbitRef.set ({
+          'token': access_token,
+          'id': fitbitId
+        });
+      } else{
+        fitbitRef.set({
+          'token': "ERROR",
+          'id': "ERROR"
+        });
+      }
+      fitbitRef.push();
+      //end firebase input
+    }
+  }
+        //let userid = firebase.auth().currentUser.uid;
+        let usertypesRef = firebase.database().ref('usertypes/');
+        usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
+        data.forEach(function(thing){
+          if(login ==true){
+            if (thing.val().type == "Admin"){
+              self.admin();
+            }
+            else{
+              self.cmain();
+            }
+          }
+        })
+        });
+      }); //end result
+  })
+  .catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
+  }
+*/
+
 
   login(){
     var login = true;
     const email = this.email;
     const password = this.password;
     const self = this;
-
+    
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       login = false;
       const errorCode = error.code;
@@ -47,7 +146,7 @@ export class LoginComponent implements OnInit {
       .then(function(result){
         //console.log(login)
         let userid = firebase.auth().currentUser.uid;
-        //CALL FITBIT PULL
+  //CALL FITBIT PULL
         // if (window.location.href != ' ') {
         //   var url = window.location.href;
         //   console.log(url)
@@ -57,61 +156,60 @@ export class LoginComponent implements OnInit {
         //     // this.getFitbitInfo();
         //   }
         // }
+  if (window.location.href != ' ') {
+    //link not empty
+    var url = window.location.href;
+    if (url.split('#')[1] != undefined) {
+      // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
+      // gets access_token
+      var access_token = url.split('#')[1].split("=")[1].split("&")[0];
+      // gets the userId
+      var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
+      console.log("Fitbit Token: " + access_token);
+      console.log("Fitbit ID: " + fitbitId);
 
-        // FITBIT INITIALIZATION AFTER REDIRECT
-      if (window.location.href != ' ') {
-        //link not empty
-        var url = window.location.href;
-        if (url.split('#')[1] != undefined) {
-          // this means link contains #, meaning it is after redirect so we are good to grab token and id, and do requests
-          // gets access_token
-          var access_token = url.split('#')[1].split("=")[1].split("&")[0];
-          // gets the userId
-          var fitbitId = url.split("#")[1].split("=")[2].split("&")[0];
-          console.log("Fitbit Token: " + access_token);
-          console.log("Fitbit ID: " + fitbitId);
-
-          // push fitbit info to firebase
-          var path:string = "fitbitInfo/" + userid.toString();
-          let fitbitRef = firebase.database().ref(path);
-          fitbitRef.remove();
-          fitbitRef.once("value", function(snapshot) {
-            snapshot.forEach(function(child) {
-              console.log(child.key+": "+child.val());
-            });
-          });
-          if (access_token != '' && fitbitId != ''){
-            fitbitRef.set ({
-              'token': access_token,
-              'id': fitbitId
-            });
-          } else{
-            fitbitRef.set({
-              'token': "ERROR",
-              'id': "ERROR"
-            });
-          }
-          fitbitRef.push();
-          //end firebase input
-        }
+      // push fitbit info to firebase
+      var path:string = "fitbitInfo/" + userid.toString();
+      let fitbitRef = firebase.database().ref(path);
+      fitbitRef.remove();
+      fitbitRef.once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          console.log(child.key+": "+child.val());
+        });
+      });
+      if (access_token != '' && fitbitId != ''){
+        fitbitRef.set ({
+          'token': access_token,
+          'id': fitbitId
+        });
+      } else{
+        fitbitRef.set({
+          'token': "ERROR",
+          'id': "ERROR"
+        });
       }
-        // END FITBIT INITIALIZATION
-
-  let usertypesRef = firebase.database().ref('usertypes/');
-  usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
-    data.forEach(function(thing){
-      if(login ==true){
-      if (thing.val().type == "Admin"){
-        self.admin();
-      }
-      else{
-        self.cmain();
-      }
+      fitbitRef.push();
+      //end firebase input
     }
-    })
-  });
-    }); //end result
   }
+        //let userid = firebase.auth().currentUser.uid;
+        let usertypesRef = firebase.database().ref('usertypes/');
+        usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
+        data.forEach(function(thing){
+          if(login ==true){
+            if (thing.val().type == "Admin"){
+              self.admin();
+            }
+            else{
+              self.cmain();
+            }
+          }
+        })
+        });
+      }); //end result
+  }
+
+
   //function allows user to hit 'Enter' on keyboard = 13 to login
   enter() {
     var input = document.getElementById('InputPassword');
@@ -122,6 +220,11 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+ getFitbitToken(){
+  
+ }
+
+
   /*
   This function checks the URl to see if it contains information after the 'Login with fitbit' redirect
   If it does, it will parse this data and upload to firebase AS LONG AS it is not already saved. 

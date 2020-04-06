@@ -85,8 +85,12 @@ export class CSettingsComponent implements OnInit {
       "\nApp is: Capstone490")
     }
   }
-  redirectAlexa() {
-    
+  redirectAmazon() {
+    console.log("logged in with amazon")
+  }
+  redirectAlexaSkill() {
+    let url = 'https://pitangui.amazon.com/api/skill/link/M36BFXKAHFCNJM'
+    window.open(url);
   }
   /* This function is used as a button on c-settings to allow
   the user to revoke access from FitBit. 

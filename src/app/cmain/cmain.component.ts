@@ -26,42 +26,75 @@ export class CmainComponent implements OnInit {
   recommendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
-    var userid = firebase.auth().currentUser.uid;
-    
-    console.log(userid)
+    if(firebase.auth().currentUser == null){
+      this.userid = localStorage.getItem("UID")     
+      console.log("USER IS NULL")
+  }
+  else{
+    this.userid = firebase.auth().currentUser.uid
+    var fuid =  firebase.auth().currentUser.uid
+    localStorage.setItem("UID", fuid)
+    console.log("SETTING USERID")
+  }
    }
 
   ngOnInit() {
-    this.userid = firebase.auth().currentUser.uid;
+    
+    console.log("THIS IS THE USERID " + this.userid)
+    
     this.getMeds()
     this.getRecommendation()
     setTimeout(() => {
+      console.log("RUNNING GETINFO")
       this.getInfo()
-    }, 400);
+    }, 200);
     setTimeout(() => {
+      console.log("RUNNING GET CHART")
       this.getChart()
     }, 500);
     setTimeout(() => {
+      console.log("RUNNING GET STATUS")
       this.getStatus()
-    }, 600);
+    }, 200);
     this.status= this.getStatus()
   }
 
   getInfo(){
+    //if(this.userid == null)
+    console.log("user Id in getInfo "+ this.userid)
     var refs = firebase.database().ref('usertypes/' + this.userid);
+    //console.log(refs)
     refs.on('value', (snapshot) => {
+      console.log(snapshot.val())
       this.info = snapshot.val();
+      //console.log(this.info)
     })
+    if(this.info == null){
+      setTimeout(() => {
+        this.first = this.info.first_name
+        this.last = this.info.last_name
+        this.status= this.info.status
+      }, 300);
+    }
+    else{
+      this.first = this.info.first_name
+        this.last = this.info.last_name
+        this.status= this.info.status
+    }
     //grabs first and last name from the info
-    this.first = this.info.first_name
-    this.last = this.info.last_name
+    
   }
 
   getMeds(){
     var mref = firebase.database().ref('meds/' + this.userid );
     mref.on('value', (snapshot) => {
       this.tmeds = snapshot.val();
-      this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
+      if(this.tmeds != null ){
+        this.meds = Object.keys(this.tmeds).map(i => this.tmeds[i]);
+      }else{
+        console.log("NO MEDS")
+      }
+      
     })
     //console.log("outside" + this.meds)
   }
@@ -110,7 +143,7 @@ export class CmainComponent implements OnInit {
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
-    console.log(firebase.auth().currentUser.uid)
+    //console.log(firebase.auth().currentUser.uid)
   }
   //Wraper function to change what is viewed in HTML
   clicked(){
@@ -119,11 +152,11 @@ export class CmainComponent implements OnInit {
   }
   // Function to add a medication to the firebase database
   add(){
-    var userid = firebase.auth().currentUser.uid;
+    
     var medname = this.medName;
     var meddate = this.medDate;
     var medTime = this.medTime;
-    var path:string = "meds/" + userid.toString();
+    var path:string = "meds/" + this.userid.toString();
     let med = firebase.database().ref(path).push();
     med.set ({
       'medname': medname,
@@ -166,7 +199,7 @@ export class CmainComponent implements OnInit {
 
   //Grabs the fitbit data using the Token inside of the firebase.
   pullFitbit(){    
-    var userid = firebase.auth().currentUser.uid;
+    var userid = this.userid
     var path:string = ("fitbitInfo/" + userid.toString());
     var fitbitInfo:any
     var fitbitRefs = firebase.database().ref(path); 
@@ -179,15 +212,15 @@ export class CmainComponent implements OnInit {
       
       var fitbitId = ar[0]
       var fitbitToken= ar[1]
-      console.log(fitbitId + " "+ fitbitToken)
-      console.log(fitbitToken + " " + fitbitId)
+      //console.log(fitbitId + " "+ fitbitToken)
+      //console.log(fitbitToken + " " + fitbitId)
       var todaysDate = this.getDate();
       var monthPriorDate = this.getPriorMonth();
       //************ */
       if (fitbitToken != null) {
-        console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
+        //console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
         var temp:string = 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
-        console.log(temp);
+        //console.log(temp);
   
         //Grabs the data from fitbit as a xhr reqest. 
         var xhr = new XMLHttpRequest();
@@ -227,7 +260,7 @@ export class CmainComponent implements OnInit {
       }
      
     }, 500);
-    console.log("Running")
+    //console.log("Running")
   }
 
 
@@ -239,8 +272,8 @@ export class CmainComponent implements OnInit {
       tdata = snapshot.val();
     })
     //console.log(tdata)
-
-    var ar = Object.values(tdata)
+    if(tdata != null){
+      var ar = Object.values(tdata)
     //console.log(ar)
     var date = []
     var weight = []
@@ -259,6 +292,10 @@ export class CmainComponent implements OnInit {
     weight = this.toNum(weight)
     //console.log(weight)
     return [date, weight]
+    }else{
+      console.log("Data not loaded yet")
+    }
+    
   }
   //wraper function that changes weight array from string to double
   toNum(arry){
@@ -280,7 +317,7 @@ export class CmainComponent implements OnInit {
       } 
     }
     //This changes the new medication object in the database
-    var userid = firebase.auth().currentUser.uid;
+    var userid =this.userid
     var path:string = "meds/" + userid.toString();
     var ref = firebase.database().ref(path)
     ref.set(this.meds)
@@ -299,91 +336,100 @@ export class CmainComponent implements OnInit {
     //set 
     var Data = this.FitbitDataFromFirebase();
     //Done
-    var weight = Data[1];
-    console.log(weight)
-    var count = 0;
-    var status = 'GREEN'
-    var weekAvg = 0;
-    var current = 0;
-    var yester = 0;
-    var weekAgo = weight[weight.length - 7]
-    //gets avg for week, aswell as setting current and yesterdays weight
-    for(var i = weight.length - 7; i < weight.length; i++)
-    {
-      if(count == 5)
+    if(Data != null){
+      var weight = Data[1];
+      //console.log(weight)
+      var count = 0;
+      var status = 'GREEN'
+      var weekAvg = 0;
+      var current = 0;
+      var yester = 0;
+      var weekAgo = weight[weight.length - 7]
+      //gets avg for week, aswell as setting current and yesterdays weight
+      for(var i = weight.length - 7; i < weight.length; i++)
       {
-        yester = weight[i]
-      }
-      if(count == 6)
+        if(count == 5)
+        {
+          yester = weight[i]
+        }
+        if(count == 6)
+        {
+          current = weight[i];
+        }
+        weekAvg = weekAvg + weight[i]
+        count++
+      } 
+      weekAvg = weekAvg / 7;
+      //check whether they are actually losing weight (Day to day), in that case, status remains green
+      var diff = current - yester
+      var bool = 0;
+      if(diff < 0)
       {
-        current = weight[i];
+        bool = 1;
       }
-      weekAvg = weekAvg + weight[i]
-      count++
-    } 
-    weekAvg = weekAvg / 7;
-    //check whether they are actually losing weight (Day to day), in that case, status remains green
-    var diff = current - yester
-    var bool = 0;
-    if(diff < 0)
-    {
-      bool = 1;
+      diff = Math.abs(diff)
+      //console.log(diff)
+      //check whether they are losing weight (week to week), in this case, status will remain green
+      var weekDiff = current - weekAgo
+      if(weekDiff < 0)
+      {
+        bool = 1;
+      }
+      weekDiff = Math.abs(weekDiff)
+      //console.log(weekDiff)
+      //First check and set status based on difference of weight from one day to the next
+      if(diff <= 1)
+      {
+        status = 'GREEN'
+      }
+      else if(diff > 1 && diff <= 2)
+      {
+        status = 'YELLOW'
+      }
+      else
+      {
+        status = 'RED'
+      }
+      //Now check and set status based on difference of weight from week to week (giving this more priority over status)
+      if(weekDiff <= 2)
+      {
+        status = 'GREEN'
+      }
+      else if(diff > 2 && diff <= 5)
+      {
+        status = 'YELLOW'
+      }
+      else
+      {
+        status = 'RED'
+      }
+      //If they've lost weight, set status to Green
+      if(bool == 1)
+      {
+        status = 'GREEN'
+      }
+      
+      this.saveStatus(status)
+      this.status = this.info.status
+      //console.log(status)
+      return status
+    }else{
+      console.log("Status not loaded yet")
     }
-    diff = Math.abs(diff)
-    //console.log(diff)
-    //check whether they are losing weight (week to week), in this case, status will remain green
-    var weekDiff = current - weekAgo
-    if(weekDiff < 0)
-    {
-      bool = 1;
-    }
-    weekDiff = Math.abs(weekDiff)
-    //console.log(weekDiff)
-    //First check and set status based on difference of weight from one day to the next
-    if(diff <= 1)
-    {
-      status = 'GREEN'
-    }
-    else if(diff > 1 && diff <= 2)
-    {
-      status = 'YELLOW'
-    }
-    else
-    {
-      status = 'RED'
-    }
-    //Now check and set status based on difference of weight from week to week (giving this more priority over status)
-    if(weekDiff <= 2)
-    {
-      status = 'GREEN'
-    }
-    else if(diff > 2 && diff <= 5)
-    {
-      status = 'YELLOW'
-    }
-    else
-    {
-      status = 'RED'
-    }
-    //If they've lost weight, set status to Green
-    if(bool == 1)
-    {
-      status = 'GREEN'
-    }
-    this.status = this.info.status
-    console.log(status)
-    this.saveStatus(status)
-    return status
+   
   }
   saveStatus(status){
-    var refs = firebase.database().ref('usertypes/' + this.userid);
-    refs.set({
-      'uid': this.userid,
-      'first_name': this.info.first_name,
-      'last_name': this.info.last_name,
-      'status': status,
-      'type': this.info.type
-    });
+    if(this.info != null){
+      var refs = firebase.database().ref('usertypes/' + this.userid);
+      refs.set({
+        'uid': this.userid,
+        'first_name': this.info.first_name,
+        'last_name': this.info.last_name,
+        'status': status,
+        'type': this.info.type
+      });
+    }
+ 
     //console.log(status)
   }
   // the following group of get functions are to serve
@@ -393,7 +439,7 @@ export class CmainComponent implements OnInit {
     var temp = this.FitbitDataFromFirebase()
     var today = this.getDate()
     var dates = temp[0]
-    console.log(dates)
+    //console.log(dates)
     var size = this.getSize(dates)
     for(var i = 0; i < size; i++)
     {
@@ -410,14 +456,14 @@ export class CmainComponent implements OnInit {
     var size = this.getSize(weight)
     var total = 0;
 
-    console.log(weight)
+    //console.log(weight)
 
     for(var i = (size - 1) ; i > (size - 8); i--)
     {
       total = total + weight[i];
     }
     total = total/7;
-    console.log("weekly average: " + total)
+   // console.log("weekly average: " + total)
     return total;
   }
   
@@ -428,14 +474,14 @@ export class CmainComponent implements OnInit {
     var size = this.getSize(weight)
     var total = 0;
 
-    console.log(weight)
+    //console.log(weight)
 
     for(var i = (size - 1) ; i > (size - 31); i--)
     {
       total = total + weight[i];
     }
     total = total/30;
-    console.log("Monthly average: " + total)
+    //console.log("Monthly average: " + total)
     return total;
   }
   getRecommendation()
@@ -467,7 +513,7 @@ export class CmainComponent implements OnInit {
         recommendation = 'Make sure to get enough sleep'
         break;
     }
-    console.log(recommendation)
+    //console.log(recommendation)
     this.recommendation = recommendation
     return recommendation
   }
