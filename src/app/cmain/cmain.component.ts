@@ -33,8 +33,6 @@ export class CmainComponent implements OnInit {
   ngOnInit() {
   
     this.userid = firebase.auth().currentUser.uid
-  
-    
     console.log("THIS IS THE USERID " + this.userid)
     
     this.getMeds()
@@ -58,14 +56,11 @@ export class CmainComponent implements OnInit {
   }
 
   getInfo(){
-    //if(this.userid == null)
     console.log("user Id in getInfo "+ this.userid)
     var refs = firebase.database().ref('usertypes/' + this.userid);
-    //console.log(refs)
     refs.on('value', (snapshot) => {
       console.log(snapshot.val())
       this.info = snapshot.val();
-      //console.log(this.info)
     })
     if(this.info == null){
       setTimeout(() => {
@@ -79,8 +74,6 @@ export class CmainComponent implements OnInit {
         this.last = this.info.last_name
         this.status= this.info.status
     }
-    //grabs first and last name from the info
-    
   }
 
   getMeds(){
@@ -94,7 +87,6 @@ export class CmainComponent implements OnInit {
       }
       
     })
-    //console.log("outside" + this.meds)
   }
   getChart(){
   var myArray = this.FitbitDataFromFirebase();
@@ -141,13 +133,14 @@ export class CmainComponent implements OnInit {
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
-    //console.log(firebase.auth().currentUser.uid)
   }
+
   //Wraper function to change what is viewed in HTML
   clicked(){
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
   }
+
   // Function to add a medication to the firebase database
   add(){
     
@@ -166,13 +159,13 @@ export class CmainComponent implements OnInit {
     this.medTime=''
   this.clicked();
   }
+
  /* Date must be in yyyy-MM-dd format such as:
       1. /body/log/weight/date/[date].json
       2. /body/log/weight/date/[base-date]/[period].json
       3. /body/log/weight/date/[base-date]/[end-date].json
       Range end date must not be longer than 31 days.
     */
-   
   //Grabs the current date and in yyyy-mm-dd format
   getDate(){
     var today = new Date();
@@ -183,7 +176,6 @@ export class CmainComponent implements OnInit {
     let t = yyyy + '-' + mm + '-' + dd;
     return t;
   }
-
   //Gets the date for the day 30 days ago
   getPriorMonth() {
     var date = new Date(new Date().setDate(new Date().getDate() - 30));
@@ -194,7 +186,6 @@ export class CmainComponent implements OnInit {
     var priorDate = yyyy + '-' + mm + '-' + dd;    
     return priorDate;
   }
-
   //Grabs the fitbit data using the Token inside of the firebase.
   pullFitbit(){    
     var userid = this.userid
@@ -210,11 +201,8 @@ export class CmainComponent implements OnInit {
       
       var fitbitId = ar[0]
       var fitbitToken= ar[1]
-      //console.log(fitbitId + " "+ fitbitToken)
-      //console.log(fitbitToken + " " + fitbitId)
       var todaysDate = this.getDate();
       var monthPriorDate = this.getPriorMonth();
-      //************ */
       if (fitbitToken != null) {
         //console.log("Grabbing Fitbit data from " + monthPriorDate + " to today, " + todaysDate);
         var temp:string = 'https://api.fitbit.com/1/user/' + fitbitId + '/body/log/weight/date/' + monthPriorDate + '/' + todaysDate + '.json';
@@ -258,7 +246,6 @@ export class CmainComponent implements OnInit {
       }
      
     }, 500);
-    //console.log("Running")
   }
 
 
@@ -285,8 +272,6 @@ export class CmainComponent implements OnInit {
       date.push(temp[0]) 
       weight.push(Math.round((x * 2.20462) * 100) / 100)
     }
-    //console.log(date)
-    //console.log(weight)
     weight = this.toNum(weight)
     //console.log(weight)
     return [date, weight]
@@ -303,8 +288,7 @@ export class CmainComponent implements OnInit {
     return rweight
   }
 
-
-    //Deletes a chosen medication 
+  //Deletes a chosen medication 
   delMed(id){
     var size = this.getSize(this.meds)
     //Goes through list of meds object and removes the meds
@@ -346,12 +330,10 @@ export class CmainComponent implements OnInit {
       //gets avg for week, aswell as setting current and yesterdays weight
       for(var i = weight.length - 7; i < weight.length; i++)
       {
-        if(count == 5)
-        {
+        if(count == 5) {
           yester = weight[i]
         }
-        if(count == 6)
-        {
+        if(count == 6) {
           current = weight[i];
         }
         weekAvg = weekAvg + weight[i]
@@ -361,58 +343,47 @@ export class CmainComponent implements OnInit {
       //check whether they are actually losing weight (Day to day), in that case, status remains green
       var diff = current - yester
       var bool = 0;
-      if(diff < 0)
-      {
+      if(diff < 0) {
         bool = 1;
       }
       diff = Math.abs(diff)
       //console.log(diff)
       //check whether they are losing weight (week to week), in this case, status will remain green
       var weekDiff = current - weekAgo
-      if(weekDiff < 0)
-      {
+      if(weekDiff < 0) {
         bool = 1;
       }
       weekDiff = Math.abs(weekDiff)
       //console.log(weekDiff)
       //First check and set status based on difference of weight from one day to the next
-      if(diff <= 1)
-      {
+      if(diff <= 1) {
         status = 'GREEN'
       }
-      else if(diff > 1 && diff <= 2)
-      {
+      else if(diff > 1 && diff <= 2) {
         status = 'YELLOW'
       }
-      else
-      {
+      else {
         status = 'RED'
       }
       //Now check and set status based on difference of weight from week to week (giving this more priority over status)
-      if(weekDiff <= 2)
-      {
+      if(weekDiff <= 2) {
         status = 'GREEN'
       }
-      else if(diff > 2 && diff <= 5)
-      {
+      else if(diff > 2 && diff <= 5) {
         status = 'YELLOW'
       }
-      else
-      {
+      else {
         status = 'RED'
       }
       //If they've lost weight, set status to Green
-      if(bool == 1)
-      {
+      if(bool == 1) {
         status = 'GREEN'
       }
       
       this.saveStatus(status)
-      if(this.info == undefined)
-      {
+      if(this.info == undefined){
       }
-      else
-      {
+      else {
         this.status = this.info.status 
       }
       //console.log(status)
@@ -436,9 +407,9 @@ export class CmainComponent implements OnInit {
  
     //console.log(status)
   }
+
   // the following group of get functions are to serve
   // alexa the proper data for voice activated commands
-
   getTodaysWeight(){
     var temp = this.FitbitDataFromFirebase()
     var today = this.getDate()

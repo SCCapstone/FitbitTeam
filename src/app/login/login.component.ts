@@ -138,12 +138,6 @@ export class LoginComponent implements OnInit {
     let fitbitRef = firebase.database().ref(path);
     // deletes any existing tokens
     fitbitRef.remove();
-    // fitbitRef.once("value", function(snapshot) {
-    //   snapshot.forEach(function(child) {
-    //     console.log(child.key+": "+child.val());
-    //   });
-    // });
-    //push to firebase
     if (access_token != '' && fitbitId != ''){
       fitbitRef.set ({
         'token': access_token,
