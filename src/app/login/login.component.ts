@@ -220,9 +220,6 @@ export class LoginComponent implements OnInit {
       }
     });
   }
- getFitbitToken(){
-  
- }
 
 
   /*
