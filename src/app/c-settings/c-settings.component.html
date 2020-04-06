@@ -11,6 +11,24 @@
 </head>
   
 <body>
+  <!-- importing Login with Amazon SDK-->
+  <div id="amazon-root"></div>
+  <script type="text/javascript">
+      setTimeout(() => {
+      window.onAmazonLoginReady = function() {
+        amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
+      };
+      (function(d) {
+        var a = d.createElement('script'); a.type = 'text/javascript';
+        a.async = true; a.id = 'amazon-login-sdk';
+        a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
+        d.getElementById('amazon-root').appendChild(a);
+      })(document);
+      console.log("amazon SDK loaded")
+    }, 300);
+  </script>
+
+
 <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 
 <div class="container-fluid">
@@ -57,30 +75,30 @@
 <!-- Uses amazon SDK see: https://developer.amazon.com/docs/login-with-amazon/install-sdk-javascript.html-->
 <ul class="list-group">
   <li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
-	  <div id="amazon-root" class="d-flex w-100 justify-content-between">
-      <script type="text/javascript">
-      
-        window.onAmazonLoginReady = function() {
-          amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
-        };
-        (function(d) {
-          var a = d.createElement('script'); a.type = 'text/javascript';
-          a.async = true; a.id = 'amazon-login-sdk';
-          a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
-          d.getElementById('amazon-root').appendChild(a);
-        })(document);
-
-      </script>
+     <!-- imports Login with Amazon SDK-->
+	  <div id="Amazon Account" class="d-flex w-100 justify-content-between">
       <font size=5>Amazon Account</font>
         <!--<button type = "button" id="alexaLogin" title ="Use the same email as you registered with us!" class ="btn btn-md btn-primary" (click)="redirectAlexa()">Link to Alexa</button>
         -->
-        <a href id="LoginWithAmazon">
-          <img border = "0" alt = "Login with Amazon"
-            src = "https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gry_156x132.png"
-            width="156" height="32" />
-        </a>
-        </div>
-        
+      <a href id="LoginWithAmazon">
+        <img border = "0" alt = "Login with Amazon"
+          src = "https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gry_156x132.png"
+          width="156" height="32" />
+      </a>
+    </div>
+    <script type="text/javascript">
+      document.getElementById('LoginWithAmazon').onclick = function() {
+        console.log("on click")
+        options = {}
+        options.scope = 'profile';
+        options.scope_data = {
+          'profile' : {'essential': false} 
+        };
+        amazon.Login.authorize(options,
+          'https://fitbittesterv2.herokuapp.com/');
+          return false;
+      };
+    </script>
   </li>
   <li class="list-group-item" >
     <div class="d-flex w-100 justify-content-between">
@@ -147,7 +165,7 @@
     <script src="file:/js/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed --> 
-    <script src="file:/js/popper.min.js"></script>
+  <script src="file:/js/popper.min.js"></script>
   <script src="file:/js/bootstrap-4.3.1.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

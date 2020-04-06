@@ -127,8 +127,18 @@ export class CSettingsComponent implements OnInit {
     }
   }
   redirectAmazon() {
-    console.log("logged in with amazon")
+    console.log("logging in with amazon")
+      // window.onAmazonLoginReady = function() {
+      //   amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
+      // };
+      // (function(d) {
+      //   var a = d.createElement('script'); a.type = 'text/javascript';
+      //   a.async = true; a.id = 'amazon-login-sdk';
+      //   a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
+      //   d.getElementById('amazon-root').appendChild(a);
+      // })(document);
   }
+
   redirectAlexaSkill() {
     let url = 'https://pitangui.amazon.com/api/skill/link/M36BFXKAHFCNJM'
     window.open(url);
