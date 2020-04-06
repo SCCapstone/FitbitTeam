@@ -13,7 +13,6 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import * as firebase from 'firebase';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent } from './a-settings/a-settings.component';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -44,8 +43,7 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
-	AmplifyAngularModule
+    AppRoutingModule
   ],
   providers: [
   AmplifyService
