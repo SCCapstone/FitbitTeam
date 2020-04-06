@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +13,7 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import * as firebase from 'firebase';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent } from './a-settings/a-settings.component';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -45,8 +45,11 @@ import { ASettingsComponent } from './a-settings/a-settings.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule
+	AmplifyAngularModule
   ],
-  providers: [],
+  providers: [
+  AmplifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
