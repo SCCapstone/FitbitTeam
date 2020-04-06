@@ -26,16 +26,8 @@ export class CSettingsComponent implements OnInit {
    }
 
   ngOnInit() {
-    if(firebase.auth().currentUser == null){
-      this.userid = localStorage.getItem("UID")     
-      console.log("USER IS NULL")
-  }
-  else{
     this.userid = firebase.auth().currentUser.uid
-    var fuid =  firebase.auth().currentUser.uid
-    localStorage.setItem("UID", fuid)
-    console.log("SETTING USERID")
-  }
+  
     //Grabbing First and Last name from firebase
     console.log("User ID: "+ this.userid)
     var usid = this.userid;
@@ -52,10 +44,12 @@ export class CSettingsComponent implements OnInit {
    });
    if(fitbitInfo == null){
     setTimeout(() => {
+      console.log("RUNNING helpInfo with timout")
       this.helpInfo(fitbitInfo)
     }, 500);
    }
    else{
+    console.log("RUNNING helpInfo without timeout")
     this.helpInfo(fitbitInfo)
    }
     // If user is logged into FitBit, we want to tell them.
@@ -95,6 +89,7 @@ export class CSettingsComponent implements OnInit {
       this.type = this.info.type
     }else{
       setTimeout(() => {
+        console.log("RUNNING getInfo Recursion")
         this.getInfo()
       }, 100);
      
@@ -106,6 +101,7 @@ export class CSettingsComponent implements OnInit {
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
+    localStorage.clear()
     console.log(firebase.auth().currentUser.uid)
   }
 

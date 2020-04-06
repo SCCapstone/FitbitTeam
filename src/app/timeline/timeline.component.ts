@@ -35,8 +35,14 @@ export class TimelineComponent implements OnInit {
     } else {
     usid = firebase.auth().currentUser.uid;
     }
-    this.getInfo()
-    this.status = this.getStatus()
+    console.log(usid)
+    setTimeout(() => {
+      this.getInfo()
+    }, 200);
+    setTimeout(() => {
+      this.status = this.getStatus()
+    }, 200);
+    
 
     var z = document.getElementById("myChartDIV");
     if (z.style.display === "none") {
@@ -48,30 +54,36 @@ export class TimelineComponent implements OnInit {
   var refs = firebase.database().ref('fitbitInfo/' + usid );
   refs.on('value', (snapshot) => {
      var tmeds= snapshot.val();
-     this.fitbitInfo = Object.keys(tmeds).map(i => tmeds[i]);
-     console.log(this.fitbitInfo)
-      this.fitbitID = this.fitbitInfo[0].id
-      this.fitbitToken = this.fitbitInfo[0].token
-   
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://api.fitbit.com/1/user/' + this.fitbitID + '/body/log/weight/date/today/1w.json');
-      xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          if (xhr.responseText != ' ') {
-            var data = xhr.responseText;
-            console.log(data)
-          }
-          console.log(data)
-          var path:string = "fitbitData/" + usid.toString();
-          let fitbitData = firebase.database().ref(path).push();
-          fitbitData.set ({
-            'data': data,
-          });
-        }
-    };
+     setTimeout(() => {
+      this.fitbitInfo = Object.keys(tmeds).map(i => tmeds[i]);
+      console.log(this.fitbitInfo)
+       this.fitbitID = this.fitbitInfo[0].id
+       this.fitbitToken = this.fitbitInfo[0].token
+    
+       var xhr = new XMLHttpRequest();
+       xhr.open('GET', 'https://api.fitbit.com/1/user/' + this.fitbitID + '/body/log/weight/date/today/1w.json');
+       xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
+       xhr.onload = function () {
+         if (xhr.status === 200) {
+           if (xhr.responseText != ' ') {
+             var data = xhr.responseText;
+             console.log(data)
+           }
+           console.log(data)
+           var path:string = "fitbitData/" + usid.toString();
+           let fitbitData = firebase.database().ref(path).push();
+           fitbitData.set ({
+             'data': data,
+           });
+         }
+     };
+     }, 200);
+     
   })
-  this.GenerateChart()
+  setTimeout(() => {
+    this.GenerateChart()
+  }, 200);
+  
   this.Entries = this.GetEntries()
   console.log( this.Entries)
   }

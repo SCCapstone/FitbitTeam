@@ -26,19 +26,13 @@ export class CmainComponent implements OnInit {
   recommendation = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
-    if(firebase.auth().currentUser == null){
-      this.userid = localStorage.getItem("UID")     
-      console.log("USER IS NULL")
-  }
-  else{
-    this.userid = firebase.auth().currentUser.uid
-    var fuid =  firebase.auth().currentUser.uid
-    localStorage.setItem("UID", fuid)
-    console.log("SETTING USERID")
-  }
+   
    }
 
   ngOnInit() {
+  
+    this.userid = firebase.auth().currentUser.uid
+  
     
     console.log("THIS IS THE USERID " + this.userid)
     

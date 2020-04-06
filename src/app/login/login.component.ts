@@ -126,6 +126,7 @@ export class LoginComponent implements OnInit {
 
 
   login(){
+    localStorage.clear()
     var login = true;
     const email = this.email;
     const password = this.password;
@@ -146,6 +147,7 @@ export class LoginComponent implements OnInit {
       .then(function(result){
         //console.log(login)
         let userid = firebase.auth().currentUser.uid;
+        localStorage.setItem('UID', userid)
   //CALL FITBIT PULL
         // if (window.location.href != ' ') {
         //   var url = window.location.href;

@@ -48,6 +48,7 @@ export class AdminMainComponent implements OnInit {
     console.log(this.hasclicked)
   }
   toTimeline(refNumb){
+    console.log(refNumb)
     this.router.navigate(["../timeline"], { state: { example: refNumb } })
     console.log(refNumb)
     //console.log(firebase.auth().currentUser.uid)
