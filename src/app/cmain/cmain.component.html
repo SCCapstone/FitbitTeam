@@ -101,19 +101,6 @@
 			<li>
 				<h5>Day(s) of the week:</h5>
 
-
-				<!--
-				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
-					<option value="Monday">Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="Saturday">Saturday</option>
-					<option value="Sunday">Sunday</option>
-				  </select>
-					
-				-->
 				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
 					<option data-tokens="Monday">Monday</option>
 					<option data-tokens="Tuesday">Tuesday</option>
@@ -141,6 +128,13 @@
 		<font size=4>{{recommendation}}</font>
 	</div>
 </div>
+
+
+<li class="list-group-item" *ngFor = "let rec of recs; let i = index" style="background-color: white; color: black;">
+	<div class="d-flex w-100 justify-content-between">
+		  <font size=5>{{rec}}</font>
+	</div>
+</li>
 	  
 	  
     

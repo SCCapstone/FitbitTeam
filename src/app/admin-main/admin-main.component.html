@@ -75,6 +75,24 @@
        </ul>
       </div>
     
+      <button type="button" class="btn btn-md btn-success" (click) = 'recClick()'><font size=5 align=left>Add</font></button>
+      <div class="medsAdd" *ngIf='recClicked'>
+        <ul>
+            <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+          <li>
+            <h5>Recomendation:</h5>
+            <input class="form-control" id="InputFirst" placeholder="Enter a Recomendation"  [(ngModel)]="Rec" #ctrl="ngModel" required>
+          </li>
+          <button type="button" class="btn btn-md btn-success" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
+        </ul>
+      </div>
+    
+    
+
+
+
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
 

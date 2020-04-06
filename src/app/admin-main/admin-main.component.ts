@@ -11,6 +11,7 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 export class AdminMainComponent implements OnInit {
   userid = ''
   info:any
+  Rec = ''
   first = ''
   tClients:any
   clients:any
@@ -20,6 +21,7 @@ export class AdminMainComponent implements OnInit {
   refNum = ''
   display = []
   hasclicked=false
+  recClicked = false
   constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -116,6 +118,17 @@ export class AdminMainComponent implements OnInit {
     }
     return size;
 
+  }
+  addRec(){
+    console.log(this.Rec)
+    var path:string = "Recs/";
+    var ref = firebase.database().ref(path)
+    ref.push(this.Rec)
+    this.recClick()
+  }
+  recClick(){
+      this.recClicked= !this.recClicked;
+      console.log(this.recClicked)
   }
   //gets the status of the client to display on admin main
   getStatus() {

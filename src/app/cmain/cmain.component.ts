@@ -21,6 +21,7 @@ export class CmainComponent implements OnInit {
   medDate = ''
   medEntry:any
   hasclicked=false
+  recs = []
   id = ''
   status = ''
   recommendation = ''
@@ -489,41 +490,18 @@ export class CmainComponent implements OnInit {
   }
   getRecommendation()
   {
-    var recommendation = ''
-    var count = 0
-    count = Math.floor(Math.random() * (7))
-    switch (count)
-    {
-      case 0:
-        recommendation = 'Try and excercise atleast 3 times a week'
-        break;
-      case 1:
-        recommendation = 'Avoid foods/drinks high in sugar'
-        break;
-      case 2:
-        recommendation = 'Avoid processed junk foods'
-        break;
-      case 3:
-        recommendation = 'Cut back on your carbs'
-        break;
-      case 4:
-        recommendation = 'Drink lots of water'
-        break;
-      case 5:
-        recommendation = 'Always keep healthy food around to snack on'
-        break;
-      case 6:
-        recommendation = 'Make sure to get enough sleep'
-        break;
-    }
-    //console.log(recommendation)
-    this.recommendation = recommendation
-    return recommendation
+    var path:string = 'Recs/'
+    var tdata
+    var ref = firebase.database().ref(path)
+    ref.on('value', (snapshot) => {
+      tdata = snapshot.val();
+      //console.log(tdata)
+    })
+    setTimeout(() => {
+      console.log(Object.values(tdata))
+      this.recs = Object.values(tdata)
+      
+      console.log( this.recs)
+    }, 100);
   }
-  getMedication(){
-
-  }
-  getReminders(){
-
-  }  
 }
