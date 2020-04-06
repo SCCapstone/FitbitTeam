@@ -70,18 +70,38 @@ export class AdminMainComponent implements OnInit {
     });
     this.refNum = ''
     this.patName=''
+    this.addDisp(refNum)
   this.clicked();
   }
+  addDisp(refNumber)
+  {
+    var refs = firebase.database().ref('usertypes/' + refNumber)
+    var data = []
+    refs.on('value', (snapshot) => {
+     data.push(snapshot.val())
+    })
+    let obj = {
+      'patName':data[0].first_name,
+      'refNum':refNumber,
+      'status':data[0].status
+    }
+    this.display.push(obj)
+  }
   remove(id){
-    console.log(this.clients)
+    //console.log(this.clients)
     var size = this.getSize(this.clients)
     //Goes through list of meds object and removes the meds
     for (var i = 0; i < size; i ++){
       if (this.clients[i] == this.clients [id]){
         console.log("Removal of " + this.clients[i])
         delete this.clients[i]
+        delete this.display[i]
       } 
     }
+    this.display = this.display.filter(function (el) {
+      return el != null;
+    });
+    console.log(this.display)
     //This changes the new medication object in the database
     var userid = firebase.auth().currentUser.uid;
     var path:string = "clients/" + userid.toString();
@@ -97,16 +117,8 @@ export class AdminMainComponent implements OnInit {
     return size;
 
   }
-  /* tihs function uses the refNum of each client to pull their status
-  from firebase and update on their bar
-  */
+  //gets the status of the client to display on admin main
   getStatus() {
-    // loop through all
-    // grab refNum
-    // pull status from firebase
-    // set status in helper function or here.
-    /* id keep setStatus as a local var/function as it
-    must be unique for each user pull request from firebase */
     var data = []
     var obj:any
     for(var i = 0; i < this.clients.length; i++)
@@ -116,7 +128,7 @@ export class AdminMainComponent implements OnInit {
         data.push(snapshot.val())
       })
       obj = {
-        'patName':this.clients[i].patName,
+        'patName':data[i].first_name,
         'refNum':this.clients[i].refNum,
         'status':data[i].status
       }
@@ -128,6 +140,4 @@ export class AdminMainComponent implements OnInit {
   setStatus() {
 
   }
-
-
 }
