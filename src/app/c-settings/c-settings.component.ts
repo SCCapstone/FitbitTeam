@@ -8,10 +8,10 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
   styleUrls: ['./c-settings.component.css']
 })
 export class CSettingsComponent implements OnInit {
+  userid = ''
   first = ''
   last = ''
   editName = false
-  userid = 'test'
   hasclicked=false
   info:any
   type = ''
@@ -22,45 +22,86 @@ export class CSettingsComponent implements OnInit {
   fitbitId:any
   fitbitInfo:any
   constructor(public router: Router,private route: ActivatedRoute) {
+    
    }
 
   ngOnInit() {
+    if(firebase.auth().currentUser == null){
+      this.userid = localStorage.getItem("UID")     
+      console.log("USER IS NULL")
+  }
+  else{
+    this.userid = firebase.auth().currentUser.uid
+    var fuid =  firebase.auth().currentUser.uid
+    localStorage.setItem("UID", fuid)
+    console.log("SETTING USERID")
+  }
     //Grabbing First and Last name from firebase
-    this.userid = firebase.auth().currentUser.uid;
     console.log("User ID: "+ this.userid)
-    var usid = firebase.auth().currentUser.uid;
-    var refs = firebase.database().ref('usertypes/' + usid);
-    var fref = firebase.database().ref('fitbitInfo/' + usid );
+    var usid = this.userid;
+    console.log("RUNNING GETINFO")
+    this.getInfo()
+    console.log("FIRST NAME: "+this.first)
 
-    refs.on('value', (snapshot) => {
-      this.info = snapshot.val();
-    })
-    this.first = this.info.first_name
-    this.last = this.info.last_name
-    this.type = this.info.type
-    
     //grabbing fitbit data from firebase
     var fitbitInfo:any
+    var fref = firebase.database().ref('fitbitInfo/' + usid );
     fref.on('value', (snapshot) => {
+      console.log("RUNNING getFitbitInfo")
       fitbitInfo = snapshot.val();
    });
-   setTimeout(() => {
-     var ar = Object.values(fitbitInfo)
-    this.fitbitId = ar[0]
-    this.fitbitToken= ar[1]
-    //function parses the very long token to the XXXX.XXXX first 4 and last 4 characters to easily display/diagnose
-    if (this.fitbitToken != '') {
-      this.tokenParsed = this.fitbitToken.toString();
-      this.tokenLength = this.fitbitToken.length;
-      this.tokenParsed = this.tokenParsed.substr(0, 4) + "." + this.tokenParsed.substr(this.tokenLength -4); //last 4 
-    }
-  }, 200);
+   if(fitbitInfo == null){
+    setTimeout(() => {
+      this.helpInfo(fitbitInfo)
+    }, 500);
+   }
+   else{
+    this.helpInfo(fitbitInfo)
+   }
     // If user is logged into FitBit, we want to tell them.
     if(this.fitbitInfo != ''){
       this.connection = 'Connected to fitbit account'
-      console.log("CONNECTED")
     }
+  } 
+
+  helpInfo(obj1){
+    if(obj1 != null){
+      var ar = Object.values(obj1)
+      this.fitbitId = ar[0]
+      this.fitbitToken= ar[1]
+      //function parses the very long token to the XXXX.XXXX first 4 and last 4 characters to easily display/diagnose
+      if (this.fitbitToken != '') {
+        this.tokenParsed = this.fitbitToken.toString();
+        this.tokenLength = this.fitbitToken.length;
+        this.tokenParsed = this.tokenParsed.substr(0, 4) + "." + this.tokenParsed.substr(this.tokenLength -4); //last 4 
+      }
+      else{
+        setTimeout(() => {
+          this.helpInfo(obj1)
+        }, 100);
+      }
+    }
+  
   }
+
+  getInfo(){
+    var refs = firebase.database().ref('usertypes/' + this.userid);
+    refs.on('value', (snapshot) => {
+      this.info = snapshot.val();
+    })
+    if(this.info != null){
+      this.first = this.info.first_name
+      this.last = this.info.last_name
+      this.type = this.info.type
+    }else{
+      setTimeout(() => {
+        this.getInfo()
+      }, 100);
+     
+    }
+      
+  }
+
 
   logout(){
     firebase.auth().signOut();
