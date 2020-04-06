@@ -1,0 +1,5 @@
+{
+    "tableName": "fitbitteam",
+    "partitionKeyName": "amazoninfo",
+    "partitionKeyType": "S"
+}
