@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
-// import entire SDK
-import Amplify from 'aws-amplify';
-// import individual service
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
 @Component({
   selector: 'app-c-settings',
   templateUrl: './c-settings.component.html',
@@ -127,16 +122,16 @@ export class CSettingsComponent implements OnInit {
     }
   }
   redirectAmazon() {
-    console.log("logging in with amazon")
-      window.onAmazonLoginReady = function() {
-        amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
-      };
-      (function(d) {
-        var a = d.createElement('script'); a.type = 'text/javascript';
-        a.async = true; a.id = 'amazon-login-sdk';
-        a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
-        d.getElementById('amazon-root').appendChild(a);
-      })(document);
+    // console.log("logging in with amazon")
+    //   window.onAmazonLoginReady = function() {
+    //     amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
+    //   };
+    //   (function(d) {
+    //     var a = d.createElement('script'); a.type = 'text/javascript';
+    //     a.async = true; a.id = 'amazon-login-sdk';
+    //     a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
+    //     d.getElementById('amazon-root').appendChild(a);
+    //   })(document);
   }
 
   redirectAlexaSkill() {
