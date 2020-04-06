@@ -122,6 +122,8 @@ export class CSettingsComponent implements OnInit {
     }
   }
   redirectAmazon() {
+    alert("Function not working yet!")
+    return 0;
     // console.log("logging in with amazon")
     //   window.onAmazonLoginReady = function() {
     //     amazon.Login.setClientId('amzn1.application-oa2-client.944b2e2126854b468271e6ed0f7421ca');
@@ -135,6 +137,8 @@ export class CSettingsComponent implements OnInit {
   }
 
   redirectAlexaSkill() {
+    alert("Function not working yet!")
+    return 0;
     let url = 'https://pitangui.amazon.com/api/skill/link/M36BFXKAHFCNJM'
     window.open(url);
   }
