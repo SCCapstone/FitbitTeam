@@ -13,6 +13,7 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import * as firebase from 'firebase';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent } from './a-settings/a-settings.component';
+import { HomeComponent } from './home/home.component';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -38,7 +39,8 @@ import { ASettingsComponent } from './a-settings/a-settings.component';
     TimelineComponent,
     RecoveryComponent,
     ResetComponent,
-    ASettingsComponent
+    ASettingsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

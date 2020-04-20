@@ -9,9 +9,11 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent} from './a-settings/a-settings.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'cmain', component: CmainComponent },

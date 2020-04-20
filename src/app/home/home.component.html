@@ -17,34 +17,20 @@
 	<div class="text-left">
     </div>	
 	<div class="text-center">
-		<font color="white" size=6>Login</font>
+		<font color="white" size=6>Welcome to Heavy Heart!</font>
 	</div>
 	<div class="text-right">
     </div>
 </div>
 
     </nav>
-   <div class="row">
-     <div class="col-md-4">
-     </div>
-     <div class="col-md-4">
-       <br>
-		   <h5>Email:</h5>
-		   <input class="form-control" id="InputUser" placeholder="Email" (keydown.enter)="onKeydown($event)" [(ngModel)]="email">
-       <h5>Password:</h5>
-	   <input type="password" class="form-control" id="InputPassword" placeholder="Password" (keydown.enter)="onKeydown($event)" [(ngModel)]="password">
-		 	<div class="text-center">
-         <br>
-         <a type="button" id='loginButton' class="btn btn-lg btn-success" style="background-color: #43E78E;" (click) = login()><font color="white" size="4">Login</font></a>
+    <div class="center">
+        <img class="image" src="assets/heavy-heart-beta.jpg" style="width: 500px; height: 500px"/>
+    </div>
 
-		 	</div>
-		 	<br>
-			<a routerLink="../recovery">Forgot your Password?</a>
- 	   <div>Don't have an account? <a routerLink="../signup">Sign Up</a></div>
-     </div>
-	   <div class="col-md-4">
-	   </div>
-  </div>
+    <div class="center">
+        <button type="button" class="btn" style="background-color: #43E78E;" routerLink="../login"><font color="white" size="4">Get Started</font></button>
+    </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
@@ -58,3 +44,4 @@
 
   </body>
 </html>
+
