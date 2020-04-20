@@ -14,6 +14,8 @@ import * as firebase from 'firebase';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent } from './a-settings/a-settings.component';
 import { HomeComponent } from './home/home.component';
+import { PasswordValidator } from './password-validator.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -40,12 +42,14 @@ import { HomeComponent } from './home/home.component';
     RecoveryComponent,
     ResetComponent,
     ASettingsComponent,
-    HomeComponent
+    HomeComponent,
+    PasswordValidator,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
   ],

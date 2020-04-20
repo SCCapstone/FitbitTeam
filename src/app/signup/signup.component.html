@@ -14,17 +14,17 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
-<div class="container-fluid">
-	<div class="text-left">
-    
-    <a type="button" class="btn btn-lg" routerLink="../login">Back</a>
-    </div>	
-	<div class="text-center">
-		<font color="white" size=6>Signup</font>
-	</div>
-	<div class="text-right">
+  <div class="container-fluid">
+	  <div class="text-left">
+      <button type="button" class="btn btn-lg" routerLink="../login"><font color="white" size="5">Back</font></button>
     </div>
-</div>
+	  <div class="text-center">
+		  <font color="white" size=6>Sign-up</font>
+	  </div>
+	  <div class="text-right">
+      <button type="button" class="btn btn-lg" routerLink="../home"><font color="white" size="5">Home</font></button>
+    </div>
+  </div>
        
     </nav>
    <div class="row">
@@ -42,7 +42,18 @@
 		   <input class="form-control" id="InputUser" placeholder="Username" [(ngModel)]="user.username" #ctrl="ngModel" required>
        --> 
       <h5>Password:</h5>
-     <input type="password" class="form-control" id="InputPassword" placeholder="Password" [(ngModel)]="user.password" #ctrl="ngModel" required>
+      <!--<input matInput #password="ngModel" placehoder="Password" type="password" autocomplete="password" [(ngModel)]="model.password" name="password" minlength="8" validatePassword="password" required>-->
+      <!--<mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">
+          Password is required
+        </div>
+        <div *ngIf="password.errors.minlength">
+          Password must be at least 8 characters
+        </div>
+      </mat-error>-->
+     <input type="password" class="form-control" id="InputPassword" placeholder="Password" [(ngModel)]="user.password" #ctrl="ngModel" required><small [hidden]="password.valid || (password.pristine && !f.submitted)"></small>
+     <!--<h5>Retype Password:</h5>-->
+     <!--<input type=”password” class="form-control" id=”ConfirmPassword” placeholder="Password" [ngModel]=”user.confirmPassword” validateEqual="password" #confirmPassword=”ngModel”><small [hidden]="confirmPassword.valid ||  (confirmPassword.pristine && !f.submitted)"></small>-->
      <h5>Type:</h5>
      <select [(ngModel)]="user.type" #ctrl="ngModel" required>
       <option value="Admin">Admin</option>
@@ -51,7 +62,7 @@
   <br>
   <br>
   <br>
-      <a type="button" class="btn btn-lg btn-success" routerLink="../login" (click)= "signup()" >Signup</a>
+      <a type="button" class="btn btn-lg btn-success" style="background-color: #43E78E;" routerLink="../login" (click)= "signup()" ><font color="white" size="4">Sign-up</font></a>
 
 		 </div>
      </div>

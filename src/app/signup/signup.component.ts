@@ -5,6 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { Mongo } from '@accounts/mongo';
 //const mongoose = require('mongoose');
 import * as firebase from 'firebase';
+import { Directive, forwardRef, Attribute} from "@angular/core";
+import { Validator, AbstractControl, NG_VALIDATORS} from "@angular/forms";
+import { Router,Routes, RouterModule , ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+
 
 @Component({
   selector: 'app-signup',
@@ -16,11 +20,13 @@ export class SignupComponent implements OnInit {
   user = {
     email: '',
     password: '',
+    retype_password: '',
     first_name: '',
     last_name:'',
     type: ''
   };
-  constructor() { }
+  constructor(public router: Router,private route: ActivatedRoute) { }
+  type:any;
   ngOnInit() {
     firebase.auth().signOut().then(function() {
     }).catch(function(error) {
@@ -29,15 +35,18 @@ export class SignupComponent implements OnInit {
     //console.log(firebase.auth().currentUser.uid)
   }
 
+
   signup() {
     var email = this.user.email;
     var password = this.user.password;
+    var retype_password = this.user.retype_password;
     const first_name = this.user.first_name;
     const last_name = this.user.last_name;
     const type= this.user.type;
     const status = 'Healthy'
     const self= this;
-    
+   
+    if (this.validate()){
 
     console.log(this.user);
     //Database stuff
@@ -69,5 +78,56 @@ export class SignupComponent implements OnInit {
         
         
       });
+    }else{
+      alert("Bad password")
+      this.router.navigate(["../signup"])
+      console.log('Signup Failed')
+    }
+  }
+
+  validate(){
+
+    let invalidPassword = true;
+
+    let password = this.user.password;
+
+    let hasLower = false;
+    let hasUpper = false;
+    let hasNum = false;
+    let hasSpecial = false;
+
+    const lowercaseRegex = new RegExp("(?=.*[a-z])");// has at least one lower case letter
+    if (lowercaseRegex.test(password)) {
+      hasLower = true;
+    }
+
+    const uppercaseRegex = new RegExp("(?=.*[A-Z])"); //has at least one upper case letter
+    if (uppercaseRegex.test(password)) {
+      hasUpper = true;
+    }
+
+    const numRegex = new RegExp("(?=.*\\d)"); // has at least one number
+    if (numRegex.test(password)) {
+      hasNum = true;
+    }
+
+    const specialcharRegex = new RegExp("[!@#$%^&*(),.?\":{}|<>]");
+    if (specialcharRegex.test(password)) {
+      hasSpecial = true;
+    }
+
+    let counter = 0;
+    let checks = [hasLower, hasUpper, hasNum, hasSpecial];
+    for (let i = 0; i < checks.length; i++) {
+      if (checks[i]) {
+        counter += 1;
+      }
+    }
+
+    if (counter < 2) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
