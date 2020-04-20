@@ -22,7 +22,7 @@
 		  <font color="white" size=5>Welcome, {{first}}</font>
 	  </div>
 	  <div class="text-right">
-        <a routerLink="../settings"><button type="button" class="btn btn-lg"><font color="white" size=5>User Settings</font></button></a>
+        <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5>Logout</font></button></a>
     </div>
 </div>
        
@@ -118,7 +118,7 @@
   </li>
 </ul>
 <div class="text-left">
-    <a (click)="logout()"><button type="button" class="btn btn-lg btn-success">Logout</button></a>
+    <a (click)="logout()"><button type="button" style="background-color: #43E78E;" class="btn btn-lg btn-success">Logout</button></a>
 </div>
     
 

@@ -124,7 +124,7 @@ export class SignupComponent implements OnInit {
       }
     }
 
-    if (counter < 2) {
+    if (counter < 3) {
       return false;
     } else {
       return true;
