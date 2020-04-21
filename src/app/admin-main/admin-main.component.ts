@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
-
+import { TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-admin-main',
@@ -64,16 +64,41 @@ export class AdminMainComponent implements OnInit {
     var userid = firebase.auth().currentUser.uid;
     var patName = this.patName;
     var refNum = this.refNum;
-    var path:string = "clients/" + userid.toString();
-    let clients = firebase.database().ref(path).push();
-    clients.set ({
-      'patName':patName,
-      'refNum': refNum
-    });
-    this.refNum = ''
-    this.patName=''
-    this.addDisp(refNum)
-  this.clicked();
+    if(this.isValid(refNum) == true){
+    let check = firebase.database().ref('usertypes/' + refNum)
+    check.on('value', (snapshot) => {
+      console.log(snapshot.val())
+      if(snapshot.val() != null)
+      {
+        var path:string = "clients/" + userid.toString();
+        let clients = firebase.database().ref(path).push();
+      clients.set ({
+        'patName':patName,
+        'refNum': refNum
+      });
+      this.refNum = ''
+      this.patName=''
+      this.addDisp(refNum)
+      this.clicked();
+    }
+    else 
+    {
+      alert("reference number not found")
+    }
+  })
+  }
+  }
+  isValid(refNum)
+  {
+    if(refNum != "")
+    {
+      return true
+    }
+    else 
+    {
+      alert("reference number not found")
+    }
+    return false
   }
   addDisp(refNumber)
   {
