@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 <div class="container-fluid">
     <div class="text-left">
-        <a><button type="button" class="btn btn-lg"><font color="white" size=5>Home</font></button></a>
+        <a routerLink="../admin"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
         </div>
 	<div class="text-center">
 		<font color="white" size=5>Welcome, {{first}}</font>
@@ -44,20 +44,20 @@
 <ul class="list-group">
   <li class="list-group-item" style="background-color: #ffffff; color: gray;">
     <div class="d-flex w-100 justify-content-between">
-        <font size=5>Patient Name:</font>
-      <font size=5>Status:</font>
-    <font size=5>Reference Number:</font>
-    <font size=5>Timeline</font>
+      <div class="col"><font size=5>Patient Name:</font></div>
+      <div class="col"><font size=5>Status:</font></div>
+      <div class="col"><font size=5>Reference Code:</font></div>
+        <div class="col"><font size=5>Timeline</font></div>
     <font size=5>Remove</font>
     </div>
 </li>
 <div class="text-left" *ngIf= "!hasclicked">
   <li class="list-group-item" *ngFor = "let dis of display; let i = index" style="background-color: gray; color: #ffffff;">
     <div class="d-flex w-100 justify-content-between">
-      <font size=5>{{dis.patName}}</font>
-      <font size =5>{{dis.status}}</font>
-      <font size=5>{{dis.refNum}}</font>
-      <font size=5 (click) = toTimeline(dis.refNum)>Timeline</font>
+      <div class="col"><font size=5>{{dis.patName}}</font></div>
+        <div class="col"><font size =5>{{dis.status}}</font></div>
+          <div class="col"><font size=5>{{dis.refNum}}</font></div>
+            <div class="col"><font size=5 (click) = toTimeline(dis.refNum)>Timeline</font></div>
      <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
     </div>
   </li>		

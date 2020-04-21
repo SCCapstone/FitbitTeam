@@ -76,6 +76,13 @@ export class CSettingsComponent implements OnInit {
     }
   
   }
+  isValid(){
+    if(this.first != '' && this.last != ''){
+      return true;
+    }
+    return false
+
+  }
 
   getInfo(){
     var refs = firebase.database().ref('usertypes/' + this.userid);
@@ -194,13 +201,17 @@ export class CSettingsComponent implements OnInit {
   }
 
   SaveNew(){
-    this.info.first_name = this.first
-    this.info.last_name = this.last
-    this.info.type = this.info.type
-    var usid = firebase.auth().currentUser.uid;
-    var refs = firebase.database().ref('usertypes/' + usid);
-    console.log(this.info)
-    refs.set(this.info)
+    if(this.isValid() == true){
+      this.info.first_name = this.first
+      this.info.last_name = this.last
+      this.info.type = this.info.type
+      var usid = firebase.auth().currentUser.uid;
+      var refs = firebase.database().ref('usertypes/' + usid);
+      console.log(this.info)
+      refs.set(this.info)
+    }else{
+      alert("Please input values in the first and last name input tags")
+    }
   }
 
   test(){

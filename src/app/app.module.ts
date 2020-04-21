@@ -11,7 +11,6 @@ import { CSettingsComponent } from './c-settings/c-settings.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import * as firebase from 'firebase';
-import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent } from './a-settings/a-settings.component';
 import { HomeComponent } from './home/home.component';
 import { PasswordValidator } from './password-validator.directive';
@@ -43,7 +42,6 @@ import { ContactComponent } from './contact/contact.component';
     CSettingsComponent,
     TimelineComponent,
     RecoveryComponent,
-    ResetComponent,
     ASettingsComponent,
     HomeComponent,
     PasswordValidator,
