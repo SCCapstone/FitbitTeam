@@ -94,29 +94,34 @@
 	</ul>
 </div>
 
-
-
 <div class="medsAdd" *ngIf='hasclicked'>
-	<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+		<ul>
+				<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+			<li>
+				<h5>Medication Name:</h5>
+				<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>
+			</li>
+			<li>
+				<h5>Day(s) of the week:</h5>
 
-	<form (submit) = "add()" >
-		<label>Medication Name: </label><br>
-		<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" [ngModelOptions]="{standalone: true}" #ctrl="ngModel" required/>
-		<label>Day(s) of the week:</label><br>
-		<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate" [ngModelOptions]="{standalone: true}"  required >
-			<option data-tokens="Monday"> &nbsp;Monday</option>
-			<option data-tokens="Tuesday"> &nbsp;Tuesday</option>
-			<option data-tokens="Wednesday"> &nbsp;Wednesday</option>
-			<option data-tokens="Thursday">  &nbsp;Thursday</option>
-			<option data-tokens="Friday"> &nbsp;Friday</option>
-			<option data-tokens="Saturday"> &nbsp;Saturday</option>
-			<option data-tokens="Sunday"> &nbsp;Sunday</option>
-		</select><br>
-		<label>When to remind you:</label><br>
-		<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" [ngModelOptions]="{standalone: true}" #ctrl="ngModel" required/>
-		<input type ="submit" value="Submit"  [disabled]="valid">
-	</form>
-</div>
+				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
+					<option data-tokens="Monday"> &nbsp;Monday</option>
+					<option data-tokens="Tuesday"> &nbsp;Tuesday</option>
+					<option data-tokens="Wednesday"> &nbsp;Wednesday</option>
+					<option data-tokens="Thursday">  &nbsp;Thursday</option>
+					<option data-tokens="Friday"> &nbsp;Friday</option>
+					<option data-tokens="Saturday"> &nbsp;Saturday</option>
+					<option data-tokens="Sunday"> &nbsp;Sunday</option>
+				  </select>
+				  
+			</li>
+			<li>
+				<h5>When to remind you:</h5>
+				<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
+			</li>
+			<button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
+		</ul>
+	</div>
 
 
 
@@ -133,7 +138,7 @@
 		  <font size=5>{{rec}}</font>
 	</div>
 </li>
-<<<<<<< HEAD
+
 <footer>
 	<hr/>
 	<p>© 2020 - FitBitTeam | <a href="">Terms of Service & Privacy Policy</a></p>
@@ -148,20 +153,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
 </body>
-=======
-	  
-	  
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-    <script src="file:/js/jquery-3.3.1.min.js"></script>
-
-    <!-- Include all compiled plugins (below), or include individual files as needed --> 
-    <script src="file:/js/popper.min.js"></script>
-  <script src="file:/js/bootstrap-4.3.1.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-  </body>
->>>>>>> 60763dce2e83dece99bd3148465d8c6668baf2a9
 </html>
