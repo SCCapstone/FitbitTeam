@@ -87,6 +87,7 @@ export class TimelineComponent implements OnInit {
   this.Entries = this.GetEntries()
   console.log( this.Entries)
   }
+
   getTypeInfo(){
     //Get Info of Current User
     var usid = firebase.auth().currentUser.uid;
@@ -152,6 +153,12 @@ export class TimelineComponent implements OnInit {
       chart.render();
   }
 
+  logout(){
+    firebase.auth().signOut();
+    this.router.navigate(["../login"])
+    localStorage.clear()
+    console.log(firebase.auth().currentUser.uid)
+  }
 
   FitbitDataFromFirebase(){
     var tdata:any
