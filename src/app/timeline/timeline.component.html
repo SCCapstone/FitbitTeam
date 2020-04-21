@@ -22,6 +22,8 @@
 
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +40,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
 <div class="container-fluid">
     <div class="text-left">
-      <a><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
+      <a><button type="button" class="btn btn-lg" (click)= homepage()><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
     </div>	
       <div class="text-center">
         <font color="white" size=5>Welcome, {{first}}</font>
@@ -46,7 +48,8 @@
       <div class="text-right">
         <a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
   
-        <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>        </div>
+        <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
+          </div>
 </div>
        
     </nav>
