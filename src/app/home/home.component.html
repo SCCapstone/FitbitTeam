@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="utf-8">
+<html>
+  <head>
+	<title>FitBitTeam - Home</title>
+
+	<link rel="shortcut icon" type="image/png" href="../../assets/favicon.png">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="home.component.css">
+	
+	<meta charset="utf-8">
+	<meta name="description" content="A webapp designed to help those with congestive heart failure manage their weight and minimize risks. Works with Fitbit devices and soon Amazon Alexa!">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FitBit Capstone</title>
-
-    <!-- Bootstrap 
-    <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet"> -->
-
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
-<div class="container-fluid">
-	<div class="text-left">
-    </div>	
-	<div class="text-center">
-		<font color="white" size=6>Welcome to Heavy Heart!</font>
-	</div>
-	<div class="text-right">
-    </div>
-</div>
-
-    </nav>
-    <div class="center">
-        <img class="image" src="assets/heavy-heart-beta.jpg" style="width: 500px; height: 500px"/>
-    </div>
+    <header>
+		<!-- This is the header information containing the navbar at the top of the page. Check CSS for settings and extra formatting. -->
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px" style="background-color: #3E4551;">
+			<!-- <a href="#" class="navbar-brand nav-link" >FitBitTeam</a> -->
+			<a routerLink="../home"><a href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav" >
+					<a href="#" class="nav-item nav-link">Timeline</a>
+					<a href="#" class="nav-item nav-link">About</a>
+					<a href="#" class="nav-item nav-link">Help</a>
+					<a href="#" class="nav-item nav-link">Contact</a>
+				</div>
+				<div class="navbar-nav ml-auto">
+					<a href="#" class="nav-item nav-link">Login</a>
+				</div>
+			</div>
+		</nav>
+	</header>
 
     <div class="center">
         <button type="button" class="btn" style="background-color: #43E78E;" routerLink="../login"><font color="white" size="4">Get Started</font></button>
