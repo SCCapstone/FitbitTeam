@@ -10,9 +10,15 @@ import { RecoveryComponent } from './recovery/recovery.component';
 import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent} from './a-settings/a-settings.component';
 import { HomeComponent } from './home/home.component';
+// import { AboutComponent } from './about/about.component';
+// import { HelpComponent } from './help/help.component';
+// import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  // { path: 'about', component: AboutComponent },
+  // { path: 'help', component: HelpComponent },
+  // { path: 'contact', component: ContactComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
