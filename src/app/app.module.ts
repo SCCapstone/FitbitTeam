@@ -16,6 +16,9 @@ import { ASettingsComponent } from './a-settings/a-settings.component';
 import { HomeComponent } from './home/home.component';
 import { PasswordValidator } from './password-validator.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutComponent } from './about/about.component';
+import { HelpComponent } from './help/help.component';
+import { ContactComponent } from './contact/contact.component';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -44,6 +47,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ASettingsComponent,
     HomeComponent,
     PasswordValidator,
+    AboutComponent,
+    HelpComponent,
+    HelpComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

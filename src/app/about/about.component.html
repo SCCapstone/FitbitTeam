@@ -3,10 +3,8 @@
   <head>
 	<title>FitBitTeam - About</title>
 
-	<link rel="shortcut icon" type="image/png" href="../../assets/favicon.png">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="about.component.css">
 	
 	<meta charset="utf-8">
 	<meta name="description" content="A webapp designed to help those with congestive heart failure manage their weight and minimize risks. Works with Fitbit devices and soon Amazon Alexa!">
@@ -16,16 +14,16 @@
   <body>
     <header>
 		<!-- This is the header information containing the navbar at the top of the page. Check CSS for settings and extra formatting. -->
-		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px" style="background-color: #3E4551;">
-			<!-- <a href="#" class="navbar-brand nav-link" >FitBitTeam</a> -->
-			<a routerLink="../home"><a href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px">
+			<!-- <a routerLink="../home"><a href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>  -->
+			<a routerLink="../home" href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
 			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav" >
-					<a href="#" class="nav-item nav-link">Timeline</a>
+					<a routerLink="../cmain" class="nav-item nav-link">Timeline</a>
 					<a href="#" class="nav-item nav-link active">About</a>
 					<a href="#" class="nav-item nav-link">Help</a>
 					<a href="#" class="nav-item nav-link">Contact</a>
@@ -74,7 +72,7 @@
 		<h3>Data Collection</h3>
 		<p>FitBitTeam captures data through the FitBit sdk, and signup page. All usernames, emails, and passwords are safely stored using Google's Firebase. Once a user authorizes use of their fitbit weight data, we store this data on a per-user basis to populate timelines. To delete this data, simply revoke access to your Fitbit account.</p>
 		<h3>Privacy Policies</h3>
-		<P>You may consult this list to find the Privacy Policy for each of the advertising partners of FitBitTeam. Our Privacy Policy was created with the help of the <a href="https://www.privacypolicygenerator.org">Free Privacy Policy Generator</a> and the <a href="https://www.privacypolicyonline.com/privacy-policy-generator/">Privacy Policy Generator Online</a>.</p>
+		<p>You may consult this list to find the Privacy Policy for each of the advertising partners of FitBitTeam. Our Privacy Policy was created with the help of the <a href="https://www.privacypolicygenerator.org">Free Privacy Policy Generator</a> and the <a href="https://www.privacypolicyonline.com/privacy-policy-generator/">Privacy Policy Generator Online</a>.</p>
 		<p>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on FitBitTeam, which are sent directly to users' browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.</p>
 		<p>Note that FitBitTeam has no access to or control over these cookies that are used by third-party advertisers.</p>
 			
