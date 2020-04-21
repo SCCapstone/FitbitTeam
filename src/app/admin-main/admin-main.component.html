@@ -78,12 +78,16 @@
       <button type="button" class="btn btn-md btn-success" (click) = 'recClick()'><font size=5 align=left>Add</font></button>
       <div class="medsAdd" *ngIf='recClicked'>
         <ul>
-            <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
           <li>
-            <h5>Recomendation:</h5>
+            <h1>Recomendation:</h1>
             <input class="form-control" id="InputFirst" placeholder="Enter a Recomendation"  [(ngModel)]="Rec" #ctrl="ngModel" required>
           </li>
-          <button type="button" class="btn btn-md btn-success" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
+          <br/>
+          <li>
+            <button type="button" class="btn btn-md btn-success" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
+            <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Cancel</font></button>
+          </li>
+          
         </ul>
       </div>
     
