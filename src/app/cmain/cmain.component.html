@@ -73,18 +73,18 @@
 	<ul class="list-group">
   		<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
-      			<font size=5>Medication Name</font>
-	  			<font size=5>Day(s) of week</font>
-				<font size=5>Reminder time</font>
-				<font size=5>Remove</font>
+      			<div class="col"><font size=5>Medication Name</font></div>
+	  			<div class="col"><font size=5>Day(s) of week</font></div>
+				  <div class="col"><font size=5>Reminder time</font></div>
+					<font size=5>Remove</font>
 	  		</div>
 		</li>
 	
 		<li class="list-group-item" *ngFor = "let med of meds; let i = index" style="background-color: gray; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
-					<font size=5>{{med.medname}}</font>
-					<font size=5>{{med.meddate}}</font>
-					<font size=5>{{med.medTime}}</font>
+				<div class="col"><font size=5>{{med.medname}}</font></div>
+				<div class="col"><font size=5>{{med.meddate}}</font></div>
+				<div class="col"><font size=5>{{med.medTime}}</font></div>
 					<button (click)= "delMed(i)"><font size=5 >Remove</font></button>
 	  		</div>
   		</li>		
