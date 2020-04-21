@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
+
 import * as firebase from 'firebase';
 import * as CanvasJS from '../canvasjs.min.js';
 
@@ -15,6 +16,7 @@ export class CmainComponent implements OnInit {
   first = ''
   tmeds:any
   meds:any
+  valid = false
   last = ''
   medName = ''
   medTime = ''
@@ -122,7 +124,16 @@ export class CmainComponent implements OnInit {
     });
     chart.render();
   }
-
+  isValid(){
+    if (this.medName != '' &&
+        this.medTime != '' &&
+        this.medDate != ''){
+          return true
+        }
+    
+  return false
+       
+  }
 
   //Function used in HTML to go to the timeline of a specific user
   toTimeline(){
@@ -143,21 +154,26 @@ export class CmainComponent implements OnInit {
 
   // Function to add a medication to the firebase database
   add(){
-    
-    var medname = this.medName;
-    var meddate = this.medDate;
-    var medTime = this.medTime;
-    var path:string = "meds/" + this.userid.toString();
-    let med = firebase.database().ref(path).push();
-    med.set ({
-      'medname': medname,
-      'meddate': meddate,
-      'medTime': medTime
-    });
-    this.medName = ''
-    this.medDate=''
-    this.medTime=''
-  this.clicked();
+    if(this.isValid() == true){
+      var medname = this.medName;
+      var meddate = this.medDate;
+      var medTime = this.medTime;
+      var path:string = "meds/" + this.userid.toString();
+      let med = firebase.database().ref(path).push();
+      med.set ({
+        'medname': medname,
+        'meddate': meddate,
+        'medTime': medTime
+      });
+      this.medName = ''
+      this.medDate=''
+      this.medTime=''
+      this.clicked();
+    }
+    else{
+      alert("Please fill out all fields in the form to add a medication")
+    }
+  
   }
 
  /* Date must be in yyyy-MM-dd format such as:
