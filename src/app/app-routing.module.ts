@@ -7,7 +7,6 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
 import { CSettingsComponent } from './c-settings/c-settings.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RecoveryComponent } from './recovery/recovery.component';
-import { ResetComponent } from './reset/reset.component';
 import { ASettingsComponent} from './a-settings/a-settings.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -27,7 +26,6 @@ const routes: Routes = [
   { path: 'settings', component: CSettingsComponent },
   { path: 'timeline', component: TimelineComponent },
   { path: 'recovery', component: RecoveryComponent },
-  { path: 'reset', component: ResetComponent },
   { path: 'asettings', component: ASettingsComponent }
 ];
 
