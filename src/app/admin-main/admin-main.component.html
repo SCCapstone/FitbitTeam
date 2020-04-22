@@ -55,10 +55,10 @@
   <li class="list-group-item" *ngFor = "let dis of display; let i = index" style="background-color: gray; color: #ffffff;">
     <div class="d-flex w-100 justify-content-between">
       <div class="col"><font size=5>{{dis.patName}}</font></div>
-        <div class="col"><font size =5>{{dis.status}}</font></div>
-          <div class="col"><font size=5>{{dis.refNum}}</font></div>
-            <div class="col"><font size=5 (click) = toTimeline(dis.refNum)>Timeline</font></div>
-     <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
+      <div class="col"><font size =5>{{dis.status}}</font></div>
+      <div class="col"><font size=5>{{dis.refNum}}</font></div>
+      <div class="col"><font size=5 (click) = toTimeline(dis.refNum)>Timeline</font></div>
+      <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
     </div>
   </li>		
 </div>
@@ -78,7 +78,7 @@
        </ul>
       </div>
     
-      <button type="button" class="btn btn-md btn-success" (click) = 'recClick()'><font size=5 align=left>Add</font></button>
+      <button type="button" class="btn btn-md btn-success" (click) = 'recClick()'><font size=5 align=left>Add a Recomendation</font></button>
       <div class="medsAdd" *ngIf='recClicked'>
         <ul>
           <li>
@@ -90,9 +90,20 @@
             <button type="button" class="btn btn-md btn-success" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
             <button type="button" class="btn btn-sm btn-danger" (click) = 'recClick()'><font size=5 align=left>Cancel</font></button>
           </li>
+          <li>
+            <h1>Current Recomendations:</h1>
+            <li class="list-group-item" *ngFor = "let rec of recomends; let i = index" >
+              <div class="d-flex w-100 justify-content-between">
+                <div class="col"><font size=3>{{rec}}</font></div>
+                <button class="btn" (click)= 'removeRec(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
+              </div>
+            </li>		
           
         </ul>
+        
+
       </div>
+
     
     
 </main>

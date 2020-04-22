@@ -14,6 +14,8 @@ export class AdminMainComponent implements OnInit {
   Rec = ''
   first = ''
   tClients:any
+  trecs:any
+  recomends:any
   clients:any
   last = ''
   patName = ''
@@ -43,6 +45,7 @@ export class AdminMainComponent implements OnInit {
     }, 300);
     setTimeout(() => {
       this.getStatus()
+      this.loadRecs()
     }, 400)
   }
   clicked(){
@@ -178,4 +181,29 @@ export class AdminMainComponent implements OnInit {
   setStatus() {
 
   }
+  loadRecs(){
+  var mref = firebase.database().ref('Recs/');
+    mref.on('value', (snapshot) => {
+      this.trecs = snapshot.val();
+      if(this.trecs != null ){
+        this.recomends = Object.keys(this.trecs).map(i => this.trecs[i]);
+      }else{
+        console.log("NO Recomendations")
+      }
+      
+    })
+}
+removeRec(id){
+  var size = this.getSize(this.recomends)
+  //Goes through list of meds object and removes the meds
+  for (var i = 0; i < size; i ++){
+    if (this.recomends[i] == this.recomends [id]){
+      console.log("Removal of " + this.recomends[i])
+      delete this.recomends[i]
+    } 
+  }
+  var path:string = "Recs/";
+  var ref = firebase.database().ref(path)
+  ref.set(this.recomends)
+}
 }
