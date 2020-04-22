@@ -384,6 +384,7 @@ export class CmainComponent implements OnInit {
       //Now check and set status based on difference of weight from week to week (giving this more priority over status)
       if(weekDiff <= 2) {
         status = 'GREEN'
+        status.fontcolor("green");
       }
       else if(diff > 2 && diff <= 5) {
         status = 'YELLOW'
