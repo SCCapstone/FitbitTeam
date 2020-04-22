@@ -13,5 +13,33 @@ export class HelpComponent implements OnInit {
 
   ngOnInit() {
   }
+  togStart() {
+    var x = document.getElementById("GetStarted");
+    var y = document.getElementById("Account");
+    var z = document.getElementById("Connect");
+      x.style.display = "block";
+      y.style.display = "none";
+      z.style.display = "none";
+    
+  }
+  togAccount() {
+    var x = document.getElementById("GetStarted");
+    var y = document.getElementById("Account");
+    var z = document.getElementById("Connect");
+      x.style.display = "none";
+      y.style.display = "block";
+      z.style.display = "none";
+    
+  }
+  togConnect() {
+    var x = document.getElementById("GetStarted");
+    var y = document.getElementById("Account");
+    var z = document.getElementById("Connect");
+      x.style.display = "none";
+      y.style.display = "none";
+      z.style.display = "block";
+    
+  }
+  
 
 }

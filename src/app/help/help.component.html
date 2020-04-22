@@ -44,6 +44,29 @@
 		<p>have buttons to choose: get started, Account, Connecting to doctor
             get started covers how to setup a user account, connect to fitbit, connect to doctor, and walks through the features
 		</p>
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+			  <a class="nav-link active" (click) = togStart()>Get Started</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" (click) = togAccount()>Account</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" (click) = togConnect()>Connecting to Doctor</a>
+			</li>
+			
+		  </ul>
+
+		  <div id="GetStarted">
+				This is the get started page
+		  </div>
+		  <div id="Account" style="display: none;">
+				This is the account page
+		  </div>
+		  <div id="Connect" style="display: none;"> 
+				This is the connect page
+		  </div>
+
 	</main>
 	<footer>
 		<hr/>
