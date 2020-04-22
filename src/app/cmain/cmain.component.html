@@ -18,10 +18,12 @@
 	<!-- <button (click) = 'getAverageWeekWeight()'>click</button> -->
 	<header>
 		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px">
-			<a routerLink="../home" href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
+			<div class="container-fluid">
+			<div class="text-left"><a routerLink="../home" href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
 			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 				<span class="navbar-toggler-icon"></span>
-			</button>
+			</button>	
+
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav" >
 					<a routerLink="../cmain" class="nav-item nav-link active">Timeline</a>
@@ -29,17 +31,20 @@
 					<a routerLink="../help" class="nav-item nav-link">Help</a>
 					<a routerLink="../contact" class="nav-item nav-link">Contact</a>
 				</div>
-				<div class="text-right">
+			</div>
+		</div>
+				<div class="text-center">
 					<font color="white" size=5>Welcome, {{first}}</font>
 				</div>
 				<!-- <div class="navbar-nav ml-auto">
 					<a routerLink="../login" class="nav-item nav-link">Login</a>
 				</div> -->
-			</div>
-			<div class="text-right">
-				<a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
-				<a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
-			</div>       
+				<div class="text-right">
+					<a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
+					<a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
+				</div> 
+		
+			      </div>
 		</nav>
 	</header>
 	<main>
@@ -58,60 +63,60 @@
 <button type="button" class="btn btn-md btn-success" (click) = 'pullFitbit()'><font size=5 align=left>Refresh Data</font></button>
 
 <div class="text-left" *ngIf= "!hasclicked">
-	<div class="d-flex w-100 justify-content-between">
-		<font size=5>Current Reminders:</font>	
+	<div class="d-flex w-100 justify-content-between offset-10">
 		<button type="button" class="btn btn-md btn-success" (click) = 'clicked()'><font size=5 align=left>Add a Medication</font></button>
 	</div>
 	<br>
 	<ul class="list-group">
   		<li class="list-group-item" style="background-color: #43E78E; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
-      			<div class="col"><font size=5>Medication Name</font></div>
-	  			<div class="col"><font size=5>Day(s) of week</font></div>
-				  <div class="col"><font size=5>Reminder time</font></div>
+      			<div class="col-3"><font size=5>Medication Name</font></div>
+	  			<div class="col-3"><font size=5>Day(s) of week</font></div>
+				  <div class="col-3"><font size=5>Reminder time</font></div>
 					<font size=5>Remove</font>
 	  		</div>
 		</li>
 	
 		<li class="list-group-item" *ngFor = "let med of meds; let i = index" style="background-color: gray; color: #ffffff;">
 	  		<div class="d-flex w-100 justify-content-between">
-				<div class="col"><font size=5>{{med.medname}}</font></div>
-				<div class="col"><font size=5>{{med.meddate}}</font></div>
-				<div class="col"><font size=5>{{med.medTime}}</font></div>
-					<button (click)= "delMed(i)"><font size=5 >Remove</font></button>
+				<div class="col-3"><font size=5>{{med.medname}}</font></div>
+				<div class="col-3 w-100 d-block"><font size=5>{{med.meddate}}</font></div>
+				<div class="col-3"><font size=5>&nbsp; {{med.medTime}}</font></div>
+					<button (click)= "delMed(i)"><font size=5 style="color: black">Remove</font></button>
 	  		</div>
   		</li>		
 	</ul>
 </div>
 
-<div class="medsAdd" *ngIf='hasclicked'>
-		<ul>
-				<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
-			<li>
-				<h5>Medication Name:</h5>
+<div class="medsAdd" style="padding: 10px; background-color: gray;" *ngIf='hasclicked'>
+		
+				<h5 style="color: white"><font size=5>Medication Name:</font></h5>
 				<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>
-			</li>
-			<li>
-				<h5>Day(s) of the week:</h5>
+			
+				<h5 style="color: white"><font size=5>Day(s) of the week:</font></h5>
 
-				<select class="selectpicker" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
-					<option data-tokens="Monday"> &nbsp;Monday</option>
-					<option data-tokens="Tuesday"> &nbsp;Tuesday</option>
-					<option data-tokens="Wednesday"> &nbsp;Wednesday</option>
-					<option data-tokens="Thursday">  &nbsp;Thursday</option>
-					<option data-tokens="Friday"> &nbsp;Friday</option>
-					<option data-tokens="Saturday"> &nbsp;Saturday</option>
-					<option data-tokens="Sunday"> &nbsp;Sunday</option>
+				<select class="selectpicker col-1" style="height: 100px" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
+					<option data-tokens="Monday"> &nbsp;M</option>
+					<option data-tokens="Tuesday"> &nbsp;T</option>
+					<option data-tokens="Wednesday"> &nbsp;W</option>
+					<option data-tokens="Thursday">  &nbsp;Th</option>
+					<option data-tokens="Friday"> &nbsp;F</option>
+					<option data-tokens="Saturday"> &nbsp;S</option>
+					<option data-tokens="Sunday"> &nbsp;Su</option>
 				  </select>
-				  
-			</li>
-			<li>
-				<h5>When to remind you:</h5>
+			
+				<h5 style="color: white"><font size=5>When to remind you:</font></h5>
 				<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
-			</li>
+			
+			<br><br>
+			<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
+			&nbsp;&nbsp;
+
 			<button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
-		</ul>
+		
 	</div>
+	<br><br>
+
 
 
 
