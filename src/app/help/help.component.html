@@ -44,6 +44,34 @@
 		<p>have buttons to choose: get started, Account, Connecting to doctor
             get started covers how to setup a user account, connect to fitbit, connect to doctor, and walks through the features
 		</p>
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+			  <a class="nav-link active" (click) = togStart()>Get Started</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" (click) = togAccount()>Account</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" (click) = togConnect()>Connecting to Doctor</a>
+			</li>
+			
+		  </ul>
+
+		  <div id="GetStarted">
+				Welcome to the FitBit Team Website!<br>
+				You can navigate through the site using the navigation bar above.<br>
+				Check the <a (click) = togAccount()>Account</a> and <a (click) = togConnect()>Connect</a> tabs for more information.
+		  </div>
+		  <div id="Account" style="display: none;">
+				Once you created your account using the <a routerLink="../signup">sign up page</a>, <br>
+				you can access your <a routerLink="../timeline">timeline</a> to see your weight trends<br>
+				to alter your account go to the <a routerLink="../settings">settings</a>
+		  </div>
+		  <div id="Connect" style="display: none;"> 
+				To connect to your doctor make sure to connect your FitBit account to the website via <a routerLink="../settings">settings</a><br>
+				Give your Doctor your referral code and they will connect with you.
+		  </div>
+
 	</main>
 	<footer>
 		<hr/>

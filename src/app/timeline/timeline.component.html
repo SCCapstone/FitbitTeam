@@ -57,6 +57,8 @@
     <button type="button" class="btn btn-md btn-success" (click) = 'GetEntries()'><font size=5 align=left>Test</font></button>
 
     -->
+    <main>
+      <div class="row">
     <div class="col-md-4">
       <font size=6>Status:</font>
       <div>
@@ -64,19 +66,20 @@
       </div>
        
       </div>
-<div class=row>
-      <div class="col-md-2"></div>
-      <div class="col-md-4">
+<div class="col-8">
+      <div class="col-md-4 offset-10">
           <a type="button" class="btn btn-lg btn-success" (click) = toggle()>Table</a>
       </div>
 </div>
-<div class=row>
-          <div class="col-md-2"></div>
-          <div class="col-md-4">
-              <div id="myDIV" style="width: 180%;">
-                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</div>
+<br>
+<br>
+<div class="row" style="text-align:center;">
+          
+              <div id="myDIV" style="width: 100%; text-align:center">
+                <div id="chartContainer" style="height: 370px; width: 80%; text-align:center;"></div>
               </div>    
-                <div id="myChartDIV" style="width: 200%;">
+                <div id="myChartDIV" style="width: 80%;">
                   <ul class="list-group" >
                     <li class="list-group-item" style="background-color: rgb(204, 204, 204); color: #ffffff;">
                       <div class="d-flex w-100 justify-content-between">
@@ -98,9 +101,9 @@
                     </ul>
               
                 </div>
-            </div>
+            
         </div>
-
+</main>
         <!-- TODO MONTH/WEEK/YEAR
         <div class=row>
           <div class="col-md-4"></div>
