@@ -15,7 +15,7 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color:gray;">
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top navbar-default" >
 <div class="container-fluid">
     <div class="text-left">
         <a routerLink="../admin"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
@@ -73,7 +73,7 @@
            <h5>Reference Code:</h5>
            <input class="form-control" id="InputFirst" placeholder="Reference Number"  [(ngModel)]="refNum" #ctrl="ngModel" required>
            </li>
-          <button type="button" class="btn btn-md btn-success" (click) = 'add()'><font size=5 align=left>Add</font></button>
+          <button type="button" class="btn btn-md btn-info" (click) = 'add()'><font size=5 align=left>Add</font></button>
           <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Cancel</font></button>
        </ul>
       </div>
@@ -87,7 +87,7 @@
           </li>
           <br/>
           <li>
-            <button type="button" class="btn btn-md btn-success" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
+            <button type="button" class="btn btn-md btn-info" (click) = 'addRec()'><font size=5 align=left>Add</font></button>
             <button type="button" class="btn btn-sm btn-danger" (click) = 'recClick()'><font size=5 align=left>Cancel</font></button>
           </li>
           <li>
