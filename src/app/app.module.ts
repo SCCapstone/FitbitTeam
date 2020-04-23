@@ -18,7 +18,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
 import { ContactComponent } from './contact/contact.component';
-import { NavMenuComponent } from './nav-menu.component';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -49,8 +48,7 @@ import { NavMenuComponent } from './nav-menu.component';
     AboutComponent,
     HelpComponent,
     HelpComponent,
-    ContactComponent,
-    NavMenuComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

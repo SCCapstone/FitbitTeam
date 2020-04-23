@@ -28,11 +28,7 @@ export class SignupComponent implements OnInit {
   constructor(public router: Router,private route: ActivatedRoute) { }
   type:any;
   ngOnInit() {
-    firebase.auth().signOut().then(function() {
-    }).catch(function(error) {
-      // An error happened.
-    });
-    //console.log(firebase.auth().currentUser.uid)
+    
   }
 
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
-import { NavMenuComponent } from "../nav-menu.component"
 
 import * as firebase from 'firebase';
 import * as CanvasJS from '../canvasjs.min.js';

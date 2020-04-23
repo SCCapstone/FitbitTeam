@@ -12,7 +12,6 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
 import { ContactComponent } from './contact/contact.component';
-import { NavMenuComponent } from './nav-menu.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,8 +26,7 @@ const routes: Routes = [
   { path: 'settings', component: CSettingsComponent },
   { path: 'timeline', component: TimelineComponent },
   { path: 'recovery', component: RecoveryComponent },
-  { path: 'asettings', component: ASettingsComponent },
-  { path: 'navbar', component: NavMenuComponent, outlet: 'navbar'},
+  { path: 'asettings', component: ASettingsComponent }
 ];
 
 @NgModule({
