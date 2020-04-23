@@ -119,7 +119,7 @@ export class CSettingsComponent implements OnInit {
   redirectFitbit() {
     console.log(this.fitbitToken)
     if (this.fitbitToken = null || this.fitbitToken == undefined) {
-      let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2F&scope=weight&expires_in=604800'
+      let url = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22B9QJ&redirect_uri=https%3A%2F%2Ffitbittesterv2.herokuapp.com%2Flogin&scope=weight&expires_in=604800'
       window.open(url)
     } else {
       alert("User is already authenticated with FitBit!" +

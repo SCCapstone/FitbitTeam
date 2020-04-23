@@ -46,9 +46,11 @@ export class LoginComponent implements OnInit {
       }
       })
       .then(function(result){
+        //console.log("THIS SHOULD RUN EVERY TIME")
         //console.log(login)
         let userid = firebase.auth().currentUser.uid;
         localStorage.setItem('UID', userid)
+        //console.log(window.location.href)
   if (window.location.href != ' ') {
     //link not empty
     var url = window.location.href;
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
         });
       }
       fitbitRef.push();
+      alert("Successful access to your Fitbit Account")
       //end firebase input
     }
   }
