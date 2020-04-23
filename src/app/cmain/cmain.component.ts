@@ -380,28 +380,27 @@ export class CmainComponent implements OnInit {
       //console.log(weekDiff)
       //First check and set status based on difference of weight from one day to the next
       if(diff <= 1) {
-        status = 'GREEN'
+        status = 'Healthy'
       }
       else if(diff > 1 && diff <= 2) {
-        status = 'YELLOW'
+        status = 'Slight risk'
       }
       else {
-        status = 'RED'
+        status = 'At risk'
       }
       //Now check and set status based on difference of weight from week to week (giving this more priority over status)
       if(weekDiff <= 2) {
-        status = 'GREEN'
-        status.fontcolor("green");
+        status = 'Healthy'
       }
       else if(diff > 2 && diff <= 5) {
-        status = 'YELLOW'
+        status = 'Slight risk'
       }
       else {
-        status = 'RED'
+        status = 'At risk'
       }
       //If they've lost weight, set status to Green
       if(bool == 1) {
-        status = 'GREEN'
+        status = 'Healthy'
       }
       
       this.saveStatus(status)
