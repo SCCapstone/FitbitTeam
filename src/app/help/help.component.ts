@@ -17,6 +17,14 @@ export class HelpComponent implements OnInit {
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");
+    var t1 = document.getElementById("1");
+    var t2 = document.getElementById("2");
+    var t3 = document.getElementById("3");
+
+      t1.classList.add('active');
+      t2.classList.remove('active');
+      t3.classList.remove('active');
+
       x.style.display = "block";
       y.style.display = "none";
       z.style.display = "none";
@@ -26,6 +34,14 @@ export class HelpComponent implements OnInit {
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");
+    var t1 = document.getElementById("1");
+    var t2 = document.getElementById("2");
+    var t3 = document.getElementById("3");
+
+      t1.classList.remove('active');
+      t2.classList.add('active');
+      t3.classList.remove('active');
+
       x.style.display = "none";
       y.style.display = "block";
       z.style.display = "none";
@@ -35,6 +51,14 @@ export class HelpComponent implements OnInit {
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");
+    var t1 = document.getElementById("1");
+    var t2 = document.getElementById("2");
+    var t3 = document.getElementById("3");
+
+      t1.classList.remove('active');
+      t2.classList.remove('active');
+      t3.classList.add('active');
+
       x.style.display = "none";
       y.style.display = "none";
       z.style.display = "block";
