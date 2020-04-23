@@ -56,7 +56,7 @@ import { NavMenuComponent } from './nav-menu.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
   ],

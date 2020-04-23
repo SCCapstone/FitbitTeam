@@ -30,11 +30,11 @@
                     <font color="white" size=5 *ngIf="(loginStatus | async) (UserName) as first">Welcome, {{first}}</font>
                 </div>
             </div>
-            <div class="text-right"*ngIf="(loginStatus | async)" *ngIf="(typeBool | async)">
+            <div class="text-right"*ngIf="(typeBool | async)">
                 <a routerLink="../csettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
                 <a (click)="onLogout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
             </div>
-            <div class="text-right"*ngIf="(loginStatus | async)" *ngIf="(!typeBool | async)">
+            <div class="text-right"*ngIf="(!typeBool | async)">
                 <a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
                 <a (click)="onLogout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
             </div>        
