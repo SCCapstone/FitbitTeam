@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
+import { NavMenuComponent } from "../nav-menu.component"
 
 import * as firebase from 'firebase';
 import * as CanvasJS from '../canvasjs.min.js';
@@ -27,6 +28,7 @@ export class CmainComponent implements OnInit {
   id = ''
   status = ''
   recommendation = ''
+  type = ''
 
   constructor(public router: Router,private route: ActivatedRoute) {
    
@@ -69,12 +71,17 @@ export class CmainComponent implements OnInit {
         this.first = this.info.first_name
         this.last = this.info.last_name
         this.status= this.info.status
+        this.type = this.info.type
+        localStorage.setItem("userName", this.first)
+        localStorage.setItem("type", this.type)
       }, 300);
     }
     else{
       this.first = this.info.first_name
         this.last = this.info.last_name
         this.status= this.info.status
+        this.type = this.info.type
+        localStorage.setItem("type", this.type)
     }
   }
 
