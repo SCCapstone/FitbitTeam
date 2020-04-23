@@ -35,8 +35,17 @@ export class CmainComponent implements OnInit {
    }
 
   ngOnInit() {
-  
-    this.userid = firebase.auth().currentUser.uid
+    if (firebase.auth().currentUser != null){
+      this.userid = firebase.auth().currentUser.uid
+
+    }
+    else {
+    this.userid = ""; 
+    var x = document.getElementById("notLog");
+    x.style.display = "block";
+
+
+  }
     console.log("THIS IS THE USERID " + this.userid)
     
     this.getMeds()

@@ -33,7 +33,12 @@ export class TimelineComponent implements OnInit {
     if (this.clientRef != ''){
       usid = this.clientRef;
     } else {
-    usid = firebase.auth().currentUser.uid;
+      if (firebase.auth().currentUser != null) {
+        usid = firebase.auth().currentUser.uid;
+      }
+      else {
+        console.log("youre not logged in");
+      }
     }
     console.log(usid)
     setTimeout(() => {
