@@ -15,7 +15,7 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color:gray;">
 <div class="container-fluid">
     <div class="text-left">
         <a routerLink="../admin"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
@@ -39,7 +39,7 @@
 -->
 <main>
 <div class="text-left" *ngIf= "!hasclicked">
-   <button type="button" class="btn btn-md btn-success" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
+   <button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
 </div>
 <ul class="list-group">
   <li class="list-group-item" style="background-color: #ffffff; color: gray;">
@@ -78,7 +78,7 @@
        </ul>
       </div>
     
-      <button type="button" class="btn btn-md btn-success" (click) = 'recClick()'><font size=5 align=left>Add a Recomendation</font></button>
+      <button type="button" class="btn btn-md btn-info" (click) = 'recClick()'><font size=5 align=left>Add a Recomendation</font></button>
       <div class="medsAdd" *ngIf='recClicked'>
         <ul>
           <li>
