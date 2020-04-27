@@ -185,8 +185,8 @@ export class CSettingsComponent implements OnInit {
       this.fitbitToken = null;
     } else {
       this.fitbitToken = null;
-      alert("Token is invalid! Refreshing page.")
-      location.reload(true);
+      alert("Token is invalid!")
+      //location.reload(true);
     }
   }
   revokeAccessAlexa() {
