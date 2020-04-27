@@ -51,7 +51,7 @@
           Password must be at least 8 characters
         </div>
       </mat-error>-->
-     <input type="password" class="form-control" id="InputPassword" placeholder="Password" [(ngModel)]="user.password" #ctrl="ngModel" required>
+     <input type="password" class="form-control" id="InputPassword" placeholder="Must include upper, lower, special (#,!,...)" [(ngModel)]="user.password" #ctrl="ngModel" required>
      <!--<h5>Retype Password:</h5>-->
      <!--<input type=”password” class="form-control" id=”ConfirmPassword” placeholder="Password" [ngModel]=”user.confirmPassword” validateEqual="password" #confirmPassword=”ngModel”><small [hidden]="confirmPassword.valid ||  (confirmPassword.pristine && !f.submitted)"></small>-->
      <h5>Type:</h5>
