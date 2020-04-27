@@ -39,6 +39,45 @@
       <font size=5><a routerLink="../recovery" style="color:white">Reset Password</a></font>
 	  </div>
 </ul>
+
+<ul class="list-group">
+  <li class="list-group-item" style="background-color:  rgb(204, 204, 204); color: #ffffff;">
+	  <div class="d-flex w-100 justify-content-between">
+      <font size=5>Account Information</font>
+      <button type="button" class="btn btn-md btn-primary" (click)="clicked()">Edit</button>
+	  </div> 
+  </li>
+  <div *ngIf= "!hasclicked">
+        <li class="list-group-item" >
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>First Name:  {{first}}</font>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>Last Name:  {{last}}</font>
+            </div>
+        </li> 
+    </div>
+    <div *ngIf= "hasclicked">
+        <li class="list-group-item" >
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>First Name:  </font>
+                <input class="form-control" id="InputUser" placeholder="First Name" [(ngModel)]="first">
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <font size=5>Last Name:  </font>
+                <input class="form-control" id="InputUser" placeholder="Last Name" [(ngModel)]="last">
+            </div>
+        </li> 
+        <button type="button" class="btn btn-md btn-primary" (click)="SaveNew()">Save</button>
+    </div>
+    </ul>
+
+
+
 <div class = "text-left">
     <a (click)="logout()"><button type="button" class="btn btn-lg btn-info">Logout</button></a>
 </div>
