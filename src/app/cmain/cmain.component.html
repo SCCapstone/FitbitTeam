@@ -43,106 +43,90 @@
 	</header>
 	<!-- <button (click) = 'getAverageWeekWeight()'>click</button> -->
 	<main>
-<div class="row" (click) = toTimeline()>
-	<div class="col-md-2"> 
-		<font size=6>Status:</font>
-		<div>
-			<font size=5>{{status}}</font> 
+		<div class="row" (click) = toTimeline()>
+			<div class="col-md-2"> 
+				<font size=6>Status:</font>
+				<div>
+					<font size=5>{{status}}</font> 
+				</div>
+			</div>
+			<div id="chartContainer" style="height: 370px; width: 70%;"></div>
+			<div style="display: none;" id="notLog">
+				<h1>You are currently not logged in.<br>
+					Please go to the <a routerLink="../login">Login Page</a>.
+				</h1>
+			</div>
+		</div><br>
+		<button type="button" class="btn btn-md btn-info" (click) = 'pullFitbit()'><font size=5 align=left>Refresh Data</font></button>
+		<div class="text-left" *ngIf= "!hasclicked">
+			<div class="d-flex w-100 justify-content-between offset-10">
+				<button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Medication</font></button>
+			</div><br>
+			<ul class="list-group">
+  				<li class="list-group-item" style="background-color: rgb(70, 99, 99); color: #ffffff;">
+	  				<div class="d-flex w-100 justify-content-between">
+      					<div class="col-3"><font size=5>Medication Name</font></div>
+	  					<div class="col-3"><font size=5>Day(s) of week</font></div>
+				  		<div class="col-3"><font size=5>Reminder time</font></div>
+						<font size=5>Remove</font>
+	  				</div>
+				</li>	
+				<li class="list-group-item" *ngFor = "let med of meds; let i = index" style="background-color: gray; color: #ffffff;">
+	  				<div class="d-flex w-100 justify-content-between">
+						<div class="col-3"><font size=5>{{med.medname}}</font></div>
+						<div class="col-3 w-100 d-block"><font size=5>{{med.meddate}}</font></div>
+						<div class="col-3"><font size=5>&nbsp; {{med.medTime}}</font></div>
+						<button (click)= "delMed(i)"><font size=5 style="color: black">Remove</font></button>
+	  				</div>
+  				</li>		
+			</ul>
 		</div>
-	</div>
-	<div id="chartContainer" style="height: 370px; width: 70%;"></div>
-	<div style="display: none;" id="notLog"><h1>You are currently not logged in.<br>
-									Please go to the <a routerLink="../login">Login Page</a>.
-	</h1></div>
 
-	<!-- <iframe width = 550 height = 500 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vShAFUam6FMz3PyGySp4vNrO5lzXemxSHreaG1UFuPpBBqo0ww8FYhRCXEDXF60HwNxjWqhXt0xzsNQ/pubhtml?gid=16563526&amp;single=true&amp;widget=true&amp;headers=false"></iframe>-->
-</div>	
-<br>
-<button type="button" class="btn btn-md btn-info" (click) = 'pullFitbit()'><font size=5 align=left>Refresh Data</font></button>
-
-<div class="text-left" *ngIf= "!hasclicked">
-	<div class="d-flex w-100 justify-content-between offset-10">
-		<button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Medication</font></button>
-	</div>
-	<br>
-	<ul class="list-group">
-  		<li class="list-group-item" style="background-color: rgb(70, 99, 99); color: #ffffff;">
-	  		<div class="d-flex w-100 justify-content-between">
-      			<div class="col-3"><font size=5>Medication Name</font></div>
-	  			<div class="col-3"><font size=5>Day(s) of week</font></div>
-				  <div class="col-3"><font size=5>Reminder time</font></div>
-					<font size=5>Remove</font>
-	  		</div>
-		</li>
-	
-		<li class="list-group-item" *ngFor = "let med of meds; let i = index" style="background-color: gray; color: #ffffff;">
-	  		<div class="d-flex w-100 justify-content-between">
-				<div class="col-3"><font size=5>{{med.medname}}</font></div>
-				<div class="col-3 w-100 d-block"><font size=5>{{med.meddate}}</font></div>
-				<div class="col-3"><font size=5>&nbsp; {{med.medTime}}</font></div>
-					<button (click)= "delMed(i)"><font size=5 style="color: black">Remove</font></button>
-	  		</div>
-  		</li>		
-	</ul>
-</div>
-
-<div class="medsAdd" style="padding: 10px; background-color: gray;" *ngIf='hasclicked'>
-		
-				<h5 style="color: white"><font size=5>Medication Name:</font></h5>
-				<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>
-			
-				<h5 style="color: white"><font size=5>Day(s) of the week:</font></h5>
-
-				<select class="selectpicker col-1" style="height: 100px" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
-					<option data-tokens="Monday"> &nbsp;M</option>
-					<option data-tokens="Tuesday"> &nbsp;T</option>
-					<option data-tokens="Wednesday"> &nbsp;W</option>
-					<option data-tokens="Thursday">  &nbsp;Th</option>
-					<option data-tokens="Friday"> &nbsp;F</option>
-					<option data-tokens="Saturday"> &nbsp;S</option>
-					<option data-tokens="Sunday"> &nbsp;Su</option>
-				  </select>
-			
-				<h5 style="color: white"><font size=5>When to remind you:</font></h5>
-				<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
-			
+		<div class="medsAdd" style="padding: 10px; background-color: gray;" *ngIf='hasclicked'>		
+			<h5 style="color: white"><font size=5>Medication Name:</font></h5>
+			<input class="form-control" id="InputFirst" placeholder="Medicine Name"  [(ngModel)]="medName" #ctrl="ngModel" required>			
+			<h5 style="color: white"><font size=5>Day(s) of the week:</font></h5>
+			<select class="selectpicker col-1" style="height: 100px" multiple id="InputFirst" placeholder="medDate"  [(ngModel)]="medDate"  required >
+				<option data-tokens="Monday"> &nbsp;M</option>
+				<option data-tokens="Tuesday"> &nbsp;T</option>
+				<option data-tokens="Wednesday"> &nbsp;W</option>
+				<option data-tokens="Thursday">  &nbsp;Th</option>
+				<option data-tokens="Friday"> &nbsp;F</option>
+				<option data-tokens="Saturday"> &nbsp;S</option>
+				<option data-tokens="Sunday"> &nbsp;Su</option>
+			</select>
+			<h5 style="color: white"><font size=5>When to remind you:</font></h5>
+			<input type="time" name="med_time" placeholder="medTime"  [(ngModel)]="medTime" #ctrl="ngModel" required>
 			<br><br>
 			<button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Back</font></button>
 			&nbsp;&nbsp;
-
 			<button type="button" class="btn btn-md btn-info" (click) = 'add()'><font size=5 align=left>Add</font></button>
 		
-	</div>
-	<br><br>
+		</div><br><br>
+		<div class="text-left">
+			<font size=5>Recommendation:</font>
+			<div class="text-left">
+				<font size=4>{{recommendation}}</font>
+			</div>
+		</div>
+		<li class="list-group-item" *ngFor = "let rec of recs; let i = index" style="background-color: white; color: black;">
+			<div class="d-flex w-100 justify-content-between">
+		  		<font size=5>{{rec}}</font>
+			</div>
+		</li>
+	</main>
+	<footer>
+		<app-footer></app-footer>
+	</footer>
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<script src="file:/js/jquery-3.3.1.min.js"></script>
 
-
-
-<div class="text-left">
-	<font size=5>Recommendation:</font>
-	<div class="text-left">
-		<font size=4>{{recommendation}}</font>
-	</div>
-</div>
-
-
-<li class="list-group-item" *ngFor = "let rec of recs; let i = index" style="background-color: white; color: black;">
-	<div class="d-flex w-100 justify-content-between">
-		  <font size=5>{{rec}}</font>
-	</div>
-</li>
-</main>
-<footer>
-	<app-footer></app-footer>
-</footer>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="file:/js/jquery-3.3.1.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
-<script src="file:/js/popper.min.js"></script>
-<script src="file:/js/bootstrap-4.3.1.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
-</body>
+	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<script src="file:/js/popper.min.js"></script>
+	<script src="file:/js/bootstrap-4.3.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+	</body>
 </html>
