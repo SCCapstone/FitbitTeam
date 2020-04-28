@@ -16,10 +16,12 @@ export class TimelineComponent implements OnInit {
   fitbitToken = ''
   info:any
   first = ''
+  userid = ''
   Entries:any
   table = false;
   status = ''
   clientRef= ''
+  fitbitData:any
   constructor(public router: Router,private route: ActivatedRoute) { 
     if (this.router.getCurrentNavigation().extras.state != undefined) {
     console.log(this.router.getCurrentNavigation().extras.state.example); // should log client id
@@ -28,88 +30,97 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    var usid
-    if (this.clientRef != ''){
-      usid = this.clientRef;
-    } else {
-      if (firebase.auth().currentUser != null) {
-        usid = firebase.auth().currentUser.uid;
-      }
-      else {
-        console.log("youre not logged in");
-      }
+    if (firebase.auth().currentUser != null){
+      this.userid = firebase.auth().currentUser.uid
     }
-    console.log(usid)
-    setTimeout(() => {
+    else {
+    this.userid = "";
+    this.userid = localStorage.getItem("UID")
+  }
+    if(this.userid != null){
+      console.log("THIS IS THE USERID " + this.userid)
+      //Check if it is a client or not
+      var usid = this.userid
+      if (this.clientRef != ''){
+        usid = this.clientRef;
+      } else {
+        if (this.userid != null) {
+          usid = this.userid
+        }
+        else {
+          console.log("youre not logged in");
+        }
+      }
+      this.FitbitDataFromFirebase()
       this.getInfo()
-    }, 200);
+      this.getStatus()
+      var z = document.getElementById("myChartDIV");
+      if (z.style.display === "none") {
+        z.style.display = "block";
+      } else {
+        z.style.display = "none";
+      }
+      /*
+ setTimeout(() => {
+      this.GenerateChart()
+    }, 2000);
     setTimeout(() => {
-      this.status = this.getStatus()
-    }, 200);
-    
-
-    var z = document.getElementById("myChartDIV");
-    if (z.style.display === "none") {
-      z.style.display = "block";
-    } else {
-      z.style.display = "none";
+      this.Entries = this.GetEntries()
+      console.log( this.Entries)
+    }, 100);
+      */
+   
+     if(this.fitbitData != null){
+      this.GetEntries(this.fitbitData)
+      this.GenerateChart(this.fitbitData)
+  
     }
-  
-  var refs = firebase.database().ref('fitbitInfo/' + usid );
-  refs.on('value', (snapshot) => {
-     var tmeds= snapshot.val();
-     setTimeout(() => {
-      this.fitbitInfo = Object.keys(tmeds).map(i => tmeds[i]);
-      console.log(this.fitbitInfo)
-       this.fitbitID = this.fitbitInfo[0].id
-       this.fitbitToken = this.fitbitInfo[0].token
-    
-       var xhr = new XMLHttpRequest();
-       xhr.open('GET', 'https://api.fitbit.com/1/user/' + this.fitbitID + '/body/log/weight/date/today/1w.json');
-       xhr.setRequestHeader("Authorization", 'Bearer ' + this.fitbitToken);
-       xhr.onload = function () {
-         if (xhr.status === 200) {
-           if (xhr.responseText != ' ') {
-             var data = xhr.responseText;
-             console.log(data)
-           }
-           console.log(data)
-           var path:string = "fitbitData/" + usid.toString();
-           let fitbitData = firebase.database().ref(path).push();
-           fitbitData.set ({
-             'data': data,
-           });
-         }
-     };
-     }, 200);
-     
-  })
-  setTimeout(() => {
-    this.GenerateChart()
-  }, 200);
-  
-  this.Entries = this.GetEntries()
-  console.log( this.Entries)
+    else{
+      setTimeout(() => {
+        //console.log(this.fitbitData)
+        this.GetEntries(this.fitbitData)
+      }, 1200);
+      
+      setTimeout(() => {
+        this.GenerateChart(this.fitbitData)
+      }, 1000);
+   
+      console.log("no firebase data yet")
+    }
+
+
+    }
+
+
+    else{
+      setTimeout(() => {
+        this.ngOnInit()
+      }, 200);
+    }
   }
 
-  getTypeInfo(){
-    //Get Info of Current User
-    var usid = firebase.auth().currentUser.uid;
-    var ref = firebase.database().ref('usertypes/' + usid );
-    ref.on('value', (snapshot) => {
-      this.info = snapshot.val();
-      console.log(this.info)
-    });
-    this.first = this.info.first_name
-  }
   getInfo(){
     //Get Info of Current client
     var usid
     if (this.clientRef != ''){
       usid = this.clientRef;
     } else {
-    usid = firebase.auth().currentUser.uid;
+    usid = this.userid
     }
+    var ref = firebase.database().ref('usertypes/' + usid );
+    ref.on('value', (snapshot) => {
+      this.info = snapshot.val();
+      //console.log(this.info)
+    });
+    setTimeout(() => {
+      this.first = this.info.first_name
+
+    }, 800);
+  }
+
+  getTypeInfo(){
+    //Get Info of Current User
+    var usid = this.userid
     var ref = firebase.database().ref('usertypes/' + usid );
     ref.on('value', (snapshot) => {
       this.info = snapshot.val();
@@ -117,44 +128,45 @@ export class TimelineComponent implements OnInit {
     });
     this.first = this.info.first_name
   }
+  
 
-  GenerateChart(){
-    var myArray = this.FitbitDataFromFirebase();
+  GenerateChart(data){
+    var myArray = data
     var y = 0;
     var x = '';
     var dataPoints = [];
     for (var i = 0 ; i < myArray[0].length; i++) {
-      y = myArray[1][i];
-      x = myArray[0][i];
-      dataPoints.push({
-        x: new Date(x),
-        y: y                
-        });
-        //console.log(x);
-        //console.log(y);
+        y = myArray[1][i];
+        x = myArray[0][i];
+        dataPoints.push({
+          x: new Date(x),
+          y: y                
+          });
+          //console.log(x);
+          //console.log(y);
+          //console.log(dataPoints);
+      }
         //console.log(dataPoints);
-    }
-      console.log(dataPoints);
-      let chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-	      zoomEnabled: true,
-        theme: "light2",
-        title:{
-          text: "Detailed Zoom/Pan Graph"
-        },
-        axisX:{
-          title : "Last 30 Days"
-         },
-        axisY:{
-          title : "Pounds (lbs)",
-          includeZero: false
-        },
-        data:[{        
-          type: "line",       
-          dataPoints: dataPoints
-        }]
-      });
-      chart.render();
+        let chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          zoomEnabled: true,
+          theme: "light2",
+          title:{
+            text: "Detailed Zoom/Pan Graph"
+          },
+          axisX:{
+            title : "Last 30 Days"
+           },
+          axisY:{
+            title : "Pounds (lbs)",
+            includeZero: false
+          },
+          data:[{        
+            type: "line",       
+            dataPoints: dataPoints
+          }]
+        });
+        chart.render();
   }
 
   logout(){
@@ -164,59 +176,68 @@ export class TimelineComponent implements OnInit {
     console.log(firebase.auth().currentUser.uid)
   }
 
+
+
   FitbitDataFromFirebase(){
     var tdata:any
-    var usid
-    if (this.clientRef != ''){
-      usid = this.clientRef;
-    } else {
-    usid = firebase.auth().currentUser.uid;
-    }
-    var path:string = "fitbitData/" + usid
+    var path:string = "fitbitData/" + this.userid
     var ref = firebase.database().ref(path)
     ref.on('value', (snapshot) => {
       tdata = snapshot.val();
     })
-    //console.log(tdata)
-    var ar = Object.values(tdata)
-    //console.log(ar)
-    var date = []
-    var weight = []
-    var time = []
-    var size = this.getSize(ar[0])
-    //console.log(size)
-    for (var i = 0; i < size; i++){
-      //console.log(ar[0][i])
-      var temp = Object.values(ar[0][i])
-      var x = +temp[2];
-      //console.log(temp[0])
-      date.push(temp[0]) 
-      weight.push(Math.round((x * 2.20462) * 100) / 100)
-      time.push(temp[1])
-    }
-    //console.log(date)
-    //console.log(weight)
-    weight = this.toNum(weight)
-    console.log(weight)
-    return [date, weight, time]
+    setTimeout(() => {
+      if(tdata != null){
+        var ar = Object.values(tdata)
+      //console.log(ar)
+      var date = []
+      var weight = []
+      var time = []
+      var size = this.getSize(ar[0])
+      //console.log(size)
+      for (var i = 0; i < size; i++){
+        //console.log(ar[0][i])
+        var temp = Object.values(ar[0][i])
+        var x = +temp[2];
+        //console.log(temp[0])
+        date.push(temp[0]) 
+        weight.push(Math.round((x * 2.20462) * 100) / 100)
+        time.push(temp[1])
+      }
+      weight = this.toNum(weight)
+      //console.log(weight)
+  
+      this.fitbitData = [date,weight,time]
+      //console.log(this.fitbitData)
+     
+      }
+    }, 700);
   }
-  GetEntries(){
-    var Data = this.FitbitDataFromFirebase() 
-    console.log(Data)
+
+
+
+  //Get Data for the table view to view in HTML.
+  GetEntries(dataary){
+    var Data = dataary
+    
     var arry = []
-    
-    for (var i =0; i < Data[0].length; i++){
-    
-    var t = {
-        'Date': Data[0][i],
-        'Time': Data[2][i],
-        'Weight': Data[1][i]
-      };
-      arry.push(t)
+
+    if(Data != null){
+      //console.log(Data)
+      for (var i =0; i < Data[0].length; i++){
+        var t = {
+            'Date': Data[0][i],
+            'Time': Data[2][i],
+            'Weight': Data[1][i]
+          };
+          arry.push(t)
+        }
+        console.log(arry)
+        
+        this.Entries = arry
+    }else{
+      console.log("DATA == NULL")
     }
-    console.log(arry)
-    
-    return arry
+   
   }
 
 
@@ -273,8 +294,11 @@ toggle() {
     }
   }
   getStatus(){
-    var status = this.info.status
-    console.log(status)
-    return status
+    setTimeout(() => {
+      console.log(this.info)
+      console.log(this.info.status)
+    this.status = this.info.status
+    //console.log(status)
+    }, 800);
   }
 }
