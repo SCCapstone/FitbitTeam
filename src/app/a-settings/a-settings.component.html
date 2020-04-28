@@ -15,14 +15,6 @@
 
     <main>
         <ul class="list-group">
-            <li class="list-group-item" style="background-color: grey; color: #ffffff;">
-	            <div class="d-flex w-100 justify-content-between">
-                    <font size=5><a routerLink="../recovery" style="color:white">Reset Password</a></font>
-                </div>
-            </li>
-        </ul>
-
-        <ul class="list-group">
             <li class="list-group-item" style="background-color:  rgb(204, 204, 204); color: #ffffff;">
 	            <div class="d-flex w-100 justify-content-between">
                     <font size=5>Account Information</font>
@@ -40,6 +32,11 @@
                     <font size=5>Last Name:  {{last}}</font>
                     </div>
                 </li> 
+                <li class="list-group-item"  style="background-color:  rgb(204, 204, 204); color: #ffffff;">
+                    <div class="d-flex w-100 justify-content-between">
+                        <font size=5><a routerLink="../recovery" style="color:white">Reset Password</a></font>
+                    </div>
+                </li>
             </div>
             <div *ngIf= "hasclicked">
                 <li class="list-group-item" >
