@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-	
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,54 +29,43 @@
 </div>
        
     </nav>
-<!--
-<div class="text-center">
-	<font size=7>No new notifications</font>
-</div>
 
--->
-<main>
-<div class="text-left" *ngIf= "!hasclicked">
-   <button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
-</div>
-<br>
-<ul class="list-group">
-  <li class="list-group-item" style="background-color: #ffffff; color: gray;">
-    <div class="d-flex w-100 justify-content-between">
-      <div class="col"><font size=5>Patient Name:</font></div>
-      <div class="col"><font size=5>Status:</font></div>
-      <div class="col"><font size=5>Reference Code:</font></div>
-        <div class="col"><font size=5>Timeline</font></div>
-    <font size=5>Remove</font>
-    </div>
-</li>
-<div class="text-left" *ngIf= "!hasclicked">
-  <li class="list-group-item" *ngFor = "let dis of display; let i = index" style="background-color: gray; color: #ffffff;">
-    <div class="d-flex w-100 justify-content-between">
-      <div class="col"><font size=5>{{dis.patName}}</font></div>
-      <div class="col"><font size =5>{{dis.status}}</font></div>
-      <div class="col"><font size=5>{{dis.refNum}}</font></div>
-      <div class="col"><font size=5 (click) = toTimeline(dis.refNum)>Timeline</font></div>
-      <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
-    </div>
-  </li>		
-</div>
-</ul>
+  <main>
+    <div class="text-left" *ngIf= "!hasclicked">
+      <button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
+    </div> <br>
+    <ul class="list-group">
+      <li class="list-group-item" style="background-color: #ffffff; color: gray;">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="col"><font size=5>Patient Name:</font></div>
+          <div class="col"><font size=5>Status:</font></div>
+          <div class="col"><font size=5>Reference Code:</font></div>
+          <div class="col"><font size=5>Timeline</font></div>
+          <font size=5>Remove</font>
+        </div>
+      </li>
+        <div class="text-left" *ngIf= "!hasclicked">
+          <li class="list-group-item" *ngFor = "let dis of display; let i = index" style="background-color: gray; color: #ffffff;">
+            <div class="d-flex w-100 justify-content-between">
+              <div class="col"><font size=5>{{dis.patName}}</font></div>
+              <div class="col"><font size =5>{{dis.status}}</font></div>
+              <div class="col"><font size=5>{{dis.refNum}}</font></div>
+              <div class="col"><font size=5 (click) = toTimeline(dis.refNum)>Timeline</font></div>
+              <button class="btn" (click)= 'remove(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
+            </div>
+          </li>		
+        </div>
+    </ul>
       <div class="medsAdd" *ngIf='hasclicked'>
         <ul>
-          <!--<li>
-             <h5>Name of Patient:</h5>
-            <input class="form-control" id="InputFirst" placeholder="Name"  [(ngModel)]="patName" #ctrl="ngModel" required>
-          </li>-->
           <li>
-           <h5>Reference Code:</h5>
-           <input class="form-control" id="InputFirst" placeholder="Reference Number"  [(ngModel)]="refNum" #ctrl="ngModel" required>
-           </li>
+            <h5>Reference Code:</h5>
+            <input class="form-control" id="InputFirst" placeholder="Reference Number"  [(ngModel)]="refNum" #ctrl="ngModel" required>
+          </li>
           <button type="button" class="btn btn-md btn-info" (click) = 'add()'><font size=5 align=left>Add</font></button>
           <button type="button" class="btn btn-sm btn-danger" (click) = 'clicked()'><font size=5 align=left>Cancel</font></button>
-       </ul>
+        </ul>
       </div>
-    
       <button type="button" class="btn btn-md btn-info" (click) = 'recClick()'><font size=5 align=left>Add a Recomendation</font></button>
       <div class="medsAdd" *ngIf='recClicked'>
         <ul>
@@ -99,31 +86,22 @@
                 <button class="btn" (click)= 'removeRec(i)'><i class="fa fa-close" color='Red'>Remove</i></button>
               </div>
             </li>		
-          
         </ul>
-        
-
       </div>
-
-    
-    
-</main>
-<footer>
-  <app-footer></app-footer>
-</footer>
-
-
-
+  </main>
+  <footer>
+    <app-footer></app-footer>
+  </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed --> 
     <script src="file:/js/popper.min.js"></script>
-  <script src="file:/js/bootstrap-4.3.1.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="file:/js/bootstrap-4.3.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
