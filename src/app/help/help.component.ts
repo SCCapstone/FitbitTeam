@@ -12,6 +12,7 @@ export class HelpComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //checks if logged in or not
     if (firebase.auth().currentUser == null){
       console.log("NOT LOGGED IN")
       this.logged = false
@@ -24,6 +25,7 @@ export class HelpComponent implements OnInit {
     }  
   }
   togStart() {
+    //Toggles to tab 1
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");
@@ -41,6 +43,7 @@ export class HelpComponent implements OnInit {
     
   }
   togAccount() {
+        //Toggles to tab 2
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");
@@ -58,6 +61,7 @@ export class HelpComponent implements OnInit {
     
   }
   togConnect() {
+        //Toggles to tab 3
     var x = document.getElementById("GetStarted");
     var y = document.getElementById("Account");
     var z = document.getElementById("Connect");

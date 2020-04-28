@@ -46,6 +46,7 @@ export class SignupComponent implements OnInit {
 
     console.log(this.user);
     //Database stuff
+    //Boilerplate firebase sign up using the data in the form
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -75,6 +76,7 @@ export class SignupComponent implements OnInit {
         
       });
     }else{
+      //password limits
       alert("Password must have four of the following: one uppercase letter, one lowercase letter, one number, or one special character (!,#, ...), and be 6+ characters long")
       this.router.navigate(["../signup"])
       console.log('Signup Failed')
@@ -82,7 +84,7 @@ export class SignupComponent implements OnInit {
   }
 
   validate(){
-
+    //functions that checks if the complexity of the password is valid
     let invalidPassword = true;
 
     let password = this.user.password;

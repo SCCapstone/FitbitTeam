@@ -34,11 +34,13 @@ export class CmainComponent implements OnInit {
    }
 
   ngOnInit() {
+    //Gets current user id
     if (firebase.auth().currentUser != null){
       this.userid = firebase.auth().currentUser.uid
 
     }
     else {
+      //pulls user id from local storage in case of refresh
     this.userid = "";
     this.userid = localStorage.getItem("UID")
     var x = document.getElementById("notLog");
@@ -46,7 +48,7 @@ export class CmainComponent implements OnInit {
   }
     console.log("THIS IS THE USERID " + this.userid)
     if (this.userid != null){
-
+      //runs all the necessary functions
       this.getMeds()
       this.getRecommendation()
       setTimeout(() => {
@@ -75,6 +77,7 @@ export class CmainComponent implements OnInit {
   }
 
   getInfo(){
+    //fetches the user info
     console.log("user Id in getInfo "+ this.userid)
     var refs = firebase.database().ref('usertypes/' + this.userid);
     refs.on('value', (snapshot) => {
@@ -101,6 +104,7 @@ export class CmainComponent implements OnInit {
   }
 
   getMeds(){
+    //fetches the user medications
     var mref = firebase.database().ref('meds/' + this.userid );
     mref.on('value', (snapshot) => {
       this.tmeds = snapshot.val();
@@ -113,6 +117,7 @@ export class CmainComponent implements OnInit {
     })
   }
   getChart(){
+    //generates chart
   var myArray = this.FitbitDataFromFirebase();
   var y = 0;
   var x = '';
@@ -288,30 +293,25 @@ export class CmainComponent implements OnInit {
 
 
   FitbitDataFromFirebase(){
+    //pulls the fitbit data stored in firebase
     var tdata:any
     var path:string = "fitbitData/" + this.userid
     var ref = firebase.database().ref(path)
     ref.on('value', (snapshot) => {
       tdata = snapshot.val();
     })
-    //console.log(tdata)
     if(tdata != null){
       var ar = Object.values(tdata)
-    //console.log(ar)
     var date = []
     var weight = []
     var size = this.getSize(ar[0])
-    //console.log(size)
     for (var i = 0; i < size; i++){
-      //console.log(ar[0][i])
       var temp = Object.values(ar[0][i])
       var x = +temp[2];
-      //console.log(temp[0])
       date.push(temp[0]) 
       weight.push(Math.round((x * 2.20462) * 100) / 100)
     }
     weight = this.toNum(weight)
-    //console.log(weight)
     return [date, weight]
     }else{
       console.log("Data not loaded yet")
@@ -358,7 +358,6 @@ export class CmainComponent implements OnInit {
     //Done
     if(Data != null){
       var weight = Data[1];
-      //console.log(weight)
       var count = 0;
       var status = 'GREEN'
       var weekAvg = 0;
@@ -385,14 +384,12 @@ export class CmainComponent implements OnInit {
         bool = 1;
       }
       diff = Math.abs(diff)
-      //console.log(diff)
       //check whether they are losing weight (week to week), in this case, status will remain green
       var weekDiff = current - weekAgo
       if(weekDiff < 0) {
         bool = 1;
       }
       weekDiff = Math.abs(weekDiff)
-      //console.log(weekDiff)
       //First check and set status based on difference of weight from one day to the next
       if(diff <= 1) {
         status = 'Healthy'
@@ -424,7 +421,6 @@ export class CmainComponent implements OnInit {
       else {
         this.status = this.info.status 
       }
-      //console.log(status)
       return status
     }else{
       console.log("Status not loaded yet")
@@ -432,6 +428,7 @@ export class CmainComponent implements OnInit {
    
   }
   saveStatus(status){
+    //pushes status to firebase
     if(this.info != null){
       var refs = firebase.database().ref('usertypes/' + this.userid);
       refs.set({
@@ -443,7 +440,6 @@ export class CmainComponent implements OnInit {
       });
     }
  
-    //console.log(status)
   }
 
   // the following group of get functions are to serve
@@ -452,7 +448,6 @@ export class CmainComponent implements OnInit {
     var temp = this.FitbitDataFromFirebase()
     var today = this.getDate()
     var dates = temp[0]
-    //console.log(dates)
     var size = this.getSize(dates)
     for(var i = 0; i < size; i++)
     {
@@ -498,13 +493,12 @@ export class CmainComponent implements OnInit {
     return total;
   }
   getRecommendation()
-  {
+  { //Pulls recommendations from firebase
     var path:string = 'Recs/'
     var tdata
     var ref = firebase.database().ref(path)
     ref.on('value', (snapshot) => {
       tdata = snapshot.val();
-      //console.log(tdata)
     })
     setTimeout(() => {
       console.log(Object.values(tdata))

@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //checks if the user is logged in or not
     if (firebase.auth().currentUser == null){
       this.logged = false
     }
