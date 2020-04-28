@@ -13,63 +13,35 @@
   </head>
   <body>
     <header>
-		<!-- This is the header information containing the navbar at the top of the page. Check CSS for settings and extra formatting. -->
-		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px">
-			<a routerLink="../home" href="../home" class="navbar-brand nav-link active" ><img src="../../assets/favicon.png" alt="FitBitTeamFavicon" style="width:40px;height:40px;">FitBitTeam</a>
-			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<div class="navbar-nav" >
-					<a routerLink="../cmain" class="nav-item nav-link">Timeline</a>
-					<a routerLink="../about" class="nav-item nav-link">About</a>
-					<a routerLink="../help" class="nav-item nav-link">Help</a>
-					<a routerLink="../contact" class="nav-item nav-link">Contact</a>
-				</div>
-				<div *ngIf = "!logged" class="navbar-nav ml-auto">
-					<a  routerLink="../login" class="nav-item nav-link">Login</a>
-				</div>
-				<div *ngIf = "logged" class="navbar-nav ml-auto">
-					<a routerLink="../cmain" class="nav-item nav-link">Welcome</a>
-				</div>
-			</div>
-		</nav>
-		<router-outlet></router-outlet>
-		<router-outlet name="navbar"> </router-outlet>
+		  <app-header></app-header>
     </header>
     <main>
-		<p style="page-break-before: always">
-	
-
-		
+		  <p style="page-break-before: always">
         <img src="../../assets/logo.png" alt="FitBitTeamLogo"style="width:400;height:100px;">
-		<p style="page-break-before: always">
-		<p>A simple way to manage weight, medications, and doctor's reccomendations
-        through the seemless integration of the Fitbit devices and Amazon Alexa.
-        </p>
-		<p> Click these to learn more about the project, or get started!</p>
-		<div>
+		  <p style="page-break-before: always">
+		  <p>A simple way to manage weight, medications, and doctor's reccomendations
+         through the seemless integration of the Fitbit devices and Amazon Alexa.
+      </p>
+		  <p> Click these to learn more about the project, or get started!</p>
+		  <div>
             <a routerLink="../about"><button type="button" class="btn btn-lg">Learn more</button></a>
             <a routerLink="../help"><button type="button" class="btn btn-lg">Get started</button></a>
-        </div>
-		<h2>Walkthrough Video</h2>
-		<iframe width="420" height="315" src="https://www.youtube.com/embed/Q_QlPEDotBQ"></iframe>
+      </div>
+		  <h2>Walkthrough Video</h2>
+		  <iframe width="420" height="315" src="https://www.youtube.com/embed/Q_QlPEDotBQ"></iframe>
 
-		<h2>Screenshots:</h2>
-		<div class="text-left"><img src="../../assets/s1.png" style="width:640;height:480px;">
-			<img src="../../assets/s2.png" style="width:640;height:480px;">
-			<img src="../../assets/s3.png" style="width:640;height:480px;">
-			<img src="../../assets/s4.png" style="width:640;height:480px;">
-			<img src="../../assets/s5.png" style="width:640;height:480px;">
-			<img src="../../assets/s6.png" style="width:640;height:480px;">
-
-		</div>
-       
-	</main>
-	<footer>
-		<hr/>
-		<p>© 2020 - FitBitTeam | <a href="">Terms of Service & Privacy Policy</a></p>
-	</footer>
+		  <h2>Screenshots:</h2>
+		  <div class="text-left"><img src="../../assets/s1.png" style="width:640;height:480px;">
+		    <img src="../../assets/s2.png" style="width:640;height:480px;">
+			  <img src="../../assets/s3.png" style="width:640;height:480px;">
+			  <img src="../../assets/s4.png" style="width:640;height:480px;">
+			  <img src="../../assets/s5.png" style="width:640;height:480px;">
+			  <img src="../../assets/s6.png" style="width:640;height:480px;">
+		  </div>   
+	  </main>
+	  <footer> 
+      <app-footer></app-footer>	
+    </footer>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>

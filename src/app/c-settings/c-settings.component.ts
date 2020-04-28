@@ -25,8 +25,15 @@ export class CSettingsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.userid = firebase.auth().currentUser.uid
-  
+    if (firebase.auth().currentUser != null){
+      this.userid = firebase.auth().currentUser.uid
+    }
+    else {
+    this.userid = "";
+    this.userid = localStorage.getItem("UID")
+    }
+  if(this.userid != null)
+  {
     //Grabbing First and Last name from firebase
     console.log("User ID: "+ this.userid)
     var usid = this.userid;
@@ -55,6 +62,12 @@ export class CSettingsComponent implements OnInit {
     if(this.fitbitInfo != ''){
       this.connection = 'Connected to fitbit account'
     }
+  }
+  else
+  setTimeout(() => {
+    this.ngOnInit()
+
+  }, 100);
   } 
 
   helpInfo(obj1){
@@ -177,7 +190,7 @@ export class CSettingsComponent implements OnInit {
       };
       xhr.send(params);
       // remove the token from firebase
-      let userid = firebase.auth().currentUser.uid;
+      let userid = this.userid;
       var path:string = "fitbitInfo/" + userid.toString();
       let fitbitRef = firebase.database().ref(path);
       fitbitRef.remove();
@@ -205,7 +218,7 @@ export class CSettingsComponent implements OnInit {
       this.info.first_name = this.first
       this.info.last_name = this.last
       this.info.type = this.info.type
-      var usid = firebase.auth().currentUser.uid;
+      var usid = this.userid;
       var refs = firebase.database().ref('usertypes/' + usid);
       console.log(this.info)
       refs.set(this.info)

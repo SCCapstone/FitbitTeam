@@ -14,54 +14,9 @@
 </head>
   
 <body>
-  <nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px">
-    <div class="container-fluid">
-    <div class="text-left"><a routerLink="../home" href="../home" class="navbar-brand nav-link" ><img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-      <span class="navbar-toggler-icon"></span>
-    </button>	
-    <br> <br>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <div class="navbar-nav" >
-        <a routerLink="../cmain" class="nav-item nav-link active">Timeline</a>
-        <a routerLink="../about" class="nav-item nav-link">About</a>
-        <a routerLink="../help" class="nav-item nav-link">Help</a>
-        <a routerLink="../contact" class="nav-item nav-link">Contact</a>
-      </div>
-    </div>
-  </div>
-      <div class="text-center">
-        <font color="white" size=5>Welcome, {{first}}</font>
-      </div>
-      <!-- <div class="navbar-nav ml-auto">
-        <a routerLink="../login" class="nav-item nav-link">Login</a>
-      </div> -->
-      <div class="text-right">
-        <a routerLink="../settings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
-        <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
-      </div> 
-  
-          </div>
-  </nav>
-  <!--
-<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #43E78E;">
-
-<div class="container-fluid">
-	  <div class="text-left">
-      <a><button type="button" class="btn btn-lg" (click)= homepage()><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
-    </div>	
-	  <div class="text-center">
-		  <font color="white" size=5>Welcome, {{first}}</font>
-	  </div>
-	  <div class="text-right">
-      <a routerLink="../settings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
-  
-      <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    </div>
-</div>
-       
-</nav>
-  -->
-
+<header>
+  <app-header></app-header>
+</header>
 <main>
 <ul class="list-group">
   <li class="list-group-item" style="background-color:  rgb(204, 204, 204); color: #ffffff;">
@@ -157,6 +112,9 @@
 </div>
     
 </main>
+<footer>
+  <app-footer></app-footer>
+</footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
 
