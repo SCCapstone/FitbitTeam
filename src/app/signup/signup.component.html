@@ -1,78 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>FitBitTeam - Signup</title>
 
-    <meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<meta charset="utf-8">
+	<meta name="description" content="A webapp designed to help those with congestive heart failure manage their weight and minimize risks. Works with Fitbit devices and soon Amazon Alexa!">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FitBit Capstone</title>
-
-    <!-- Bootstrap 
-    <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet"> -->
-
   </head>
   <body>
     <header>
-      <app-header></app-header>
+		  <app-header></app-header>
     </header>
     <main>
-   <div class="row">
-     <div class="col-md-4">
-	   </div>
-     <div class="col-md-4">
-		 <div class=text-center>
-		 <h5>First Name:</h5>
-			 <input class="form-control" id="InputFirst" placeholder="First Name"  [(ngModel)]="user.first_name"  required>
-		<h5>Last Name:</h5>
-			 <input class="form-control" id="InputLast" placeholder="Last Name" [(ngModel)]="user.last_name" required>
-		<h5>Email:</h5>
-		 <input type="email" class="form-control" id="InputLast" placeholder="Email Address" [(ngModel)]="user.email"  required>	
-   	<!-- <h5>Username:</h5>
-		   <input class="form-control" id="InputUser" placeholder="Username" [(ngModel)]="user.username" #ctrl="ngModel" required>
-       --> 
-      <h5>Password:</h5>
-      <!--<input matInput #password="ngModel" placehoder="Password" type="password" autocomplete="password" [(ngModel)]="model.password" name="password" minlength="8" validatePassword="password" required>-->
-      <!--<mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
-        <div *ngIf="password.errors.required">
-          Password is required
+      <p style="page-break-before: always">
+      <div class="row">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4">
+          <br>
+          <h2>Signup for FitBitTeam</h2>
+          <br>
+		      <div class>
+		        <h5>First Name:</h5>
+			      <input class="form-control" id="InputFirst" placeholder="First Name"  [(ngModel)]="user.first_name"  required>
+		        <h5>Last Name:</h5>
+			      <input class="form-control" id="InputLast" placeholder="Last Name" [(ngModel)]="user.last_name" required>
+		        <h5>Email:</h5>
+		        <input type="email" class="form-control" id="InputLast" placeholder="Email" [(ngModel)]="user.email"  required>	
+            <h5>Password:</h5>
+            <input type="password" class="form-control" id="InputPassword" placeholder="Must include upper, lower, number, special (#,!,...)" [(ngModel)]="user.password" #ctrl="ngModel" required>
+            <h5>Type:</h5>
+            <select [(ngModel)]="user.type" #ctrl="ngModel" required>
+              <option value="Admin">Admin</option>
+              <option value="Client">Client</option>
+            </select>
+            <br>
+            <div class="text-center">
+              <a type="button" class="btn btn-lg btn-info" routerLink="../login" (click)= "signup()" ><font color="white" size="4">Sign-up</font></a>
+            </div>
+            <br>
+            <a routerLink="../recovery">Forgot your Password?</a>
+            <div>Already have an account? <a routerLink="../login">Login</a></div>
+		      </div>
         </div>
-        <div *ngIf="password.errors.minlength">
-          Password must be at least 8 characters
-        </div>
-      </mat-error>-->
-     <input type="password" class="form-control" id="InputPassword" placeholder="Must include upper, lower, special (#,!,...)" [(ngModel)]="user.password" #ctrl="ngModel" required>
-     <!--<h5>Retype Password:</h5>-->
-     <!--<input type=”password” class="form-control" id=”ConfirmPassword” placeholder="Password" [ngModel]=”user.confirmPassword” validateEqual="password" #confirmPassword=”ngModel”><small [hidden]="confirmPassword.valid ||  (confirmPassword.pristine && !f.submitted)"></small>-->
-     <h5>Type:</h5>
-     <select [(ngModel)]="user.type" #ctrl="ngModel" required>
-      <option value="Admin">Admin</option>
-      <option value="Client">Client</option>
-    </select>
-  <br>
-  <br>
-  <br>
-      <a type="button" class="btn btn-lg btn-info" routerLink="../login" (click)= "signup()" ><font color="white" size="4">Sign-up</font></a>
+	      <div class="col-md-4"> </div>
+      </div>
+    </main>
+    <footer>
+      <app-footer></app-footer>
+    </footer>
 
-		 </div>
-     </div>
-	   <div class="col-md-4">
-	   </div>
-  </div>
-</main>
-<footer>
-  <app-footer></app-footer>
-</footer>
-    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="file:/js/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed --> 
-<script src="file:/js/popper.min.js"></script>
-  <script src="file:/js/bootstrap-4.3.1.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="file:/js/popper.min.js"></script>
+    <script src="file:/js/bootstrap-4.3.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>

@@ -2,22 +2,12 @@
     display: flex;
     justify-content: center;
 }
-.navbar-default {
-    background-color: #3E4551;
-    padding-left: 100px;
-    padding-right: 100px;
-    font-size: 24px;
-}
 video {
     margin-left: 200px;
 }
 main {
     margin-top: 100px;
     margin-bottom: 30px;
-    margin-left: 115px;
-    margin-right: 115px;
-}
-footer {
     margin-left: 115px;
     margin-right: 115px;
 }
