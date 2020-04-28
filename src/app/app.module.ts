@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
 import { ContactComponent } from './contact/contact.component';
+import { HeaderComponent } from './header.component';
+import { FooterComponent } from './footer.component';
 
   var firebaseConfig = {
     apiKey: "AIzaSyDdtiMAA8rQKsQhgsZXxORkWbO1wbr2miI",
@@ -35,6 +37,8 @@ import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
     LoginComponent,
     SignupComponent,
     CmainComponent,
@@ -46,7 +50,6 @@ import { ContactComponent } from './contact/contact.component';
     HomeComponent,
     PasswordValidator,
     AboutComponent,
-    HelpComponent,
     HelpComponent,
     ContactComponent
   ],

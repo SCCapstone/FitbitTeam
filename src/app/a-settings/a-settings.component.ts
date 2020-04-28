@@ -13,6 +13,7 @@ last = ''
 userid = ''
 hasclicked=false
 editName = false
+type = ''
 
 info:any
   constructor(public router: Router,private route: ActivatedRoute) {
