@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         refs.on('value', (snapshot) => {
          console.log(snapshot.val())
           var info = snapshot.val();
-          localStorage.setItem("type", info.first_name)
+          localStorage.setItem("type", info.type)
           localStorage.setItem("userName", info.first_name)
 
         })

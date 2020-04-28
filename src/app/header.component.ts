@@ -15,7 +15,7 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav" >
                 <a *ngIf = "logged && !clientOrAdmin" routerLink="../cmain" class="nav-item nav-link"><font color="white">Timeline</font></a>
-                <a *ngIf = "logged && clientOrAdmin" routerLink="../amain" class="nav-item nav-link"><font color="white">Admin</font></a>
+                <a *ngIf = "logged && clientOrAdmin" routerLink="../admin" class="nav-item nav-link"><font color="white">Admin</font></a>
                 <a routerLink="../about" class="nav-item nav-link"><font color="white">About</font></a>
                 <a routerLink="../help" class="nav-item nav-link"><font color="white">Help</font></a>
                 <a routerLink="../contact" class="nav-item nav-link"><font color="white">Contact</font></a>
@@ -50,9 +50,10 @@ export class HeaderComponent implements OnInit {
         this.logged = true;
         this.userName = localStorage.getItem("userName")
         this.userType = localStorage.getItem("type")
-        console.log("NAME:" + this.userName)
-        console.log("TYPE:" + this.userType)
-        if(this.userType = 'Admin') {
+        if(this.userType === 'Admin') {
+            this.clientOrAdmin = true;
+        }
+        if(this.userType === 'Client') {
             this.clientOrAdmin = false;
         }
     }

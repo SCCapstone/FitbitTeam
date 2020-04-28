@@ -11,7 +11,32 @@
 
   </head>
   <body>
-    <header><app-header></app-header></header>
+    <header>
+      <!-- This is the header information containing the navbar at the top of the page. Check CSS for settings and extra formatting. -->
+		<nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-default @navbar-height 200px">
+			<a routerLink="../home" href="../home" class="navbar-brand nav-link" >
+				<img src="../../assets/favicon.png" alt="FitBitTeamLogo" style="width:40px;height:40px;">FitBitTeam</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav" >
+					<a routerLink="../admin" class="nav-item nav-link"><font color="white">Admin</font></a>
+                	<a routerLink="../about" class="nav-item nav-link"><font color="white">About</font></a>
+                	<a routerLink="../help" class="nav-item nav-link"><font color="white">Help</font></a>
+                	<a routerLink="../contact" class="nav-item nav-link"><font color="white">Contact</font></a>
+				</div>
+				<div class="navbar-nav ml-auto">
+                    <font color="white" size=5>Welcome, {{first}}</font>
+                </div>
+				<div class="navbar-nav ml-auto">
+                    <a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5>Settings</font></button></a>
+                    <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5>Logout</font></button></a>
+                </div>
+			</div>
+		</nav>
+    </header>
   <main>
     <div class="text-left" *ngIf= "!hasclicked">
       <button type="button" class="btn btn-md btn-info" (click) = 'clicked()'><font size=5 align=left>Add a Patient</font></button>
