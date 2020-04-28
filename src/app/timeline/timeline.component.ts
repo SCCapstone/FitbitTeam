@@ -26,21 +26,30 @@ export class TimelineComponent implements OnInit {
     if (this.router.getCurrentNavigation().extras.state != undefined) {
     console.log(this.router.getCurrentNavigation().extras.state.example); // should log client id
     this.clientRef = this.router.getCurrentNavigation().extras.state.example
+    
     }
   }
 
   ngOnInit() {
-    if (firebase.auth().currentUser != null){
-      this.userid = firebase.auth().currentUser.uid
+    if(this.clientRef != ''){
+     this.userid = this.clientRef
+     
     }
-    else {
-    this.userid = "";
-    this.userid = localStorage.getItem("UID")
-  }
+    else{
+      if (firebase.auth().currentUser != null){
+        this.userid = firebase.auth().currentUser.uid
+      }
+      else {
+      this.userid = "";
+      this.userid = localStorage.getItem("UID")
+    }
+    }
+  
     if(this.userid != null){
       console.log("THIS IS THE USERID " + this.userid)
       //Check if it is a client or not
-      var usid = this.userid
+      /*
+        var usid = this.userid
       if (this.clientRef != ''){
         usid = this.clientRef;
       } else {
@@ -50,7 +59,10 @@ export class TimelineComponent implements OnInit {
         else {
           console.log("youre not logged in");
         }
-      }
+         }
+      */
+    
+     
       this.FitbitDataFromFirebase()
       this.getInfo()
       this.getStatus()
@@ -60,41 +72,26 @@ export class TimelineComponent implements OnInit {
       } else {
         z.style.display = "none";
       }
-      /*
- setTimeout(() => {
-      this.GenerateChart()
-    }, 2000);
-    setTimeout(() => {
-      this.Entries = this.GetEntries()
-      console.log( this.Entries)
-    }, 100);
-      */
-   
-     if(this.fitbitData != null){
-      this.GetEntries(this.fitbitData)
-      this.GenerateChart(this.fitbitData)
-  
-    }
-    else{
-      setTimeout(() => {
-        //console.log(this.fitbitData)
-        this.GetEntries(this.fitbitData)
-      }, 1200);
-      
-      setTimeout(() => {
-        this.GenerateChart(this.fitbitData)
-      }, 1000);
-   
-      console.log("no firebase data yet")
-    }
-
-
+    this.generateVisuals()
     }
 
 
     else{
       setTimeout(() => {
         this.ngOnInit()
+      }, 200);
+    }
+  }
+  generateVisuals(){
+    //console.log(this.fitbitData)
+    if(this.fitbitData != null){
+      this.GetEntries(this.fitbitData)
+      this.GenerateChart(this.fitbitData)
+    }
+    else{
+      setTimeout(() => {
+        this.generateVisuals()
+
       }, 200);
     }
   }
@@ -124,7 +121,7 @@ export class TimelineComponent implements OnInit {
     var ref = firebase.database().ref('usertypes/' + usid );
     ref.on('value', (snapshot) => {
       this.info = snapshot.val();
-      console.log(this.info)
+      //console.log(this.info)
     });
     this.first = this.info.first_name
   }
@@ -135,6 +132,7 @@ export class TimelineComponent implements OnInit {
     var y = 0;
     var x = '';
     var dataPoints = [];
+    console.log(myArray)
     for (var i = 0 ; i < myArray[0].length; i++) {
         y = myArray[1][i];
         x = myArray[0][i];
@@ -231,7 +229,7 @@ export class TimelineComponent implements OnInit {
           };
           arry.push(t)
         }
-        console.log(arry)
+        //console.log(arry)
         
         this.Entries = arry
     }else{
@@ -295,8 +293,8 @@ toggle() {
   }
   getStatus(){
     setTimeout(() => {
-      console.log(this.info)
-      console.log(this.info.status)
+      //console.log(this.info)
+      //console.log(this.info.status)
     this.status = this.info.status
     //console.log(status)
     }, 800);
