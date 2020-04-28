@@ -99,6 +99,7 @@ export class CmainComponent implements OnInit {
         this.last = this.info.last_name
         this.status= this.info.status
         this.type = this.info.type
+        localStorage.setItem("userName", this.first)
         localStorage.setItem("type", this.type)
     }
   }

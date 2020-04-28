@@ -25,6 +25,7 @@ export class AdminMainComponent implements OnInit {
   display = []
   hasclicked=false
   recClicked = false
+  type = ''
   constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -51,6 +52,9 @@ export class AdminMainComponent implements OnInit {
     setTimeout(() => {
     this.first = this.info.first_name
     this.last = this.info.last_name
+    this.type = this.info.type
+    localStorage.setItem("userName", this.first)
+    localStorage.setItem("type", this.type)
     pref.on('value', (snapshot) => {
       this.tClients = snapshot.val();
       this.clients = Object.keys(this.tClients).map(i => this.tClients[i]);
