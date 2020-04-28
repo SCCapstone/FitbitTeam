@@ -19,7 +19,6 @@
 		<p style="page-break-before: always">
 		<h2>Help</h2>
 		<p style="page-break-before: always">
-		
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 			  <a class="nav-link active" (click) = togStart() id="1"><b>Get Started</b></a>
@@ -30,29 +29,23 @@
 			<li class="nav-item" >
 			  <a class="nav-link" (click) = togConnect() id="3"><b>Connect</b></a>
 			</li>
-			
-		  </ul>
-
-		  <div id="GetStarted">
-			  <br>
-				<h4>Get started with the FitBitTeam Website</h4>
-				<br>
-
+		</ul>
+		<div id="GetStarted">
+			<br>
+			<h4>Get started with the FitBitTeam Website</h4> <br>
 				You can navigate through the site using the navigation bar above.<br>
-				<div *ngIf = "!logged">To use this website, you can signup <a routerLink="../signup">here</a>! </div>
+			<div *ngIf = "!logged">To use this website, you can signup <a routerLink="../signup">here</a>! </div>
+			<br>
+				You then want to link your Fitbit account by going to the settings bar above and click the "Login to Fitbit" button. 
 				<br>
-				You then want to link your Fitbit account by going to the settings bar above and click the "Login to Fitbit" button.
-				<br>
-				Now you can view your weight trends for the past 30 days, add medications, and view reccomendations on your timeline.
-				<br>
-
+				Now you can view your weight trends for the past 30 days, add medications, and view reccomendations on your timeline. <br>
 				<br>
 				Check the <a (click) = togAccount()>Account</a> and <a (click) = togConnect()>Connect</a> tabs for more information.
-		  </div>
-		  <div id="Account" style="display: none;">
+		</div>
+		<div id="Account" style="display: none;">
 			<br>
 			<h4>Manage your Accounts</h4>
-			<br>
+				<br>
 			<h5>Edit your details</h5>
 				Once you created your account using the sign up page, you can manage details in the <a routerLink="../settings">settings</a> page. <br>
 				You can "Login to FitBit" or "Revoke Access", and edit your first and last name.
@@ -68,8 +61,7 @@
 				<br>
 				<br>
 				Check the <a (click) = togGetStarted()>Get Started</a> and <a (click) = togConnect()>Connect</a> tabs for more information.
-
-		  </div>
+		</div>
 		  <div id="Connect" style="display: none;"> 
 			<br>
 			<h4>Connect to your Doctor</h4>
@@ -92,5 +84,6 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+  
   </body>
 </html>
