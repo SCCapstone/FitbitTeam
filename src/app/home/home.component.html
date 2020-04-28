@@ -26,8 +26,11 @@
 					<a routerLink="../help" class="nav-item nav-link">Help</a>
 					<a routerLink="../contact" class="nav-item nav-link">Contact</a>
 				</div>
-				<div class="navbar-nav ml-auto">
-					<a routerLink="../login" class="nav-item nav-link">Login</a>
+				<div *ngIf = "!logged" class="navbar-nav ml-auto">
+					<a  routerLink="../login" class="nav-item nav-link">Login</a>
+				</div>
+				<div *ngIf = "logged" class="navbar-nav ml-auto">
+					<a routerLink="../cmain" class="nav-item nav-link">Welcome</a>
 				</div>
 			</div>
 		</nav>

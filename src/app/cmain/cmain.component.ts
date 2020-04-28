@@ -39,31 +39,38 @@ export class CmainComponent implements OnInit {
 
     }
     else {
-    this.userid = ""; 
+    this.userid = "";
+    this.userid = localStorage.getItem("UID")
     var x = document.getElementById("notLog");
     x.style.display = "block";
-
-
   }
     console.log("THIS IS THE USERID " + this.userid)
-    
-    this.getMeds()
-    this.getRecommendation()
-    setTimeout(() => {
-      console.log("RUNNING GETINFO")
-      this.getInfo()
-    }, 200);
-    setTimeout(() => {
-      console.log("RUNNING GET CHART")
-      this.getChart()
-    }, 500);
-    setTimeout(() => {
-      console.log("RUNNING GET STATUS")
-      this.getStatus()
-    }, 200);
-    if(this.getStatus() != undefined)
-    {
-      this.status = this.getStatus()
+    if (this.userid != null){
+
+      this.getMeds()
+      this.getRecommendation()
+      setTimeout(() => {
+        console.log("RUNNING GETINFO")
+        this.getInfo()
+      }, 200);
+      setTimeout(() => {
+        console.log("RUNNING GET CHART")
+        this.getChart()
+      }, 500);
+      setTimeout(() => {
+        console.log("RUNNING GET STATUS")
+        this.getStatus()
+      }, 200);
+      if(this.getStatus() != undefined)
+      {
+        this.status = this.getStatus()
+      }
+    }
+    else{
+      setTimeout(() => {
+        this.ngOnInit()
+
+      }, 100);
     }
   }
 
@@ -504,6 +511,6 @@ export class CmainComponent implements OnInit {
       this.recs = Object.values(tdata)
       
       console.log( this.recs)
-    }, 100);
+    }, 500);
   }
 }

@@ -8,10 +8,20 @@ import * as firebase from 'firebase';
   styleUrls: ['./help.component.css']
 })
 export class HelpComponent implements OnInit {
-
+  logged = false
   constructor() { }
 
   ngOnInit() {
+    if (firebase.auth().currentUser == null){
+      console.log("NOT LOGGED IN")
+      this.logged = false
+    }
+    else{
+      console.log(firebase.auth().currentUser.uid)
+      console.log("LOGGED IN")
+      this.logged = true
+    
+    }  
   }
   togStart() {
     var x = document.getElementById("GetStarted");

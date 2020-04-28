@@ -8,6 +8,8 @@ import * as firebase from 'firebase';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+  logged = false
+
   firstName = ''
   lastName = ''
   email = ''
@@ -16,6 +18,16 @@ export class ContactComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (firebase.auth().currentUser == null){
+      console.log("NOT LOGGED IN")
+      this.logged = false
+    }
+    else{
+      console.log(firebase.auth().currentUser.uid)
+      console.log("LOGGED IN")
+      this.logged = true
+    
+    }  
   }
   addMessage(){
       var firstName = this.firstName;
