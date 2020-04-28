@@ -28,7 +28,6 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     var usid
     if (this.clientRef != ''){
       usid = this.clientRef;
