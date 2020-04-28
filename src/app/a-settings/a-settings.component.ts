@@ -10,24 +10,32 @@ import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
 export class ASettingsComponent implements OnInit {
 first = ''
 last = ''
+userid = ''
 hasclicked=false
 editName = false
 
 info:any
   constructor(public router: Router,private route: ActivatedRoute) {
-    var userid = firebase.auth().currentUser.uid;
-    console.log(userid)
+    
    }
 
   ngOnInit() {
-    var usid = firebase.auth().currentUser.uid;
-    var refs = firebase.database().ref('usertypes/' + usid);
-
-    refs.on('value', (snapshot) => {
-      this.info = snapshot.val();
-    })
-    this.first = this.info.first_name
-    this.last = this.info.last_name
+    if (firebase.auth().currentUser != null){
+      this.userid = firebase.auth().currentUser.uid
+    }
+    else {
+    this.userid = "";
+    this.userid = localStorage.getItem("UID")
+  }
+  if (this.userid != null){
+   this.getInfo()
+  }
+  else{
+    setTimeout(() => {
+      this.ngOnInit()
+    }, 200);
+  }
+   
   }
 
   logout(){
@@ -62,5 +70,23 @@ info:any
     this.last = ''
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
+  }
+  getInfo(){
+    var refs = firebase.database().ref('usertypes/' + this.userid);
+    refs.on('value', (snapshot) => {
+      this.info = snapshot.val();
+    })
+    if(this.info != null){
+      this.first = this.info.first_name
+      this.last = this.info.last_name
+      this.type = this.info.type
+    }else{
+      setTimeout(() => {
+        console.log("RUNNING getInfo Recursion")
+        this.getInfo()
+      }, 100);
+     
+    }
+      
   }
 }

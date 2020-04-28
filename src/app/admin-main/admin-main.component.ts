@@ -27,9 +27,17 @@ export class AdminMainComponent implements OnInit {
   constructor(public router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userid = firebase.auth().currentUser.uid;
+    if (firebase.auth().currentUser != null){
+      this.userid = firebase.auth().currentUser.uid
+    }
+    else {
+    this.userid = "";
+    this.userid = localStorage.getItem("UID")
+  }
+  if (this.userid != null){
     console.log(this.userid)
-    var usid = firebase.auth().currentUser.uid;
+    setTimeout(() => {
+    var usid = this.userid
     var pref = firebase.database().ref('clients/' + this.userid);
     var refs = firebase.database().ref('usertypes/' + usid);
     refs.on('value', (snapshot) => {
@@ -47,7 +55,16 @@ export class AdminMainComponent implements OnInit {
       this.getStatus()
       this.loadRecs()
     }, 400)
+
+    }, 500);
   }
+  else{
+    setTimeout(() => {
+      this.ngOnInit()
+    }, 200);
+  }
+}
+
   clicked(){
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
@@ -61,10 +78,10 @@ export class AdminMainComponent implements OnInit {
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
-    console.log(firebase.auth().currentUser.uid)
+    //console.log(firebase.auth().currentUser.uid)
   }
   add(){
-    var userid = firebase.auth().currentUser.uid;
+    var userid = this.userid
     var patName = this.patName;
     var refNum = this.refNum;
     if(this.isValid(refNum) == true){
@@ -133,7 +150,7 @@ export class AdminMainComponent implements OnInit {
     });
     console.log(this.display)
     //This changes the new medication object in the database
-    var userid = firebase.auth().currentUser.uid;
+    var userid = this.userid
     var path:string = "clients/" + userid.toString();
     var ref = firebase.database().ref(path)
     ref.set(this.clients)
@@ -167,15 +184,24 @@ export class AdminMainComponent implements OnInit {
       var refs = firebase.database().ref('usertypes/' + this.clients[i].refNum)
       refs.on('value', (snapshot) => {
         data.push(snapshot.val())
+        console.log(data[i])
       })
-      obj = {
-        'patName':data[i].first_name,
-        'refNum':this.clients[i].refNum,
-        'status':data[i].status
-      }
-      this.display.push(obj)
+      if(data[i] != null){
+          obj = {
+            'patName':data[i].first_name,
+            'refNum':this.clients[i].refNum,
+            'status':data[i].status
+          }
+          this.display.push(obj)
+        }
+       else{
+         console.log("NO DATA YET")
+         
+        
+       }
+        console.log(this.display)      
     }
-    console.log(this.display)
+   
   }
   /* this function goes through to set each status */
   setStatus() {
