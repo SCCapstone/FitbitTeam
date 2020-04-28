@@ -69,7 +69,7 @@ export class CSettingsComponent implements OnInit {
 
   }, 100);
   } 
-
+  //Function used for parsing fitbittoken
   helpInfo(obj1){
     if(obj1 != null){
       var ar = Object.values(obj1)
@@ -87,7 +87,7 @@ export class CSettingsComponent implements OnInit {
         }, 100);
       }
     }
-  
+  //helper function to determine validity
   }
   isValid(){
     if(this.first != '' && this.last != ''){
@@ -96,7 +96,7 @@ export class CSettingsComponent implements OnInit {
     return false
 
   }
-
+  //retrieves client info from firebase, sets variables first/last/type
   getInfo(){
     var refs = firebase.database().ref('usertypes/' + this.userid);
     refs.on('value', (snapshot) => {
@@ -111,20 +111,15 @@ export class CSettingsComponent implements OnInit {
         console.log("RUNNING getInfo Recursion")
         this.getInfo()
       }, 100);
-     
     }
-      
   }
-
-
+  //typical logout function
   logout(){
     firebase.auth().signOut();
     this.router.navigate(["../login"])
     localStorage.clear()
     console.log(firebase.auth().currentUser.uid)
   }
-
-
   /*
   Function Purpose: redirect user when 'Login with Fitbit' button is clicked to authenticate
   All parameters for this function are found directly on fitbit api dev website under app settings. You can change redirect link here for after user authenticates. 
@@ -141,7 +136,7 @@ export class CSettingsComponent implements OnInit {
       "\nApp is: Capstone490")
     }
   }
-  redirectAmazon() {
+  /*redirectAmazon() {
     alert("Function not working yet!")
     return 0;
     // console.log("logging in with amazon")
@@ -154,9 +149,9 @@ export class CSettingsComponent implements OnInit {
     //     a.src = 'https://assets/loginwihtamazon.com/sdk/na/login1.js';
     //     d.getElementById('amazon-root').appendChild(a);
     //   })(document);
-  }
+  }*/
 
-  redirectAlexaSkill() {
+  /*redirectAlexaSkill() {
     alert("Function not working yet!")
     return 0;
     let url = 'https://pitangui.amazon.com/api/skill/link/M36BFXKAHFCNJM'
@@ -164,15 +159,15 @@ export class CSettingsComponent implements OnInit {
   }
   /* This function is used as a button on c-settings to allow
   the user to revoke access from FitBit. 
-  */
-  revokeAccessFitbit(){
+  
+  /*revokeAccessFitbit(){
     //creating AJAX POST for revoking access from Fitbit API Authorization server
     /*
     If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
     reauthenticate with FitBit to pass a valid token to Firebase that we can use for this command. Look into the xhr console log
 
     If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.
-    */
+    
     if (this.fitbitToken != null) {
       var params = "token=" + this.fitbitToken;
       var xhr = new XMLHttpRequest();
@@ -204,15 +199,16 @@ export class CSettingsComponent implements OnInit {
   }
   revokeAccessAlexa() {
 
-  }
+}*/
 
+  //function used for when a button has been clicked
   clicked(){
     this.first= ''
     this.last = ''
     this.hasclicked= !this.hasclicked;
     console.log(this.hasclicked)
   }
-
+  //Used to save changes if editing information in settings
   SaveNew(){
     if(this.isValid() == true){
       this.info.first_name = this.first
@@ -226,11 +222,12 @@ export class CSettingsComponent implements OnInit {
       alert("Please input values in the first and last name input tags")
     }
   }
-
+  //tester function
   test(){
     var type = this.info.type
     console.log(type)
   }
+  //redirect to homepage
   homepage(){
     var type = this.info.type
     if(type == 'Admin'){
