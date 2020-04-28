@@ -54,7 +54,7 @@ export class AdminMainComponent implements OnInit {
     setTimeout(() => {
       this.getStatus()
       this.loadRecs()
-    }, 400)
+    }, 600)
 
     }, 500);
   }
@@ -179,28 +179,51 @@ export class AdminMainComponent implements OnInit {
   getStatus() {
     var data = []
     var obj:any
+    //console.log(this.clients.length)
+    setTimeout(() => {
+      
+    }, 500);
     for(var i = 0; i < this.clients.length; i++)
     {
-      var refs = firebase.database().ref('usertypes/' + this.clients[i].refNum)
+      var clientId = this.clients[i].refNum
+      var refs = firebase.database().ref('usertypes/' + clientId)
+      //console.log('usertypes/' + clientId)
       refs.on('value', (snapshot) => {
         data.push(snapshot.val())
-        console.log(data[i])
+       //console.log(snapshot.val())
       })
-      if(data[i] != null){
-          obj = {
-            'patName':data[i].first_name,
-            'refNum':this.clients[i].refNum,
-            'status':data[i].status
-          }
-          this.display.push(obj)
+      //console.log(data)
+     // console.log(data.length)
+      if(data.length > 0 && data != null) {
+        console.log(data[0])
+        obj = {
+          'patName':data[i].first_name,
+          'refNum':this.clients[i].refNum,
+          'status':data[i].status
         }
-       else{
-         console.log("NO DATA YET")
-         
+        this.display.push(obj)
+      }
+     
+   
+   
         
-       }
-        console.log(this.display)      
     }
+    if(data.length == 0 && data != null) {
+      setTimeout(() => {
+       //console.log ("Refresh " + data)
+       for (var j = 0; j < data.length; j++){
+         console.log(data[j])
+         obj = {
+           'patName':data[j].first_name,
+           'refNum':this.clients[j].refNum,
+           'status':data[j].status
+         }
+         this.display.push(obj)
+       }
+      
+      }, 300);
+      
+      }
    
   }
   /* this function goes through to set each status */
