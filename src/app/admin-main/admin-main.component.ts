@@ -30,6 +30,7 @@ export class AdminMainComponent implements OnInit {
 
   ngOnInit() {
     //Used for refresh.
+    console.log(localStorage.getItem("type"))
   if (firebase.auth().currentUser != null){
     this.userid = firebase.auth().currentUser.uid
   }

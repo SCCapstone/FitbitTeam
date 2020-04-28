@@ -46,8 +46,15 @@ export class LoginComponent implements OnInit {
       }
       })
       .then(function(result){
-        
         let userid = firebase.auth().currentUser.uid;
+        var refs = firebase.database().ref('usertypes/' + userid);
+        refs.on('value', (snapshot) => {
+         console.log(snapshot.val())
+          var info = snapshot.val();
+          localStorage.setItem("type", info.first_name)
+          localStorage.setItem("userName", info.first_name)
+
+        })
         localStorage.setItem('UID', userid)
         //console.log(window.location.href)
   if (window.location.href != ' ') {
@@ -104,7 +111,7 @@ export class LoginComponent implements OnInit {
       }); //end result
   }
 
-
+  
   //function allows user to hit 'Enter' on keyboard = 13 to login
   enter() {
     var input = document.getElementById('InputPassword');
