@@ -11,6 +11,7 @@ import { templateJitUrl } from '@angular/compiler';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
+  //initializing the variables
   fitbitInfo:any
   fitbitID = ''
   fitbitToken = ''
@@ -23,6 +24,7 @@ export class TimelineComponent implements OnInit {
   clientRef= ''
   fitbitData:any
   constructor(public router: Router,private route: ActivatedRoute) { 
+    //here it checks if a parameter of a client's uid is passed through the router
     if (this.router.getCurrentNavigation().extras.state != undefined) {
     console.log(this.router.getCurrentNavigation().extras.state.example); // should log client id
     this.clientRef = this.router.getCurrentNavigation().extras.state.example
@@ -31,6 +33,7 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
+    //If there is a client Id, log the client's data, otherwise load the regular user
     if(this.clientRef != ''){
      this.userid = this.clientRef
      
@@ -44,28 +47,17 @@ export class TimelineComponent implements OnInit {
       this.userid = localStorage.getItem("UID")
     }
     }
-  
+    //Check if it is a client or not
     if(this.userid != null){
       console.log("THIS IS THE USERID " + this.userid)
-      //Check if it is a client or not
-      /*
-        var usid = this.userid
-      if (this.clientRef != ''){
-        usid = this.clientRef;
-      } else {
-        if (this.userid != null) {
-          usid = this.userid
-        }
-        else {
-          console.log("youre not logged in");
-        }
-         }
-      */
+      
+      
     
-     
+     //runs the functions to get client data from firebase
       this.FitbitDataFromFirebase()
       this.getInfo()
       this.getStatus()
+      //this is to switch between the chart and the table divs
       var z = document.getElementById("myChartDIV");
       if (z.style.display === "none") {
         z.style.display = "block";
@@ -83,7 +75,7 @@ export class TimelineComponent implements OnInit {
     }
   }
   generateVisuals(){
-    //console.log(this.fitbitData)
+    //generates chart and table from the data
     if(this.fitbitData != null){
       this.GetEntries(this.fitbitData)
       this.GenerateChart(this.fitbitData)
@@ -128,6 +120,7 @@ export class TimelineComponent implements OnInit {
   
 
   GenerateChart(data){
+    //boilerplate linegraph for the timeline
     var myArray = data
     var y = 0;
     var x = '';
@@ -140,11 +133,8 @@ export class TimelineComponent implements OnInit {
           x: new Date(x),
           y: y                
           });
-          //console.log(x);
-          //console.log(y);
-          //console.log(dataPoints);
+          
       }
-        //console.log(dataPoints);
         let chart = new CanvasJS.Chart("chartContainer", {
           animationEnabled: true,
           zoomEnabled: true,
@@ -177,6 +167,7 @@ export class TimelineComponent implements OnInit {
 
 
   FitbitDataFromFirebase(){
+    //pulls the fitbit data from firebase
     var tdata:any
     var path:string = "fitbitData/" + this.userid
     var ref = firebase.database().ref(path)
@@ -186,26 +177,20 @@ export class TimelineComponent implements OnInit {
     setTimeout(() => {
       if(tdata != null){
         var ar = Object.values(tdata)
-      //console.log(ar)
       var date = []
       var weight = []
       var time = []
       var size = this.getSize(ar[0])
-      //console.log(size)
       for (var i = 0; i < size; i++){
-        //console.log(ar[0][i])
         var temp = Object.values(ar[0][i])
         var x = +temp[2];
-        //console.log(temp[0])
         date.push(temp[0]) 
         weight.push(Math.round((x * 2.20462) * 100) / 100)
         time.push(temp[1])
       }
       weight = this.toNum(weight)
-      //console.log(weight)
   
       this.fitbitData = [date,weight,time]
-      //console.log(this.fitbitData)
      
       }
     }, 700);
@@ -254,6 +239,7 @@ export class TimelineComponent implements OnInit {
   }
 
 toggle() {
+  //function that toggles between chart and table
   var x = document.getElementById("myDIV");
   if (x.style.display === "none") {
     x.style.display = "block";
@@ -293,10 +279,8 @@ toggle() {
   }
   getStatus(){
     setTimeout(() => {
-      //console.log(this.info)
-      //console.log(this.info.status)
+      
     this.status = this.info.status
-    //console.log(status)
     }, 800);
   }
 }

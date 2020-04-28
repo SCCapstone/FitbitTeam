@@ -13,6 +13,7 @@ export class RecoveryComponent implements OnInit {
   ngOnInit() {
   }
   sendEmail(){
+    //boilerplate firebase email password reset
     var auth = firebase.auth();
   auth.sendPasswordResetEmail(this.email).then(function() {
   // Email sent.

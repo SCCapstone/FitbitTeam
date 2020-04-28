@@ -64,5 +64,6 @@ export class HeaderComponent implements OnInit {
     firebase.auth().signOut();
     localStorage.clear()
     this.router.navigate(["../login"])
+    this.logged = false;
   }
 }

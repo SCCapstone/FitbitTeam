@@ -22,30 +22,61 @@
 		
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			  <a class="nav-link active" (click) = togStart() id="1">Get Started</a>
+			  <a class="nav-link active" (click) = togStart() id="1"><b>Get Started</b></a>
 			</li>
 			<li class="nav-item" >
-			  <a class="nav-link" (click) = togAccount() id="2">Account</a>
+			  <a class="nav-link" (click) = togAccount() id="2"><b>Account</b></a>
 			</li>
 			<li class="nav-item" >
-			  <a class="nav-link" (click) = togConnect() id="3">Connecting to Doctor</a>
+			  <a class="nav-link" (click) = togConnect() id="3"><b>Connect</b></a>
 			</li>
 			
 		  </ul>
 
 		  <div id="GetStarted">
-				Welcome to the FitBit Team Website!<br>
+			  <br>
+				<h4>Get started with the FitBitTeam Website</h4>
+				<br>
+
 				You can navigate through the site using the navigation bar above.<br>
+				<div *ngIf = "!logged">To use this website, you can signup <a routerLink="../signup">here</a>! </div>
+				<br>
+				You then want to link your Fitbit account by going to the settings bar above and click the "Login to Fitbit" button.
+				<br>
+				Now you can view your weight trends for the past 30 days, add medications, and view reccomendations on your timeline.
+				<br>
+
+				<br>
 				Check the <a (click) = togAccount()>Account</a> and <a (click) = togConnect()>Connect</a> tabs for more information.
 		  </div>
 		  <div id="Account" style="display: none;">
-				Once you created your account using the <!--<a routerLink="../signup">sign up page</a>-->sign up page, <br>
-				you can access your <!--<a routerLink="../timeline">timeline</a>-->timeline to see your weight trends<br>
-				to alter your account go to the <!--<a routerLink="../settings">settings</a>-->setting.
+			<br>
+			<h4>Manage your Accounts</h4>
+			<br>
+			<h5>Edit your details</h5>
+				Once you created your account using the sign up page, you can manage details in the <a routerLink="../settings">settings</a> page. <br>
+				You can "Login to FitBit" or "Revoke Access", and edit your first and last name.
+				<br>
+				<br>
+				To change your password, please click "Reset Password" or click <a routerLink="../recovery">here</a>.
+				<br>
+				<br>
+			<h5>FitBit Accounts</h5>
+				Once you are logged into FitBit, your access token and id will be stored and displayed in the <a routerLink="../settings">settings</a> page. <br>
+				If the "Revoke Access" button does not work, navigate to <a href="https://www.fitbit.com/settings/applications">FitBit: Manage Applications</a> or login to <a href="https://www.fitbit.com/login"> Fitbit</a>, <br>
+				navigate to your settings, applications, and revoke access for "Capstone490 by UoSC Weight Management App".
+				<br>
+				<br>
+				Check the <a (click) = togGetStarted()>Get Started</a> and <a (click) = togConnect()>Connect</a> tabs for more information.
+
 		  </div>
 		  <div id="Connect" style="display: none;"> 
-				To connect to your doctor make sure to connect your FitBit account to the website via <a routerLink="../settings">settings</a><br>
-				Give your Doctor your referral code and they will connect with you.
+			<br>
+			<h4>Connect to your Doctor</h4>
+			<br>
+				To connect to your doctor make sure to follow the Get Started tab and connect your FitBit account to the website.<br> <br>
+				Navigate to the <a routerLink="../settings">settings</a> page and write down your referral code listed at the bottom. <br>
+				Give your Doctor your referral code via personal email or text and they will connect with you.
 		  </div>
 
 	</main>

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     const email = this.email;
     const password = this.password;
     const self = this;
-    
+    //boilerplate firebase login
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
       login = false;
       const errorCode = error.code;
@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
       }
       })
       .then(function(result){
-        //console.log("THIS SHOULD RUN EVERY TIME")
-        //console.log(login)
+        
         let userid = firebase.auth().currentUser.uid;
         localStorage.setItem('UID', userid)
         //console.log(window.location.href)
