@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
     <style>
-        h5 {
-          font-face: calibri;
-        }
-          .greenbox{
-            width:50px;
+      h5 {
+      font-face: calibri;
+      }
+        .greenbox{
+        width:50px;
         height:50px; 
         background-color: green;
       }
-          .redbox{
-            width:50px;
+        .redbox{
+        width:50px;
         height:50px; 
         background-color: red;
-      }
-          
-          
-        </style>
+      } 
+    </style>
 
 
 
@@ -29,108 +27,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FitBit Capstone</title>
-<!-- Canvasjs-->
-<script src="../canvasjs.min.js"></script>
-
+    <!-- Canvasjs-->
+    <script src="../canvasjs.min.js"></script>
     <!-- Bootstrap 
     <link href="file:css/bootstrap-4.3.1.css" rel="stylesheet"> -->
-
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top navbar-default">
-<div class="container-fluid">
-    <div class="text-left">
-      <a><button type="button" class="btn btn-lg" (click)= homepage()><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
-    </div>	
+      <div class="container-fluid">
+      <div class="text-left">
+        <a><button type="button" class="btn btn-lg" (click)= homepage()><font color="white" size=5><i class="glyphicon glyphicon-home"></i></font></button></a>
+      </div>	
       <div class="text-center">
         <font color="white" size=5>Welcome, {{first}}</font>
       </div>
       <div class="text-right">
         <a routerLink="../asettings"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-cog"></i></font></button></a>
-  
         <a (click)="logout()"><button type="button" class="btn btn-lg"><font color="white" size=5><i class="glyphicon glyphicon-log-out"></i></font></button></a>    
-          </div>
-</div>
-       
+      </div>
+      </div>  
     </nav>
-    <!--
-    <button type="button" class="btn btn-md btn-success" (click) = 'GetEntries()'><font size=5 align=left>Test</font></button>
-
-    -->
     <main>
       <div class="row">
-    <div class="col-md-4">
-      <font size=6>Status:</font>
-      <div>
+      <div class="col-md-4">
+        <font size=6>Status:</font>
+        <div>
         <font size=5>{{status}}</font> 
       </div>
-       
       </div>
-<div class="col-8">
+      <div class="col-8">
       <div class="col-md-4 offset-10">
-          <a type="button" class="btn btn-lg btn-info" (click) = toggle()>Table</a>
+        <a type="button" class="btn btn-lg btn-info" (click) = toggle()>Table</a>
       </div>
-</div>
-</div>
-<br>
-<br>
-<div class="row" style="text-align:center;">
-          
-              <div id="myDIV" style="width: 100%; text-align:center">
-                <div id="chartContainer" style="height: 370px; width: 80%; text-align:center;"></div>
-              </div>    
-                <div id="myChartDIV" style="width: 80%;">
-                  <ul class="list-group" >
-                    <li class="list-group-item" style="background-color: rgb(204, 204, 204); color: #ffffff;">
-                      <div class="d-flex w-100 justify-content-between">
-                        <font size=5>Date</font>
-                        <font size=5>Time</font>
-                        <font size=5>Weight</font>
-              
-                      </div>
-                    </li>
-              
-                      <li class="list-group-item" *ngFor = "let entry of Entries; let i = index" style="background-color: gray; color: #ffffff;">
-                        <div class="d-flex w-100 justify-content-between">
-                          <font size=4>{{entry.Date}}</font>
-                          <font size=4>{{entry.Time}}</font>
-                          <font size=4>{{entry.Weight}}</font>
-                    
-                        </div>
-                      </li>		
-                    </ul>
-              
-                </div>
-            
-        </div>
-</main>
-        <!-- TODO MONTH/WEEK/YEAR
-        <div class=row>
-          <div class="col-md-4"></div>
-            <div class="col-md-4">
-
-              <a type="button" class="btn btn-lg btn-success">Week</a>
-              <a type="button" class="btn btn-lg btn-success">Month</a>
-              <a type="button" class="btn btn-lg btn-success">Year</a>
-
+      </div>
+      </div>
+      <br>
+      <br>
+      <div class="row" style="text-align:center;">
+      <div id="myDIV" style="width: 100%; text-align:center">
+      <div id="chartContainer" style="height: 370px; width: 80%; text-align:center;"></div>
+      </div>    
+      <div id="myChartDIV" style="width: 80%;">
+        <ul class="list-group" >
+          <li class="list-group-item" style="background-color: rgb(204, 204, 204); color: #ffffff;">
+            <div class="d-flex w-100 justify-content-between">
+              <font size=5>Date</font>
+              <font size=5>Time</font>
+              <font size=5>Weight</font>
             </div>
-          </div>
-        -->
-    
+          </li>   
+          <li class="list-group-item" *ngFor = "let entry of Entries; let i = index" style="background-color: gray; color: #ffffff;">
+            <div class="d-flex w-100 justify-content-between">
+              <font size=4>{{entry.Date}}</font>
+              <font size=4>{{entry.Time}}</font>
+              <font size=4>{{entry.Weight}}</font>
+            </div>
+          </li>		
+        </ul>      
+      </div>
+      </div>
+    </main>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <footer>
       <app-footer></app-footer>
     </footer>
     <script src="file:/js/jquery-3.3.1.min.js"></script>
-<!-- Canvasjs-->
-<script src="../canvasjs.min.js"></script>
-
+    <!-- Canvasjs-->
+    <script src="../canvasjs.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed --> 
     <script src="file:/js/popper.min.js"></script>
-  <script src="file:/js/bootstrap-4.3.1.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+    <script src="file:/js/bootstrap-4.3.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
