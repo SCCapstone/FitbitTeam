@@ -60,7 +60,7 @@ const GetMedicationIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'GetMedicationIntentHandler';
     },
     handle(handlerInput) {
-        const speakOutput = "YYour medications are: ";
+        const speakOutput = "Your medications are: ";
         return handlerInput.responseBuilder
         .speak(speakOutput)
         .getResponse();
