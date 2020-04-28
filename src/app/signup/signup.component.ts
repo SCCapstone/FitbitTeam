@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
         
       });
     }else{
-      alert("Password must have one uppercase letter, one lowercase letter, one special character (!,#, ...), and be 6+ characters long")
+      alert("Password must have four of the following: one uppercase letter, one lowercase letter, one number, or one special character (!,#, ...), and be 6+ characters long")
       this.router.navigate(["../signup"])
       console.log('Signup Failed')
     }

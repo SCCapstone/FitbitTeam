@@ -14,29 +14,30 @@
 		<app-header></app-header>
 	</header>
 	<main>
-		<hr/>
-		<hr/>
-		<hr/>
-		<hr/>
 		<p style="page-break-before: always">
-		<h2>Contact</h2>
-		<p style="page-break-before: always">
-		<p>Please feel free to contact us with any suggestions or comments.
-		</p>
-		<p>(* means field is required)
-		</p>
-		<h5>First Name* :</h5>
-		   <input type="firstName" class="form-control" id="firstName" [(ngModel)]="firstName" placeholder="First">
-		<h5>Last Name* :</h5>
-		   <input type="lastName" class="form-control" id="lastName" [(ngModel)]="lastName" placeholder="Last">
-		<h5>Email* :</h5>
-		   <input type="email" class="form-control" id="email" [(ngModel)]="email" placeholder="Email Address">
-		<h5>Phone Number :</h5>
-		   <input type="phoneNum" class="form-control" id="phoneNum" [(ngModel)]="phoneNum" placeholder="Phone #">
-		<h5>Message* :</h5>
-		   <input type="message" class="form-control" id="message" [(ngModel)]="message" placeholder="Message goes here">
-		   <br>
-		   <button type="button" class="btn btn-md btn-info" (click) = 'addMessage()'><font size=5 align=left>Send</font></button>
+		<div class="row">
+			<div class="col-md-4"> </div>
+			<div class="col-md-4">
+				<br>
+				<h2> Contact</h2>
+				<br>
+				<p>Please feel free to contact us with any suggestions or comments. </p>
+				<p>(* means field is required) </p>
+				<br>
+				<h5>First Name*:</h5>
+		   			<input type="firstName" class="form-control" id="firstName" [(ngModel)]="firstName" placeholder="First Name">
+				<h5>Last Name*:</h5>
+		   			<input type="lastName" class="form-control" id="lastName" [(ngModel)]="lastName" placeholder="Last Name">
+				<h5>Email*:</h5>
+		   			<input type="email" class="form-control" id="email" [(ngModel)]="email" placeholder="Email">
+				<h5>Phone #:</h5>
+		   			<input type="phoneNum" class="form-control" id="phoneNum" [(ngModel)]="phoneNum" placeholder="Phone #">
+				<h5>Message*:</h5>
+		   			<input type="message" class="form-control" id="message" [(ngModel)]="message" placeholder="Please type your message and we will get back to you ASAP!">
+		   		<br>
+				<button type="button" class="btn btn-md btn-info" (click) = 'addMessage()'><font size=5 align=left>Send</font></button>
+			</div>
+		</div>
 	</main>
 	<footer>
 		<app-footer></app-footer>
@@ -50,5 +51,6 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+
   </body>
 </html>
