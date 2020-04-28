@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router,Routes, RouterModule , ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-c-settings',
   templateUrl: './c-settings.component.html',
@@ -156,18 +157,20 @@ export class CSettingsComponent implements OnInit {
     return 0;
     let url = 'https://pitangui.amazon.com/api/skill/link/M36BFXKAHFCNJM'
     window.open(url);
-  }
-  /* This function is used as a button on c-settings to allow
-  the user to revoke access from FitBit. 
+  }*/
+ 
+  /*
+ This function is used as a button on c-settings to allow
+  the user to revoke access from FitBit. */
   
-  /*revokeAccessFitbit(){
+  revokeAccessFitbit(){
     //creating AJAX POST for revoking access from Fitbit API Authorization server
-    /*
-    If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
+
+   /* If you are getting a 401 error, it is because the token passed is invalid. This is typically because it expired, so the user must 
     reauthenticate with FitBit to pass a valid token to Firebase that we can use for this command. Look into the xhr console log
 
-    If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.
-    
+    If 400 error, no token exists and it becomes an invalid request. Make sure it is pulling correctly from firebase.*/  
+  
     if (this.fitbitToken != null) {
       var params = "token=" + this.fitbitToken;
       var xhr = new XMLHttpRequest();
@@ -197,9 +200,6 @@ export class CSettingsComponent implements OnInit {
       //location.reload(true);
     }
   }
-  revokeAccessAlexa() {
-
-}*/
 
   //function used for when a button has been clicked
   clicked(){
